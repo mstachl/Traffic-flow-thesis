@@ -202,7 +202,7 @@ def test22(tend):
 
 # functions for arbitrary networks
 
-def network2junctions(networkMatrix,c,M):
+def network2junctions(networkMatrix,c,M,mode="SB"):
     """ networkMatrix: Transition matrix representing the network
         c: vector of length #junctions where each element is a array consisting of the preference values for each outgoing road
         M: vector of length #junctions where each element is a array consisting of the maximum buffer sizes for each outgoing road"""
@@ -226,7 +226,10 @@ def network2junctions(networkMatrix,c,M):
             for el in nonzero_in:
                 roadList.remove(el)
             junctions[i]["matrix"] = networkMatrix[np.ix_(nonzero_out,nonzero_in)]
-            junctions[i]["_M"]=M[i]
+            if (mode=="SB"):
+                junctions[i]["_M"]=sum(M[i])
+            else:
+                junctions[i]["_M"]=M[i]
             print M[i]
             junctions[i]["_c"]=c[i]
             junctions[i]["Buffer"]=[[0]*len(nonzero_out)]
@@ -246,7 +249,7 @@ def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, mode="SB
     global dt,dx,vmax,rhomax,sigma,c,M
     _t = np.arange(0,tend+dt,dt)
     roads = len(network)
-    junctions = network2junctions(network,_c,_M)
+    junctions = network2junctions(network,_c,_M,mode)
     print junctions
     #init    
     flows = [0 for s in range(roads)]
@@ -388,8 +391,8 @@ dt=.5
 tend = 50
 t = np.arange(0,tend,dt)
 dx=1.       
-M=[0.5]
-#M=[[0.5,0.5]]
+#M=[0.5]
+M=[[0.5,0.5]]
 c=[[0.5,0.5]]
 
 #R=test22(100)
@@ -398,7 +401,7 @@ c=[[0.5,0.5]]
 
 
 _X = [[0,100],[0,100],[100,160],[100,160]]
-_Rho = [[0.5],[0.5],[0.5],[0.5]]
+_Rho = [[0.5],[0.5],[0.5],[0.]]
 #X[4],Densities[4] = init([160,220],[0.5],dx)
 
 network = np.array([[0,0,0,0],[0,0,0,0],[0.4, 0.2,0,0], [0.6, 0.8,0,0]]) 
@@ -407,4 +410,4 @@ ext_in = [0.5,0.5,0,0]
 
 #ext_in5 = [0.5,0.5,0,0,0]
 #ext_out5 = [0,0,0.5,0,0.5]
-simu(network,c,M,vmax,rhomax,sigma,ext_in,dt,dx,tend,_X,_Rho,"SB")
+simu(network,c,M,vmax,rhomax,sigma,ext_in,dt,dx,tend,_X,_Rho,"MB")
