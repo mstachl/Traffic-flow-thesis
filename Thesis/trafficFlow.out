@@ -1,2 +1,30 @@
-\BOOKMARK [1][-]{section.1}{Models}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{Single buffer junction model \(SBJ\)}{section.1}% 2
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Scalar conservation laws}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Derivation of scalar conservation laws}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Method of characteristics}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Weak solutions}{section.2}% 5
+\BOOKMARK [3][-]{subsubsection.2.3.1}{The Riemann problem}{subsection.2.3}% 6
+\BOOKMARK [3][-]{subsubsection.2.3.2}{Shocks and rarefaction waves}{subsection.2.3}% 7
+\BOOKMARK [3][-]{subsubsection.2.3.3}{Admissibility}{subsection.2.3}% 8
+\BOOKMARK [1][-]{section.3}{Traffic flow modelling}{}% 9
+\BOOKMARK [2][-]{subsection.3.1}{The macroscopic Lighthill-Whitham-Richards model}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.2}{Characteristic diagrams}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.3}{The Riemann problem}{section.3}% 12
+\BOOKMARK [1][-]{section.4}{Traffic flow on networks}{}% 13
+\BOOKMARK [2][-]{subsection.4.1}{Basic principles of networks}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.2}{Traffic flow models on networks}{section.4}% 15
+\BOOKMARK [1][-]{section.5}{Numerical approximation of conservation laws}{}% 16
+\BOOKMARK [2][-]{subsection.5.1}{The Godunov method}{section.5}% 17
+\BOOKMARK [2][-]{subsection.5.2}{Examples}{section.5}% 18
+\BOOKMARK [1][-]{section.6}{Experiments}{}% 19
+\BOOKMARK [2][-]{subsection.6.1}{Single buffer junction model}{section.6}% 20
+\BOOKMARK [3][-]{subsubsection.6.1.1}{Experiment 1}{subsection.6.1}% 21
+\BOOKMARK [1][-]{section.7}{Setting}{}% 22
+\BOOKMARK [2][-]{subsection.7.1}{Scalar conservation law}{section.7}% 23
+\BOOKMARK [1][-]{section.8}{Networks}{}% 24
+\BOOKMARK [2][-]{subsection.8.1}{Traffic flow on networks}{section.8}% 25
+\BOOKMARK [2][-]{subsection.8.2}{The Riemann problem on networks}{section.8}% 26
+\BOOKMARK [1][-]{section.9}{Models}{}% 27
+\BOOKMARK [2][-]{subsection.9.1}{Single buffer junction model \(SBJ\)}{section.9}% 28
+\BOOKMARK [3][-]{subsubsection.9.1.1}{Simulation: preliminaries}{subsection.9.1}% 29
+\BOOKMARK [3][-]{subsubsection.9.1.2}{Example: 2-2 junction}{subsection.9.1}% 30

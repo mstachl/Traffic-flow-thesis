@@ -76,7 +76,6 @@ def getMaxOutflux(f,rho):
         
 def getIncomingFluxesSB(maxIn,junction):
     #incoming fluxes using a single buffer zone
-    global bufferArray,c,M
     incomingFluxes = []
     _c = junction["_c"]
     _M = junction["_M"]
@@ -85,12 +84,31 @@ def getIncomingFluxesSB(maxIn,junction):
         _temp = min(maxIn[i],_c[i]*(_M-sum(_Buffer[-1])))
         incomingFluxes.append(_temp)
     return incomingFluxes
-    
+
+def getIncomingFluxesMB(maxIn,junction):
+    #incoming fluxes using separate buffers for every outgoing road
+    incomingFluxes = []
+    _c = junction["_c"]
+    _M = junction["_M"]
+    print _M
+    _TM = junction["matrix"]
+    _Buffer = junction["Buffer"]
+    print _M[0]
+    for i in range(len(maxIn)):
+        bufferFluxes = []
+        for j in range(len(_TM)):
+            bufferFluxes.append(_c[i]*(_M[j]-_Buffer[-1][j])/_TM[j][i])
+        print bufferFluxes
+        _temp = min(maxIn[i],min(bufferFluxes))
+        incomingFluxes.append(_temp)
+    #print "incoming fluxes are {}".format(incomingFluxes)
+    return incomingFluxes
+        
 def getOutgoingFluxes(maxOut,incomingFluxes,junction):
     #outgoing fluxes: same when using single buffers and multiple buffers
-    global bufferArray
     TM = junction["matrix"]
     Buffer = junction["Buffer"]
+    print Buffer
     outgoingFluxes = []
     for j in range(len(maxOut)):
         if Buffer[-1][j]>0:
@@ -103,10 +121,6 @@ def getOutgoingFluxes(maxOut,incomingFluxes,junction):
             print "problem detected: your buffer at road {} is negative".format(j)
     return outgoingFluxes
 
-def getIncomingFluxesMB(maxIn,TM):
-   ## TODO
-    # important to include that M is multi-dim for multiple buffers
-    return None
     
     
 def updateBuffer(junction,incomingFluxes,outgoingFluxes):
@@ -221,14 +235,14 @@ def network2junctions(networkMatrix,c,M):
             roadList.remove(roadList[0])
     return junctions
             
-def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, ext_outflow):
+def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, mode="SB"):
     #TODO: somehow i have to include different buffers and c_i for the different junctions    
     #parameter: #tend: final time
                 # network: (n+m)x(n+m) distribution matrix
                 # initX: (n+m)-dim array consisting of the space discretizations of the roads dependent on dx 
                 # initRho: (n+m)-dim array consisting of the density at discretization points initX
                 # ext_inflow: (n+m)-dim vector consisting of the external density entering the roads (0 if no influx, e.g. road is exiting from a junction)
-                # ext_outflow: (n+m)-dim vector consisting of the external density exiting the roads (0 if no outflux, e.g. road is entering a junction)    
+                # mode: "SB" for single buffer junctions, "MB" for multiple buffer junctions    
     global dt,dx,vmax,rhomax,sigma,c,M
     _t = np.arange(0,tend+dt,dt)
     roads = len(network)
@@ -252,7 +266,7 @@ def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, ext_outf
             rho_out = []
             for i in indices_out:
                 rho_out.append(R[i][-1])
-            jfluxes_in,jfluxes_out = getJunctionFluxes(rho_in,rho_out,junctions[junc]) 
+            jfluxes_in,jfluxes_out = getJunctionFluxes(rho_in,rho_out,junctions[junc],mode) 
             updateBuffer(junctions[junc],jfluxes_in,jfluxes_out)        
             j=0    
             k=0
@@ -269,17 +283,18 @@ def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, ext_outf
             if rowSum[i]==0: #has external influx
                 flows[i].insert(0,f(ext_inflow[i]))
             elif columnSum[i]==0: #has external outflow
-                flows[i].append(f(ext_outflow[i]))
+                #flows[i].append(f(ext_outflow[i]))
+                flows[i].append(flows[i][-1])
         #4 godunov step
         for i in range(roads):
             R[i].append(godunovStep(flows[i],R[i][-1]))
         t+=dt
-    plot2D(X,R)
+    plot2D(initX,R)
     plotBuffers(_t,junctions)
+    plotTotalDensity(_t,R)
     return None
 
-def getJunctionFluxes(rho_in,rho_out,junction):
-    global bufferArray,c,M
+def getJunctionFluxes(rho_in,rho_out,junction,mode="SB"):
     
     TM = junction["matrix"]
     roadsin = len(TM[0])
@@ -291,8 +306,10 @@ def getJunctionFluxes(rho_in,rho_out,junction):
         maxinflow[i]=getMaxInflux(f,rho_in[i])
     for j in range(roadsout):
         maxoutflow[j]=getMaxOutflux(f,rho_out[j])
-    
-    incomingFluxes = getIncomingFluxesSB(maxinflow,junction)
+    if(mode=="SB"):
+        incomingFluxes = getIncomingFluxesSB(maxinflow,junction)
+    elif(mode=="MB"):
+        incomingFluxes = getIncomingFluxesMB(maxinflow,junction)
     outgoingFluxes = getOutgoingFluxes(maxoutflow,incomingFluxes,junction)
     
     return incomingFluxes, outgoingFluxes
@@ -322,8 +339,26 @@ def plotBuffers(t,junctions):
         legend.append("junction {}".format(i))
         i=i+1
     plt.legend(legend)
+    
+def plotTotalDensity(t,rho):
+    totalRhoRoad = []
+    totalRho = []
+    for j in range(len(rho)):
+        totalRhoRoad.append([dx*sum(rho[j][i]) for i in range(len(rho[0]))])
+    for s in range(len(totalRhoRoad[0])):
+        total =0
+        for i in range(len(totalRhoRoad)):
+            total+=totalRhoRoad[i][s]
+        totalRho.append(total)
+    fig = plt.figure()
+    plt.xlabel("t")
+    plt.ylabel("total density on the network")
+    ax = fig.add_subplot(111)
+    ax.plot(t,totalRho)
+    plt.ylim([100,200])
+    
 
-def simu(network,_c,_M,_vmax,_rhomax,_sigma,_ext_in,_ext_out,_dt,_dx,_tend,_X,_Rho):
+def simu(network,_c,_M,_vmax,_rhomax,_sigma,_ext_in,_dt,_dx,_tend,_X,_Rho,mode="SB"):
     vmax = _vmax
     rhomax = _rhomax
     sigma = _sigma
@@ -332,7 +367,6 @@ def simu(network,_c,_M,_vmax,_rhomax,_sigma,_ext_in,_ext_out,_dt,_dx,_tend,_X,_R
     M = _M
     c = _c
     ext_in = _ext_in
-    ext_out = _ext_out
     
     t = np.arange(0,tend,dt)
     
@@ -342,7 +376,7 @@ def simu(network,_c,_M,_vmax,_rhomax,_sigma,_ext_in,_ext_out,_dt,_dx,_tend,_X,_R
     for i in range(len(X)):
         X[i],Densities[i] = init(_X[i],_Rho[i],dx)
         
-    solveArbitraryNetworks(tend,network,c,M,X,Densities,ext_in,ext_out)
+    solveArbitraryNetworks(tend,network,c,M,X,Densities,ext_in,mode)
         
     
 vmax=1
@@ -351,11 +385,13 @@ sigma=.5
 initIn = .5
 initOut = 0.5
 dt=.5
-tend = 100
+tend = 50
 t = np.arange(0,tend,dt)
 dx=1.       
-M=[0.1]
+M=[0.5]
+#M=[[0.5,0.5]]
 c=[[0.5,0.5]]
+
 #R=test22(100)
 
 #maybe include following in global init function
@@ -368,7 +404,7 @@ _Rho = [[0.5],[0.5],[0.5],[0.5]]
 network = np.array([[0,0,0,0],[0,0,0,0],[0.4, 0.2,0,0], [0.6, 0.8,0,0]]) 
 
 ext_in = [0.5,0.5,0,0]
-ext_out = [0,0,0.5,0.5]
+
 #ext_in5 = [0.5,0.5,0,0,0]
 #ext_out5 = [0,0,0.5,0,0.5]
-simu(network,c,M,vmax,rhomax,sigma,ext_in,ext_out,dt,dx,tend,_X,_Rho)
+simu(network,c,M,vmax,rhomax,sigma,ext_in,dt,dx,tend,_X,_Rho,"SB")

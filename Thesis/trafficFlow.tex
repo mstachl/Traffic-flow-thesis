@@ -67,12 +67,157 @@
 %% Labelnummerierung in 'roemisch'.
 %\renewcommand{\labelenumi}{(\roman{enumi})}
 
-
-
-
 \begin{document}
+\section{Introduction}
+\section{Scalar conservation laws}
+\subsection{Derivation of scalar conservation laws}
+\subsection{Method of characteristics}
+\subsection{Weak solutions}
+\subsubsection{The Riemann problem}
+\subsubsection{Shocks and rarefaction waves}
+\subsubsection{Admissibility}
+\section{Traffic flow modelling}
+\subsection{The macroscopic Lighthill-Whitham-Richards model}
+\subsection{Characteristic diagrams}
+\subsection{The Riemann problem}
+\section{Traffic flow on networks}
+\subsection{Basic principles of networks}
+\subsection{Traffic flow models on networks}
+\section{Numerical approximation of conservation laws}
+\subsection{The Godunov method}
+\subsection{Examples}
+\section{Experiments}
+\subsection{Single buffer junction model}
+\subsubsection{Experiment 1}
+Let us consider a single junction of two incoming and two outgoing roads. Initially every road provides maximum flux density, namely $\rho_i=0.5$, smoothly on the entire space. The buffer zone offers maximum capacity $M=0.5$ and cars approaching the junction from both roads can cross it with equal priority value $c_i=0.5$. The values of M and c were chosen such that cars can enter the junction with maximum flux in case of an empty buffer and a smaller flux else (cf. \ref{eq:sbj}). The goal of the experiment is to see the evolution of the traffic densities over time in case of a non-equal distribution of the traffic at the junction. Therefore we assume a transition matrix $TM=\left(\begin{array}{cc}0.2 & 0.4 \\0.8 & 0.6\end{array}\right)$.
+\newline
+\newline
+\underline{\textbf{Results:}} \newline
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.7]{2in2out}
+\caption{Traffic distribution after $t=100s$.}
+\end{figure}
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.5]{buffer05}
+\caption{Buffer status over time up to $t=100s$.}
+\end{figure}
+More cars want to enter road 4 $\rightarrow$ road would be congested $\rightarrow$  buffer builds up over time. \newline Obviously the question arises if the total mass of cars on the network is preserved.
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.5]{totalmass}
+\caption{Evolution of the total mass of traffic on the network up to time $t=100s$.}
+\end{figure}
+It is apparent that the total mass on the network is preserved, as long as the total influx equals the total outflux of the network. Considering incoming and outgoing roads as half-lines, the total mass is preserved. \newline
+\newline
+\underline{\textbf{Remark:}} \newline
+As we can only consider a finite part of the network, we have to require the compatibility condition $\int_{\delta\Omega}f\cdot n \ ds = 0$ TRUE???? in order to preserve the amount of cars on the network. \newline \newline
+A case where the compatibility condition is not satisfied can by easily constructed by taking the setting of Example 1 but leaving one outgoing road empty. In this case more cars are entering the network - in particular, the incoming flow equals $2f(0.5)$ - compared to the number of cars initially leaving the network - $f(0.5)$ from road 3, as road 4 is initially empty. This implicates an increase of the total traffic mass on the network (see figure \ref{fig:notpreserved}).
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.5]{totalmass_notpreserved}
+\caption{\label{fig:notpreserved} Evolution of the total mass of traffic on the network for non-fulfilled compatibility condition.}
+\end{figure}
+\newpage
+\section{Setting}
+\subsection{Scalar conservation law}
+Consider a single junction consisting of $m$ incoming and n outgoing roads. The corresponding index sets are $\mathcal{I}=\lbrace 1,...,m\rbrace$ and $\mathcal{O}=\lbrace m+1,...,m+n\rbrace$, respectively. On road $k$ the scalar conservation law is thus defined as:
+\begin{equation*}
+	\rho_t+f_k(\rho)_x = 0
+\end{equation*}
+In the infinite setting we have $x\in\left[-\infty,0\right]$ for incoming and $x\in\left[0;\infty\right]$ for outgoing roads, $t\geq 0$. \newline
+The flux function on road $k$ is defined via $f_k(\rho )=\rho *v(\rho )$, where $v(\rho)$ denotes the average speed of cars on the road and $\rho\in\left[0,\rho^{jam}\right]$ the density of cars. \newline \newline
+In order to solve the corresponding Riemann problem on the network, boundary conditions have to imposed. Thus we define \[\]
+\section{Networks}
+\subsection{Traffic flow on networks}
+\begin{itemize}
+	\item complex networks: \begin{itemize}
+		\item  nodes $\mathcal{N}$ represent junctions
+		\item roads $i\in\mathcal{I}, j\in\mathcal{O}$ represent roads \textbf{TODO: differenciation between in-and outgoing maybe later}		
+		\item $A\in\mathbb{R^{(m+n)\times(m+n)}}$ adjacency matrix representing the network, e.g. $A=\left(\begin{array}{ccc}
+		0 & 0 & 0  \\
+		0 & 0 & 0 \\
+		1 & 1 & 0  
+			
+		\end{array}\right) $ would represent the network displayed in \ref{fig:merge}. 
+		\item In contrast to the adjacency matrix, transition matrices are defined only for single junctions. Let $J$ be a junction with $m$ incoming and $n$ outgoing roads. Then the transition matrix $TM_J\in\mathbb{R}^{n\times m}$ is defined by \[TM_J=\left(\begin{array}{ccc} P_{m+1,1} & ... & P_{m+1,m} \\
+		\vdots & \ddots & \vdots \\
+		P_{m+n,1} & \dots & P_{m+n,m} 
+		\end{array}\right)\]
+		From this adjacency matrix one can easily derive the transition matrices for every single junction. In the 			stated example one would conclude \[TM_J=\left(\begin{array}{cc} 1 & 1
+		\end{array}\right)\] as the transition matrix representing the single merge.
+		\begin{figure}[h]
+	\includegraphics[scale=0.4]{merge}
+	\caption{Simple merge of two roads \label{fig:merge}}
+\end{figure}
+	\item \textbf{Driver's preferences $\Theta_{ij}$} define the fraction of cars on road $i$ that want to exit the junction in direction of road $j$. \\
+	\[\sum_j\Theta_{ij}=1\]
+	\item \textbf{Relative priorities given to incoming roads} e.g. external effects like traffic lights \end{itemize}
+\end{itemize}
+\begin{itemize}
+	
+	\item Maximum fluxes on incoming roads: \[\omega_i(\rho):=\lbrace\begin{array}{ll}
+		f(\rho) & \rho\leq\sigma \\
+		f(\sigma) & \rho>\sigma
+	\end{array}\]
+	\item Maximum fluxes on outgoing roads: \[\omega_j(\rho):=\lbrace\begin{array}{ll}
+		f(\sigma) & \rho\leq\sigma \\
+		f(\rho) & \rho>\sigma
+	\end{array}\]
+	This property ensures that Riemann problems on incoming roads are solved by waves with negative speed, and Riemann problems on outgoing roads are solved by waves with positive speed.
+\end{itemize}
+\subsection{The Riemann problem on networks}
+	
 \section{Models}
 \subsection{Single buffer junction model (SBJ)}
+As the example before has shown there is no hope that the previous approach guarantees a unique solution for arbitrary initial conditions and assigned preference values $\Theta_{ij}$. We can circumvent this behavior by modelling a junction not as a fixed point, but instead as a buffer with fixed capacity that can "store" cars in a queue. \newline \newline
+Consider a constant $M>0$, describing the maximum capacity of the junction at any given time, and constants $c_i>0, i\in\mathcal{I}$ accounting for priorities given to the differnt incoming roads. \newline
+We then require that the incoming fluxes $\bar{f}_i$ satisfy
+\[\label{eq:sbj}\bar{f}_i=\min\lbrace \omega_i,c_i(M-\sum_{j\in\mathcal{O}}q_j), \hspace{1cm} i\in\mathcal{I}\]
+Furthermore, the outgoing fluxes $\bar{f}_j$ should satisfy
+\[\bar{f}_j=\lbrace\begin{array}{ll}
+	\omega_j & q_j>0 \\
+	\min\lbrace\omega_j, \sum_{i\in\mathcal{I}}\bar{f}_i\bar{\Theta}_{ij}\rbrace & q_j=0
 
-
+\end{array}\]
+As seen, the outgoing fluxes are uniquely defined one the incoming fluxes are known in addition to the current status of the queue. \newline \newline
+The queue thus changes its length by
+	\begin{equation}
+		\label{eq:q}		
+		\dot{q}_j=\sum_{i\in\mathcal{I}}\bar{f}_i\bar{\Theta}_{ij}-\bar{f}_j
+	\end{equation}
+\textbf{Question:}
+\begin{itemize}
+	\item choice of M and c
+	\item Discretization of \ref{eq:q} $\rightarrow$ difference quotient? 
+\end{itemize}
+\subsubsection{Simulation: preliminaries}
+\begin{itemize}
+	\item adjacency matrix
+	\item inflow-outflow vectors
+	\item capacity M for all junctions
+	\item priorities $c_i$ for all outgoing roads for every junction
+\end{itemize}
+\subsubsection{Example: 2-2 junction}
+Consider a junction with 2 incoming and 2 outgoing roads and the corresponding transition matrix $TM=\left(\begin{array}{cc} 0.4 & 0.2 \\ 0.6 & 0.8 
+\end{array}\right)$ and inital densities $\rho_i(0,x)=0.5, i=1...4$. The queue has the following properties: $q(0)=0, M=1, c_3=c_4=0.5$. We also have incoming fluxes into road 1 and road 2 of $\rho_{in}=0.5$. 
+\newline
+\textbf{Numerical solution using Godunov scheme} \newline \newline
+\begin{figure}[h]
+\center
+	\includegraphics[scale=0.6]{2in2out}
+	\caption{Traffic distribution on the roads after t=100s. First two plots show the density on the incoming roads, the bottom two plots show the outgoing roads}
+\end{figure}
+\begin{figure}[h]
+\center
+	\includegraphics[scale=0.6]{Buffers}
+	\caption{Evolution of the total queue length over time}
+\end{figure}
+\newline
+Obervations:
+\begin{itemize}
+	\item jam emerges with idential speed for both incoming roads
+	\item Buffer builds up in front of road 4, since the incoming flux is bigger than the maximum outgoing flux
+\end{itemize}
 \end{document}
