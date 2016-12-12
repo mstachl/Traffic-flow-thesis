@@ -9,7 +9,6 @@ from matplotlib import cm
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
 
 #functions
 
@@ -97,7 +96,6 @@ def getIncomingFluxesMB(maxIn,junction):
         bufferFluxes = []
         for j in range(len(_TM)):
             bufferFluxes.append(_c[i]*(_M[j]-_Buffer[-1][j])/_TM[j][i])
-        print bufferFluxes
         _temp = min(maxIn[i],min(bufferFluxes))
         incomingFluxes.append(_temp)
     #print "incoming fluxes are {}".format(incomingFluxes)
@@ -228,6 +226,7 @@ def network2junctions(networkMatrix,c,M,mode="SB"):
                 junctions[i]["_M"]=sum(M[i])
             else:
                 junctions[i]["_M"]=M[i]
+            print M[i]
             junctions[i]["_c"]=c[i]
             junctions[i]["Buffer"]=[[0]*len(nonzero_out)]
             i+=1 
@@ -243,20 +242,25 @@ def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, mode="SB
                 # initRho: (n+m)-dim array consisting of the density at discretization points initX
                 # ext_inflow: (n+m)-dim vector consisting of the external density entering the roads (0 if no influx, e.g. road is exiting from a junction)
                 # mode: "SB" for single buffer junctions, "MB" for multiple buffer junctions    
-    global dt,dx,vmax,rhomax,sigma,c,M,RhoPlot, XPlot
+    global dt,dx,vmax,rhomax,sigma,c,M
     _t = np.arange(0,tend+dt,dt)
     roads = len(network)
     junctions = network2junctions(network,_c,_M,mode)
-    print "junctions in network: {}".format(junctions)
+    print junctions
     #init    
-    flows = [0 for s in range(roads)]
+    
+    
     R = [[s] for s in initRho]
+    flows = []
+    for s in range(len(initRho)):
+        flows.append([[f(initRho[s][i]) for i in range(len(initRho[s]))]])
+    print "flows: {}".format(flows)
     t=0
+    
     while t<tend:
         #1 road internal fluxes
         for i in range(roads):
-            flows[i]=godunovFluxes(f,R[i][-1])
-        print "before: {}".format(len(flows[0]))
+            flows[i][-1].append(godunovFluxes(f,R[i][-1]))
         #2 fluxes at junction
         for junc in junctions:
             indices_in = junctions[junc]["in"]
@@ -272,33 +276,29 @@ def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, mode="SB
             j=0    
             k=0
             for i in junctions[junc]["in"]:
-                flows[i].append(jfluxes_in[j])
+                flows[i][-1].insert(-1,jfluxes_in[j])
                 j+=1
             for i in junctions[junc]["out"]:
-                flows[i].insert(0,jfluxes_out[k])
+                flows[i][-1].insert(0,jfluxes_out[k])
                 k+=1
-        print "middle: {}".format(len(flows[0]))
         #3 external fluxes
         rowSum = np.sum(network,axis=1)
         columnSum = np.sum(network,axis=0)
         for i in range(roads):
             if rowSum[i]==0: #has external influx
-                flows[i].insert(0,f(ext_inflow[i]))
+                flows[i][-1].insert(0,f(ext_inflow[i]))
             elif columnSum[i]==0: #has external outflow
                 #flows[i].append(f(ext_outflow[i]))
-                flows[i].append(flows[i][-1])
+                flows[i][-1].append(flows[i][-1][-1])
         #4 godunov step
         for i in range(roads):
-            R[i].append(godunovStep(flows[i],R[i][-1]))
+            R[i].append(godunovStep(flows[i][-1],R[i][-1]))
         t+=dt
-        print "after: {}".format(len(flows[0]))
-    #update global var for animation
-    RhoPlot = R
-    XPlot = initX
-    print computeTravelTime(0,3,tend,R)
-    
-    #doAnimation()
-    return _t,R,initX,junctions
+    print flows
+    plot2D(initX,R)
+    plotBuffers(_t,junctions)
+    plotTotalDensity(_t,R)
+    return None
 
 def getJunctionFluxes(rho_in,rho_out,junction,mode="SB"):
     
@@ -320,20 +320,6 @@ def getJunctionFluxes(rho_in,rho_out,junction,mode="SB"):
     
     return incomingFluxes, outgoingFluxes
 
-def computeTravelTime(roadIndexStart,roadIndexEnd,tend,rho):
-    global dt
-    n=0
-    totalInflux = 0
-    travelTime = 0
-    while n*dt<tend:
-        totalInflux += dt*f(rho[roadIndexStart][n][0])
-        n+=1
-    m=0
-    while m*dt<tend:
-        travelTime +=dt*m*dt*f(rho[roadIndexEnd][n][-1])
-        m+=1
-    nettoTravelTime =1./totalInflux*travelTime
-    return nettoTravelTime
 # plot functions
  
 def plot2D(x,rho):
@@ -342,7 +328,7 @@ def plot2D(x,rho):
     plt.xlabel('x')
     plt.ylabel('\rho')
     for i in range(len(rho)):
-        ax[i].plot(x[i][:-1],np.array(rho[i][-1][:-1]))  
+        ax[i].plot(x[i],np.array(rho[i][-1]))  
         
 def plotBuffers(t,junctions):
     fig = plt.figure()
@@ -375,28 +361,8 @@ def plotTotalDensity(t,rho):
     plt.ylabel("total density on the network")
     ax = fig.add_subplot(111)
     ax.plot(t,totalRho)
-    #plt.ylim([100,200])
-
-def animate(i):
-    global RhoPlot,XPlot,line,fig,ax
-    ax.clear()    
-    ax.plot(XPlot[0],RhoPlot[0][i])
-    return line,
-
-def initAnim():
-    global line
-    line.set_data([],[])
-    return line,
-
-
-def doAnimation():
-    global RhoPlot,XPlot,fig,ax,line,tend,dt
-    frames = int(tend/dt)
-    anim = animation.FuncAnimation(fig, animate, frames=frames,
-                              blit=True, init_func=initAnim)
-    anim.save('test_animation.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
-    plt.show()
-
+    plt.ylim([100,200])
+    
 
 def simu(network,_c,_M,_vmax,_rhomax,_sigma,_ext_in,_dt,_dx,_tend,_X,_Rho,mode="SB"):
     vmax = _vmax
@@ -416,30 +382,21 @@ def simu(network,_c,_M,_vmax,_rhomax,_sigma,_ext_in,_dt,_dx,_tend,_X,_Rho,mode="
     for i in range(len(X)):
         X[i],Densities[i] = init(_X[i],_Rho[i],dx)
         
-    time,R,XX,junctions = solveArbitraryNetworks(tend,network,c,M,X,Densities,ext_in,mode)
-    plot2D(XX,R)
-    plotBuffers(time,junctions)
-    plotTotalDensity(time,R)
+    solveArbitraryNetworks(tend,network,c,M,X,Densities,ext_in,mode)
+        
     
-#global variables   
-fig = plt.figure()
-ax = fig.add_subplot(111)     
-line, = ax.plot([],[])
-RhoPlot = []
-XPlot = []
 vmax=1
 rhomax =1
 sigma=.5
 initIn = .5
 initOut = 0.5
 dt=.5
-tend = 235
+tend = 100
 t = np.arange(0,tend,dt)
 dx=1.       
 #M=[0.5]
 M=[[0.5,0.5]]
-c=[[1.,1.]]
-
+c=[[0.25,0.25]]
 
 #R=test22(100)
 
@@ -447,12 +404,12 @@ c=[[1.,1.]]
 
 
 _X = [[0,100],[0,100],[100,160],[100,160]]
-_Rho = [[0.],[0.],[0.],[0.]]
+_Rho = [[0.8],[0.8],[0.5],[0.]]
 #X[4],Densities[4] = init([160,220],[0.5],dx)
 
 network = np.array([[0,0,0,0],[0,0,0,0],[0.4, 0.2,0,0], [0.6, 0.8,0,0]]) 
 
-ext_in = [0.5,0.5,0,0]
+ext_in = [0.8,0.8,0,0]
 
 #ext_in5 = [0.5,0.5,0,0,0]
 #ext_out5 = [0,0,0.5,0,0.5]

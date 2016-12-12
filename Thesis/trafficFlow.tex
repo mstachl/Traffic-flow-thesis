@@ -45,13 +45,13 @@
 
 
 
-
-%\newtheorem{Satz}{Satz}[chapter]
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Satz}{Satz}[section]
 %% Ein sog. "Theorem" mit Abkuerzung "Satz" (das erste "Satz")
 %% Das zweite "Satz" bezeichnet den Namen des Theorems. (z.B. "Satz x.y" erscheint im TeX-File).
 %% [chapter] regelt die Numerierung der Saetze, in diesem Fall werden die Saetze pro Kapitel fortlaufend numeriert.
 %
-%\newtheorem{Korollar}[Satz]{Korollar}
+\newtheorem{Korollar}[Satz]{Korollar}
 %% Hier haben wir ein "Theorem" mit Abkuerzung "Korollar", welches im Tex-File als "Korollar" erscheint und in die "Theorem"-Nummerierung
 %% fortlaufend eingebunden wird (das "[Theorem]" bewirkt dies).
 %\newtheorem{Proposition}[Satz]{Proposition}
@@ -59,9 +59,10 @@
 %%Lemma, ebenfalls in "Theorem"-Nummerierung eingebunden
 %\newtheorem{Lemma}[Satz]{Lemma}
 %%Definition, ebenfalls in "Theorem"-Nummerierung eingebunden
-%\newtheorem{Definition}[Satz]{Definition}
+\newtheorem{Definition}[Satz]{Definition}
 %%Beispiel, ohne Nummerierung
 %\newtheorem{Beispiel}{Beispiel}
+\newtheorem{Example}{Example}
 %%Annahme, nach Kapiteln nummeriert
 %\newtheorem{Annahme}{Annahme}[chapter]
 %% Labelnummerierung in 'roemisch'.
@@ -69,22 +70,292 @@
 
 \begin{document}
 \section{Introduction}
+$\cdots$
+\newline
+The rest of this paper is structured as follows: In section 2 some background about conservation laws, their physical context and some general solution methods are provided. Later, in section 3, the focus shifts towards the their application of modelling traffic. There also some typical modelling approaches are provided. In that section we also introduce the notations of a network and how they can be used to model urban traffic flow. In section 4 we talk about how the traffic flow model on network can be solved numerically. In particular the notion of Riemann solvers are introduced and their usability is discussed. The application of Riemann solvers on toy examples as well as their application on a real traffic network in Munich are provided in section 5. 
 \section{Scalar conservation laws}
+Many natural processes observed in nature, as well as practical problems in science and engineering are based on the conservation of physical values. In particular thoses processes can be described by a hyperbolic system of time-dependent, mostly non-linear, partial differential equations. In one space dimension the system can be written in a rather simple form
+\[ \frac{\delta}{\delta t}u(x,t)+\frac{\delta}{\delta x}f(u(x,t))=0\]
+where $u: \mathcal{R}\times\mathcal{R}\rightarrow\mathcal{R}^n$ denotes $n$ conserved quantities or state variables, e.g. densities or energy levels. In particular $u(x,t)$ represents the distribution of the conserved quantity on the space interval at every time step t. Furthermore, the total mass of an observed quantity on a space interval $\left[x_1,x_2\right]$ is given by $\label{eq:mass}\int_{x_1}^{x_2} u(x,t)dx$ at a fixed time $t$. Knowing the mass distribution $u(x,t)$ at a certain time step, the specific movement of the quantities in space dimension is given by the so-called \textbf{flux function} $f:\mathcal{R}^n\rightarrow\mathcal{R}^n$. Typically the flux function is not linear in $u$, which results in a system of non-linear partial differential equations (for an example, see \citep{LeVeque.1992})
 \subsection{Derivation of scalar conservation laws}
+Conservation laws usually originate in physical principals such as the conservation of energy or mass. In modelling traffic flow this is based on the fact that during the movement of the traffic neither cars are created nor destroyed and the total density of cars stays constant for all times $t$. Let $u$ be the traffic density and $u(x,t)$ the density at a point $x$ on an infinitely long road at some time $t$. Then the total amount of cars on a given space interval from $x_1$ to $x_2$ is given by the integral over the density as given in \ref{eq:mass}:
+\begin{equation}
+	 \text{amount of cars }=\int_{x_1}^{x_2}u(x,t)dx
+\end{equation}
+For conserved quantities no mass is neither destroyed nor created. Therefore the mass on an interval can only change by inflowing and outflowing quantities. Let $v(x,t)$ be the velocity of the wave at a point $x$. Then the quantity mass crossing the point $x$ at a time $t$ is given by the \textbf{mass flux} \begin{equation}
+f(u)=u(x,t)\ v(x,t)
+\end{equation}
+Since the total mass on the global space interval is preserved, the rate of change of the mass on the interval $\left[x_1,x_2\right]$ is defined by the difference of the in- and outfluxes of the interval, e.g. \begin{eqnarray*}
+	\frac{d}{dt}\int_{x_1}^{x_2}u(x,t)dx&=&f(u(x_1,t))-f(u(x_2,t))\\ &=&u(x_1,t)v(x_1,t)-u(x_2,t)v(x_2,t)
+\end{eqnarray*}
+Rewriting this assuming differentiability of both functions $u$ and $f$ and integration over a time interval $\left[t_1,t_2\right]$ leads to the differential form of the conservation law:
+\begin{equation}
+	\int_{t_1}^{t_2}\int_{x_1}^{x_2}\frac{d}{dt}u(x,t)\ dx dt=\int_{t_1}^{t_2}\int_{x_1}^{x_2}\frac{d}{dx}\lbrace-u(x,t)v(x,t)\rbrace\ dx dt
+\end{equation}
+Since this has to hold for arbitrary time intervals $\left[t_1,t_2\right]$ on arbitrary sections $\left[x_1,x_2\right]$ we conclude the partial differential equation for the \textbf{conservation of mass}
+\begin{equation}
+\label{conservationlaw}
+	u_t+(uv)_x=0
+\end{equation}
+This conservation law can only be solved in isolation, if the velocity $v$ is known \textit{a priori} or as a function dependent on $u(x,t)$, cf. \citep{LeVeque.1992}. Typical representations for the velocity function $v(u)$ and the flux function $f(u)$, also called \textit{characteristic function}, used in traffic flow modelling will be discussed in section \ref{characDiagram}. \newline \newline
+In order to formulate a Cauchy-problem, the conservation law \ref{conservationlaw} has to be supplemented by suitable initial conditions.
 \subsection{Method of characteristics}
+
 \subsection{Weak solutions}
+Definition - Fallunterscheidung 
 \subsubsection{The Riemann problem}
-\subsubsection{Shocks and rarefaction waves}
+Cauchy problems with piecewise constant initial data providing a single discontinuity are known as Riemann problems.
+\newline
+\newline
+TODO: \newline
+- Definition schwache Loesung
+
+
+\subsubsection{The wave front tracking method}
+TODO:
+\begin{itemize}
+\item Fallunterscheidungen (vgl. \citep{Garavello.2006})
+\item Example for \begin{itemize}
+\item shock
+\item non-admissible shock
+\item rarefaction wave
+\end{itemize}
+\end{itemize} 
 \subsubsection{Admissibility}
+TODO: see \citep{Dafermos.2005}
+\begin{itemize}
+\item Lax-admissibility
+\end{itemize} 
 \section{Traffic flow modelling}
 \subsection{The macroscopic Lighthill-Whitham-Richards model}
+
 \subsection{Characteristic diagrams}
+\label{characDiagram}
 \subsection{The Riemann problem}
-\section{Traffic flow on networks}
+\section{Networks and Riemann solvers}
+So far we have only solved traffic flow problems on the real line. In order to analyze traffic flow more sophisticated problems under realistic scenarios, in particular in urban environments, it is necessary to extend the mathematical theory and the representation of traffic networks. The method of choice is hereby to represent traffic networks via directed graphs. This directed graph consists of a set of edges, representing the roads, and a set of nodes representing junctions. Every junction is thereby characterized by a finite number of incoming and a finite number of outgoing roads. 
+
+
 \subsection{Basic principles of networks}
-\subsection{Traffic flow models on networks}
+Rigorously we can define a network as followed, see e.g. \textbf{ZITAT EINFUGEN}
+\begin{Definition}
+\label{network}
+A network is a tuple $\left(\mathcal{N},\mathcal{E}\right)$, where $\mathcal{N}$ is a finite collection of vertices, and $\mathcal{E}$ is a finite collection of $M$ edges. Each edge $e_i=\left[a_i,b_i\right]\in\mathbb{R}, i=1...N$ is defined over a real interval. Furthermore, every node $n_j, j=1...M$ is a union of two non-empty sets $IN(n_j)$ and $OUT(n_j)$, where $IN(J),OUT(J)\in\lbrace 1...N\rbrace$.
+\end{Definition}
+We further require the following properties:
+\begin{itemize}
+\item[1)] For $n_j,n_i\in\mathcal{N}, j\neq i$ we require $IN(n_j)\cap IN(n_i)=\emptyset$ and $OUT(n_j)\cap OUT(n_i)=\emptyset$
+\item[2)] If $e_i\not\in\bigcup_{n\in\mathcal{N}}IN(n)$ then $b_i=\infty$, and if $e_i\not\in\bigcup_{n\in\mathcal{N}}OUT(n)$ then $a_i=-\infty$
+\end{itemize}
+These assumptions only guarantee that the resulting network is indeed a valid graph. Requirement 1) implies that every road starts and ends in at most one junction. Requirement 2) then says that if a road does not start (end) at a junction then it is considered as an inflow (outflow) of the network. \newline
+\newline
+Another method to represent a road network is via so-called \textbf{adjescency matrices} (\citep{Biggs.1993}).
+\begin{Definition}
+\label{adjesM}
+Let $\mathcal{N}$ be a set of edges with $|\mathcal{N}|=n$. Then the adjescency matrix is a square $n\times n$-matrix $A$ with \begin{equation*}
+A_{ij} = \bigg\{\begin{array}{ll}
+	1 & \text{if there exists a junction between road i and j} \\
+	0 & \text{else}
+\end{array}
+\end{equation*}
+\end{Definition}
+\underline{\textbf{Remark:}} \newline
+Having given the network as in \ref{network} one can easily derive the corresponding adjescency matrix as in \ref{adjesM}, and vice versa. \textbf{BEING MORE SPECIFIC??? also about problem of non-unique indexing of junctions?}
+\begin{Example}
+Let us consider an example  
+\end{Example}
+\subsection{Riemann solver at junctions}
+
+
+
+\section{Traffic flow at intersections}
+\subsection{General setting}
+\label{sec:setting}
+Consider a family of $n+m$ roads, all joining at a single junction. The indices $i\in\{1,...,m\}=:\mathcal{I}$ hereby denote \textit{incoming roads} and indices $j\in\{m+1,...,m+n\}=:\mathcal{O}$ denote \textit{outgoing roads}. Then the evolution of the density of cars $\rho_k(x,t)$ on the $k-th$ road can be described by the conservation law
+\begin{equation}
+	\rho_t+f_k(\rho)_x=0.
+\end{equation}
+\begin{itemize}
+	
+	\item Maximum fluxes on incoming roads: \[\omega_i(\rho):=\lbrace\begin{array}{ll}
+		f(\rho) & \rho\leq\sigma \\
+		f(\sigma) & \rho>\sigma
+	\end{array}\]
+	\item Maximum fluxes on outgoing roads: \[\omega_j(\rho):=\lbrace\begin{array}{ll}
+		f(\sigma) & \rho\leq\sigma \\
+		f(\rho) & \rho>\sigma
+	\end{array}\]
+	This property ensures that Riemann problems on incoming roads are solved by waves with negative speed, and Riemann problems on outgoing roads are solved by waves with positive speed.
+\end{itemize}
+
+
+\subsection{Junction model}
+\label{sec:jm}
+Problem with uniqueness
+
+
+\subsection{Junction model with buffers}
+
+In order to be useful for the analysis of global optimization, the used traffic flow model at junctions should provide two crucial properties:
+\begin{itemize}
+\item Well posedness for $\mathcal{L}^\infty$ data
+\item Continuous solution w.r.t. weak convergence
+\end{itemize} 
+Due to the ill-posedness of the general junction model in \ref{sec:jm} for certain input data, we need to come up with a different approach. \newline
+\newline
+In \citep{Bressan-Conservation} a model is proposed where each intersection in the model includes a \textbf{buffer} with limited capacity. The current filling level of the buffer in front of the outgoing road $j\in\mathcal{O}$ may be denoted as the \textit{queue length} $q_j\left(t\right)$. The rate of flux at which cars from incoming roads enter the intersection is controlled by the current length of the queues. The outgoing fluxes are governed by the queue length and the personal preference destination of the individual drivers, as well as the maximum permitted fluxes on the designated roads. \newline
+\newline
+The main results of their analysis can be stated as:
+\begin{itemize}
+\item[I.] If the queue lenghts $q_j$ for every outgoing road are given, the initial boundary value problems on each road become decoupled and can be solved individually, first on every incoming road, and secondly on every outgoing road. The densities $\rho_k(t,x)$ on every road $k=1...m+n$ can then be explicitly computed via a Lax type formula.
+\item[II.] Given the densities, the lenghts $q_j$ of the queues can be determined by balancing the influxes and outfluxes of the intersection. The queue lengths can finally be obtained as a fixpoint of a contractive transformation $q\rightarrow\Delta(q)$ where $q$ needs to be Lipschitz continuous.
+\item[III.] The buffer model is thus well-posed at intersections for general $\mathcal{L}^\infty$ data. It is also shown that the traffic flow model is continous w.r.t. weak convergence.
+\end{itemize}
+The interested reader is referred to \citep{Bressan-Conservation} for the proofs.
+\subsubsection*{Setting of the buffer model - SBJ and MBJ}
+\label{sec:buffer}
+Let the general setting be as defined in \ref{sec:setting}. Further we include two realistic assumtions for the boundary values at the entrance and exit points of junctions:
+\begin{itemize}
+\item[i.] \textbf{Driver's preferences $\Theta_{ij}$} define the fraction of cars on road $i$ that want to exit the junction in direction of road $j$. \\
+	\[\Theta_{ij}\in\left[0,1\right], \hspace{1cm}\sum_j\Theta_{ij}=1\]
+\item[ii.] \textbf{Relative priorities $\eta_i$ given to incoming roads} e.g. external effects like traffic lights
+\end{itemize}
+In general, $\Theta_{ij}=\Theta_{ij}(t,x)$ needs not to be necessarily constant, but can be time- and location-dependent. In the following it is assumed that the drivers' preferences are known in advance and that they do not change their itinerary throughout the network. Then the conservation law reads
+\[(\Theta_{ij}\rho_i)_t+[\rho_i\Theta_{ij}v(\rho_i)]_x=0\]
+Using product rule and reordering yields
+\[\rho_i[(\Theta_{ij})_t+v(\rho_i)(\Theta_{ij})_x]+\Theta_{ij}[(\rho_i)_t+(\rho_iv(\rho_i))_x]=0\]
+The second term vanishes as the general conservation law still needs to be fulfilled. For zero density on the road this is fulfilled trivially. For $\rho_i\neq 0$ we obtain the passive scalar transport equation along the flux:
+\begin{equation}
+(\Theta_{ij})_t+v(\rho_i)(\Theta_{ij})_x=0
+\end{equation}
+A similar approach has been persued by \citep{}. In their intersection model the capacity of the queues is arbitrarily big. Cars wanting to ender road $j$ but exceed the maximum outflux of the intersection are instead stored in the queue. As a consequence there is no backward propagation of queues and therefore no emergence of shocks on incoming roads. \\
+The model by \citep{Bressan-Conservation} extends this model. Consider a single junction and let $M>0$ be the maximum capacity of the queue. Then the incoming fluxes into the junction depend on the current degree of occupancy of the buffer, which is defined by 
+\[q=(q_j)_{j\in\mathcal{O}},\hspace{1cm}q\in\mathbb{R}^n\]
+The Cauchy problem for traffic flow on a network can thus be formulated as
+\begin{eqnarray*}
+(\rho_i)_t+f_i(\rho_i)_x&=&0 \\
+(\Theta_{ij})_t+v(\rho_i)(\Theta_{ij})_x&=&0
+\end{eqnarray*}
+supplemented by initial conditions\newline
+\vdots
+\newline
+Conservation of mass yields the additional differential equation
+\begin{equation}
+\dot{q_j}=\sum_{i\in\mathcal{I}}\Theta_{ij}\bar{f_i}-\bar{f_j}
+\end{equation}
+where $\bar{f_j}$ denote the boundary fluxes at the junction, $k\in\mathcal{I}\cup\mathcal{O}$. \newline
+\newline
+We are now ready to state two sets of equations regarding the incoming and outgoing junction fluxes depending on the drivers' choices $\Theta_{ij}$ and the queue lenghts $q_j$. \newline \newline
+%SBJ
+The first model provides a shared buffer of capacity $M$ for every outgoing junction. Incoming cars can cross the intersection governed by the amount of free space left in the queue, regardless of the car's destination. Once within the junction, cars leave at the maximum rate allowed by the outgoing road of their choice.
+\newline \newline
+\textbf{Single Buffer Junction model (SBJ):} Consider a constant $M>0$, describing the maximum capacity of the junction at any given time, and constants $c_i>0, i\in\mathcal{I}$ accounting for priorities given to the differnt incoming roads. \newline
+We then require that the incoming fluxes $\bar{f}_i$ satisfy
+\[\label{eq:sbj}\bar{f}_i=\min\lbrace \omega_i,c_i(M-\sum_{j\in\mathcal{O}}q_j)\rbrace, \hspace{1cm} i\in\mathcal{I}\]
+Furthermore, the outgoing fluxes $\bar{f}_j$ should satisfy
+\[\bar{f}_j=\Bigg\lbrace\begin{array}{ll}
+	\omega_j & q_j>0 \\
+	\min\lbrace\omega_j, \sum_{i\in\mathcal{I}}\bar{f}_i\bar{\Theta}_{ij}\rbrace & q_j=0
+
+\end{array}\]
+As seen, the outgoing fluxes are uniquely defined once the incoming fluxes are known in addition to the current status of the queue.
+\newline
+\newline
+The second model uses $n$ different buffers, one for every outgoing road. Once having entered the junction, cars are admitted to their desired road of destination depending on the length of the queue in front of the desired road.
+\newline
+\newline
+\textbf{Multiple Buffer Junction model (MBJ):} Consider constants $M_j>0, j\in\mathcal{O}$, describing the maximum capacitis of the buffers in front of the $n$ outgoing roads of the junction at any given time, and constants $c_i>0, i\in\mathcal{I}$ accounting for priorities given to the differnt incoming roads. \newline
+We then require that the incoming fluxes $\bar{f}_i$ satisfy
+\[\label{eq:mbj}\bar{f}_i=\min\lbrace \omega_i,\frac{c_i(M_j-q_j)}{\Theta_{ij}},j\in\mathcal{O}\rbrace, \hspace{1cm} i\in\mathcal{I}\]
+Furthermore, the outgoing fluxes $\bar{f}_j$ should satisfy
+\[\bar{f}_j=\Bigg\lbrace\begin{array}{ll}
+	\omega_j & q_j>0 \\
+	\min\lbrace\omega_j, \sum_{i\in\mathcal{I}}\bar{f}_i\bar{\Theta}_{ij}\rbrace & q_j=0
+
+\end{array}\]
+\newpage
+\textbf{Limitations of this approach:} \begin{itemize}
+\item Consider a trivial junction with one incoming and one outgoing road and initial data $\rho_{in}>\sigma$ and $\rho_{out}=0$. Then the result won't be continuous.
+\end{itemize}
+
+
 \section{Numerical approximation of conservation laws}
+\label{numerics}
+\citep{LeVeque.1992} chapter 10, 12\vspace{1cm} \newline
+Most naive approach: Finite difference method (or 2-stencil upwind method)
+
+\begin{equation}
+\rho(x_i,t_{k+1})=\rho(x_i,t_{k})+\frac{dt}{dx}(f(\rho(x_{i+1},t_{k})-f(\rho(x_i,t_{k}))
+\end{equation}
+Problem with discontinuous data:
+\begin{itemize}
+\item method might converge to a solution that does not solve the original PDE
+\end{itemize}
+TODO:
+\begin{itemize}
+\item Consistency
+\end{itemize}
 \subsection{The Godunov method}
+\citep{LeVeque.1992}\vspace{1cm}\newline
+The Godunov scheme, first proposed in \citep{godunov1959difference}, uses the numerical solution $U^n$ to define a piecewise constant function $\tilde{u}^n(x,t_n)=U_j^n$ on the grid $x_{j-\frac{1}{2}}<x<x_{j+\frac{1}{2}}$, where $x_j=x_0+j\Delta x$. \newline
+\newline
+At time $t_n$ this agrees with the piecewise constant function $U_k(x,t_n)$ that has been introduced in section \ref{numerics}, but $\tilde{u}^n$, unlike $U_k$ will not be constant over $t_n<t<t_{n+1}$. Instead we make use of the fact that $\tilde{u}^n$ is piecewise constant, which generates a sequence of Riemann problems. This enables us to solve the conservation law in an exact manner over short time intervals $t_n<t<t_{n+1}$. \newline
+
+\vspace{1cm} 
+pic from LeVeque p. 139
+\vspace{1cm} \newline
+From this exact solution we obtain the approximate solution $U_j^{n+1}$ at time $t_{n+1}$ by averaging again over the space interval $\left[x_{j-\frac{1}{2}},x_{j+\frac{1}{2}}\right]$:
+\begin{equation}
+	\label{eq:avg}
+ 	U_j^{n+1}=\frac{1}{h}\int_{x_{j-\frac{1}{2}}}^{x_{j+\frac{1}{2}}}\tilde{u}^n(x,t_{n+1})
+\end{equation}
+These averages then define new piecewise constant functions $\tilde{u}^{n+1}(x,t_{n+1})$ and the process repeats. In practice these averages are computed by using the integral form of the conservation law. As it is assumed that $\tilde{u}^{n}$ is a weak solution, we know that
+\begin{eqnarray*}
+	\int_{x_{j-\frac{1}{2}}}^{x_{j+\frac{1}{2}}}\tilde{u}^n(x,t_{n+1})dx &=& \int_{x_{j-\frac{1}{2}}}^{x_{j+\frac{1}{2}}}\tilde{u}^n(x,t_{n}) dx+\int_{t_n}^{t_{n+1}}f(\tilde{u}^n(x_{j-\frac{1}{2}},t)) dt \\
+	&-&\int_{t_n}^{t_{n+1}}f(\tilde{u}^n(x_{j+\frac{1}{2}},t)) dt	
+\end{eqnarray*}
+Using the notation of \ref{eq:avg} we get
+\begin{equation}
+\label{eq:godunovscheme}
+	U_j^{n+1}=U_j^n-\frac{k}{h}\left[F(U_j^n,U_{j+1}^n)-F(U_{j-1}^n,U_j^n)\right]
+\end{equation}
+with the \textbf{numerical flux}
+\begin{equation}
+F(U_j^n,U_{j+1}^n):=\frac{1}{k}\int_{t_n}^{t_{n+1}}f(\tilde{u}^n(x_{j+\frac{1}{2}},t)) dt
+\end{equation}
+Having the Godunov scheme written in the form of \ref{eq:godunovscheme}, one speaks of a method in \textit{conservative form}. The function $\tilde{u}^n$ is constant on the line $x=x_{j+\frac{1}{2}}$ over the time interval $t_n\leq t\leq t_{n+1}$. We denote this value by $u^\star(U_j^n,U_{j+1}^n)$ which implies that the numerical flux reduces to
+\begin{equation}
+F(U_j^n,U_{j+1}^n)=f(u^\star(U_j^n,U_{j+1}^n))
+\end{equation}
+Finally we can write the \textbf{Godunov scheme} as 
+\begin{equation}
+U_j^{n+1}=U_j^n-\frac{k}{h}\left[f(u^\star(U_j^n,U_{j+1}^n))-f(u^\star(U_{j-1}^n,U_{j}^n))\right]
+\end{equation}
+TODO:
+\begin{itemize}
+\item Courant number
+\item deduction of the numerical flux values
+\end{itemize}
+\textbf{Numerical fluxes for Riemann problems:} \newline
+If we use the prior assumption that $f$ is concave, we obtain for the numerical flux values
+\begin{equation}
+	f(u^\star(U_j^n,U_{j+1}^n))=\Bigg\lbrace\begin{array}{ll}
+	\min_{U_j^n\leq u\leq U_{j+1}^n}f(u) & \text{if} \ U_j^n\leq U_{j+1}^n \\
+	\min_{U_{j+1}^n\leq u\leq U_{j}^n}f(u) & \text{if} \ U_j^n > U_{j+1}^n
+	
+	\end{array}
+\end{equation}
+\subsection{Godunov method at junctions}
+Suppose a traffic flow model for a network with one junction with initial conditions as in \ref{sec:setting}. Also consider a discretization $\left\lbrace x_0...x_6{N_j}\right\rbrace$ for every road $j\in\mathcal{I}\cup\mathcal{O}$. \newline
+Then for roads connected to the junction $J$ at the right point - so for $i\in\mathcal{I}(J)$ we set
+\begin{equation}
+U_{N_i}^{n+1}=U_{N_i}^n-\frac{k}{h}\left[\bar{f}_i-f(u^\star(U_{N_i-1}^n,U_{N_i}^n))\right]
+\end{equation}
+Similarily for roads connected to the junction $J$ at the left point - so for $j\in\mathcal{O}(J)$ we set
+\begin{equation}
+U_0^{n+1}=U_0^n-\frac{k}{h}\left[f(u^\star(U_0^n,U_{1}^n))-\bar{f}_j\right]
+\end{equation}
+where $\bar{f}_i,\bar{f}_j$ are the maximum junction fluxes defined in section \ref{sec:buffer}, depending on the chosen model version.
 \subsection{Examples}
 \section{Experiments}
 \subsection{Single buffer junction model}
@@ -119,9 +390,39 @@ A case where the compatibility condition is not satisfied can by easily construc
 \includegraphics[scale=0.5]{totalmass_notpreserved}
 \caption{\label{fig:notpreserved} Evolution of the total mass of traffic on the network for non-fulfilled compatibility condition.}
 \end{figure}
+\section{Optimization}
+\textbf{Average travel time:} \citep{colombo2011} From the point of view of drivers, key quantities determining the quality of
+traffic are related to the time necessary to reach the destination. 
+\begin{itemize}
+\item total quantity of vehicles entering the road between $t=t_0, t=t_{end}$ : $Q_{in}=\int_{t_0}^{t_{end}}q_0(t)dt$, where $q_0$ is the inflow into the road.
+\item avg. time to reach point $\bar{x}$ is then given by $T(\bar{x}):=\frac{1}{Q_{in}}\int_{t_0}^{t_{end}}tf(\rho(\bar{x},t) dt$
+\item approximation over a finite sum over the discretization of t
+\item Problem on networks: considering a population starting at road i and ending at road j. then it is possible that cars starting at road $k\neq i$ also cross the end of road j, so they are counted for T but not in $Q_{in}$
+\end{itemize}
+\subsection{Modelling traffic lights}
+As in section \ref{sec:setting} stated, we con model traffic lights assigning priority values $\eta_i$ for incoming roads $i\in\mathcal{I}(J)$ into a junction J. \\ \begin{equation}
+\sum_{i\in\mathcal{I}(J)}\eta_i=1
+\end{equation}
+A first naive approach is to combine $\eta$ with the preference values of $\Theta_{ij}$ by multiplying $\Theta\eta$ to obtain a new distribution matrix for every junction.
+\subsection*{Experiments}
+\subsection*{Observations}
+\begin{itemize}
+\item the preference values $\Theta_{ij}$ only affect the outgoing fluxes of the junction -see section \ref{sec:buffer}, not the incoming. As a result, as long as no queues emerge there will be no backward probagation of queues if cars have to wait at a red phase. \newline
+\begin{figure}[h] 
+\includegraphics[scale=0.6]{density_evolution}
+\caption{cap}
+\end{figure}
+\newline 
+Opposingly cars that cannot exit the junction due to redphase are just lost as the total amount of traffic decreases rapidly. \newline
+\begin{figure}[h]
+\includegraphics[scale=0.6]{total_density}
+\caption{cap}
+\end{figure}
+\end{itemize}
 \newpage
-\section{Setting}
-\subsection{Scalar conservation law}
+\section{Additional Notes - still to be included}
+\subsection{Setting}
+\subsubsection{Scalar conservation law}
 Consider a single junction consisting of $m$ incoming and n outgoing roads. The corresponding index sets are $\mathcal{I}=\lbrace 1,...,m\rbrace$ and $\mathcal{O}=\lbrace m+1,...,m+n\rbrace$, respectively. On road $k$ the scalar conservation law is thus defined as:
 \begin{equation*}
 	\rho_t+f_k(\rho)_x = 0
@@ -129,8 +430,8 @@ Consider a single junction consisting of $m$ incoming and n outgoing roads. The 
 In the infinite setting we have $x\in\left[-\infty,0\right]$ for incoming and $x\in\left[0;\infty\right]$ for outgoing roads, $t\geq 0$. \newline
 The flux function on road $k$ is defined via $f_k(\rho )=\rho *v(\rho )$, where $v(\rho)$ denotes the average speed of cars on the road and $\rho\in\left[0,\rho^{jam}\right]$ the density of cars. \newline \newline
 In order to solve the corresponding Riemann problem on the network, boundary conditions have to imposed. Thus we define \[\]
-\section{Networks}
-\subsection{Traffic flow on networks}
+\subsection{Networks}
+\subsubsection{Traffic flow on networks}
 \begin{itemize}
 	\item complex networks: \begin{itemize}
 		\item  nodes $\mathcal{N}$ represent junctions
@@ -155,22 +456,11 @@ In order to solve the corresponding Riemann problem on the network, boundary con
 	\[\sum_j\Theta_{ij}=1\]
 	\item \textbf{Relative priorities given to incoming roads} e.g. external effects like traffic lights \end{itemize}
 \end{itemize}
-\begin{itemize}
+
+\subsubsection{The Riemann problem on networks}
 	
-	\item Maximum fluxes on incoming roads: \[\omega_i(\rho):=\lbrace\begin{array}{ll}
-		f(\rho) & \rho\leq\sigma \\
-		f(\sigma) & \rho>\sigma
-	\end{array}\]
-	\item Maximum fluxes on outgoing roads: \[\omega_j(\rho):=\lbrace\begin{array}{ll}
-		f(\sigma) & \rho\leq\sigma \\
-		f(\rho) & \rho>\sigma
-	\end{array}\]
-	This property ensures that Riemann problems on incoming roads are solved by waves with negative speed, and Riemann problems on outgoing roads are solved by waves with positive speed.
-\end{itemize}
-\subsection{The Riemann problem on networks}
-	
-\section{Models}
-\subsection{Single buffer junction model (SBJ)}
+\subsection{Models}
+\subsubsection{Single buffer junction model (SBJ)}
 As the example before has shown there is no hope that the previous approach guarantees a unique solution for arbitrary initial conditions and assigned preference values $\Theta_{ij}$. We can circumvent this behavior by modelling a junction not as a fixed point, but instead as a buffer with fixed capacity that can "store" cars in a queue. \newline \newline
 Consider a constant $M>0$, describing the maximum capacity of the junction at any given time, and constants $c_i>0, i\in\mathcal{I}$ accounting for priorities given to the differnt incoming roads. \newline
 We then require that the incoming fluxes $\bar{f}_i$ satisfy
@@ -220,4 +510,6 @@ Obervations:
 	\item jam emerges with idential speed for both incoming roads
 	\item Buffer builds up in front of road 4, since the incoming flux is bigger than the maximum outgoing flux
 \end{itemize}
+\newpage
+\bibliography{litII}
 \end{document}

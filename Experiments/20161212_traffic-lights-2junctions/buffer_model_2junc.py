@@ -6,6 +6,7 @@ Created on Wed Nov 09 14:08:28 2016
 """
 
 from matplotlib import cm
+from itertools import cycle
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
@@ -97,7 +98,6 @@ def getIncomingFluxesMB(maxIn,junction):
         bufferFluxes = []
         for j in range(len(_TM)):
             bufferFluxes.append(_c[i]*(_M[j]-_Buffer[-1][j])/_TM[j][i])
-        print bufferFluxes
         _temp = min(maxIn[i],min(bufferFluxes))
         incomingFluxes.append(_temp)
     #print "incoming fluxes are {}".format(incomingFluxes)
@@ -211,7 +211,7 @@ def network2junctions(networkMatrix,c,M,mode="SB"):
     junctions = {}
     i = 0
     while len(roadList)>0:
-        print roadList
+        #print roadList
         nonzero_out_tupel = np.nonzero(networkMatrix[:,roadList[0]])
         nonzero_out=nonzero_out_tupel[0]
         if len(nonzero_out)>0:
@@ -219,7 +219,7 @@ def network2junctions(networkMatrix,c,M,mode="SB"):
             junctions[i]["out"]=nonzero_out
             nonzero_in_tupel = np.nonzero(networkMatrix[nonzero_out[0],:])
             nonzero_in = nonzero_in_tupel[0]
-            print nonzero_in
+            #print nonzero_in
             junctions[i]["in"] = nonzero_in
             for el in nonzero_in:
                 roadList.remove(el)
@@ -247,7 +247,7 @@ def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, mode="SB
     _t = np.arange(0,tend+dt,dt)
     roads = len(network)
     junctions = network2junctions(network,_c,_M,mode)
-    print "junctions in network: {}".format(junctions)
+    #print "junctions in network: {}".format(junctions)
     #init    
     flows = [0 for s in range(roads)]
     R = [[s] for s in initRho]
@@ -256,7 +256,6 @@ def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, mode="SB
         #1 road internal fluxes
         for i in range(roads):
             flows[i]=godunovFluxes(f,R[i][-1])
-        print "before: {}".format(len(flows[0]))
         #2 fluxes at junction
         for junc in junctions:
             indices_in = junctions[junc]["in"]
@@ -277,7 +276,6 @@ def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, mode="SB
             for i in junctions[junc]["out"]:
                 flows[i].insert(0,jfluxes_out[k])
                 k+=1
-        print "middle: {}".format(len(flows[0]))
         #3 external fluxes
         rowSum = np.sum(network,axis=1)
         columnSum = np.sum(network,axis=0)
@@ -291,14 +289,90 @@ def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, mode="SB
         for i in range(roads):
             R[i].append(godunovStep(flows[i],R[i][-1]))
         t+=dt
-        print "after: {}".format(len(flows[0]))
     #update global var for animation
     RhoPlot = R
     XPlot = initX
-    print computeTravelTime(0,3,tend,R)
     
     #doAnimation()
     return _t,R,initX,junctions
+
+def solveNetworkWithDelay(tend,network,_c,_M,initX,initRho,ext_inflow,tau, mode="SB"):
+    global dt,dx,vmax,rhomax,sigma,c,M,RhoPlot, XPlot
+    _t = np.arange(0,tend+dt,dt)
+    roads = len(network)
+    junctions = network2junctions(network,_c,_M,mode)
+    #print "junctions in network: {}".format(junctions)
+    #init    
+    flows = [0 for s in range(roads)]
+    R = [[s] for s in initRho]
+    t=0
+    while t<tend:
+        #1 road internal fluxes
+        for i in range(roads):
+            flows[i]=godunovFluxes(f,R[i][-1])
+        #2 fluxes at junction
+        for junc in junctions:
+            indices_in = junctions[junc]["in"]
+            rho_in = []
+            for i in indices_in:
+                rho_in.append(R[i][-1])
+            indices_out = junctions[junc]["out"]
+            rho_out = []
+            for i in indices_out:
+                rho_out.append(R[i][-1])
+            jfluxes_in,jfluxes_out = getJunctionFluxesWithDelay(rho_in,rho_out,junctions[junc],tau[junc],t,mode) 
+            updateBuffer(junctions[junc],jfluxes_in,jfluxes_out)        
+            j=0    
+            k=0
+            for i in junctions[junc]["in"]:
+                flows[i].append(jfluxes_in[j])
+                j+=1
+            for i in junctions[junc]["out"]:
+                flows[i].insert(0,jfluxes_out[k])
+                k+=1
+        #3 external fluxes
+        rowSum = np.sum(network,axis=1)
+        columnSum = np.sum(network,axis=0)
+        for i in range(roads):
+            if rowSum[i]==0: #has external influx
+                flows[i].insert(0,f(ext_inflow[i]))
+            elif columnSum[i]==0: #has external outflow
+                #flows[i].append(f(ext_outflow[i]))
+                flows[i].append(flows[i][-1])
+        #4 godunov step
+        for i in range(roads):
+            R[i].append(godunovStep(flows[i],R[i][-1]))
+        t+=dt
+    #update global var for animation
+    RhoPlot = R
+    XPlot = initX
+    traveltime = computeTravelTime(0,3,tend,R)
+    return _t,R,initX,junctions, traveltime
+
+def getJunctionFluxesWithDelay(rho_in,rho_out,junction,tao,t,mode="SB"):
+    global switchingTimes, switchingValues
+    #TODO: adjust computation of TM for multiple outgoing roads
+    TM = junction["matrix"]
+    for i in range(len(TM)):
+        TM[i][0]=switchingValues[findIndex(switchingTimes,t-tao)]
+        TM[i][1]=(1-switchingValues[findIndex(switchingTimes,t-tao)])
+    junction["matrix"]=TM
+    roadsin = len(TM[0])
+    roadsout = len(TM)
+    maxinflow = [0 for s in range(roadsin)]
+    maxoutflow = [0 for s in range(roadsout)]
+    
+    for i in range(roadsin):
+        maxinflow[i]=getMaxInflux(f,rho_in[i])
+    for j in range(roadsout):
+        maxoutflow[j]=getMaxOutflux(f,rho_out[j])
+    if(mode=="SB"):
+        incomingFluxes = getIncomingFluxesSB(maxinflow,junction)
+    elif(mode=="MB"):
+        incomingFluxes = getIncomingFluxesMB(maxinflow,junction)
+    outgoingFluxes = getOutgoingFluxes(maxoutflow,incomingFluxes,junction)
+    
+    return incomingFluxes, outgoingFluxes
 
 def getJunctionFluxes(rho_in,rho_out,junction,mode="SB"):
     
@@ -334,6 +408,14 @@ def computeTravelTime(roadIndexStart,roadIndexEnd,tend,rho):
         m+=1
     nettoTravelTime =1./totalInflux*travelTime
     return nettoTravelTime
+
+def findIndex(switchingTimes,currentTime):
+    index = 0
+    while currentTime > switchingTimes[index]  and index<len(switchingTimes)-1:
+        index+=1
+    return index
+
+    
 # plot functions
  
 def plot2D(x,rho):
@@ -341,6 +423,7 @@ def plot2D(x,rho):
     f,ax = plt.subplots(len(rho))
     plt.xlabel('x')
     plt.ylabel('\rho')
+    #plt.ylim([0,0.8])
     for i in range(len(rho)):
         ax[i].plot(x[i][:-1],np.array(rho[i][-1][:-1]))  
         
@@ -352,6 +435,7 @@ def plotBuffers(t,junctions):
     i=0
     for junc in junctions:
         Buffer = junctions[junc]["Buffer"]
+        print junctions[junc]["matrix"]
         bufferSum = [sum(buf) for buf in Buffer]
         print bufferSum
         ax = fig.add_subplot(111)
@@ -359,7 +443,7 @@ def plotBuffers(t,junctions):
         legend.append("junction {}".format(i))
         i=i+1
     plt.legend(legend)
-    
+   
 def plotTotalDensity(t,rho):
     totalRhoRoad = []
     totalRho = []
@@ -397,7 +481,19 @@ def doAnimation():
     anim.save('test_animation.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
     plt.show()
 
-
+def doAnimationNew():
+    global RhoPlot,XPlot,tend,dt,lines
+    f,ax = plt.subplots(len(RhoPlot))
+    lines = []
+    def initAnimNew():
+        global lines, RhoPlot
+        for i in range(len(RhoPlot)):
+            s, =ax[i].plot([],[])
+            lines.append(s)
+        return lines
+    
+        
+        
 def simu(network,_c,_M,_vmax,_rhomax,_sigma,_ext_in,_dt,_dx,_tend,_X,_Rho,mode="SB"):
     vmax = _vmax
     rhomax = _rhomax
@@ -415,8 +511,13 @@ def simu(network,_c,_M,_vmax,_rhomax,_sigma,_ext_in,_dt,_dx,_tend,_X,_Rho,mode="
     
     for i in range(len(X)):
         X[i],Densities[i] = init(_X[i],_Rho[i],dx)
-        
-    time,R,XX,junctions = solveArbitraryNetworks(tend,network,c,M,X,Densities,ext_in,mode)
+    
+    tauValues = np.arange(0.5,10.,0.5)  
+    traveltimes = []
+    for tau in tauValues:
+        time,R,XX,junctions, traveltime = solveNetworkWithDelay(tend,network,c,M,X,Densities,ext_in,[0,tau],mode)
+        traveltimes.append((tau,traveltime))       
+    print traveltimes
     plot2D(XX,R)
     plotBuffers(time,junctions)
     plotTotalDensity(time,R)
@@ -433,26 +534,28 @@ sigma=.5
 initIn = .5
 initOut = 0.5
 dt=.5
-tend = 235
+tend = 360
 t = np.arange(0,tend,dt)
 dx=1.       
 #M=[0.5]
-M=[[0.5,0.5]]
-c=[[1.,1.]]
-
+M=[[0.5,0.5],[0.5,0.5]]
+c=[[1.,1.],[1.,1.]]
+switchingTimes = np.arange(0,tend,20)
+myIterator = cycle([0.9,0.1])
+switchingValues = [0.1]+[myIterator.next() for i in range(len(switchingTimes))]
 
 #R=test22(100)
 
 #maybe include following in global init function
 
 
-_X = [[0,100],[0,100],[100,160],[100,160]]
-_Rho = [[0.],[0.],[0.],[0.]]
+_X = [[0,100],[0,100],[100,160],[160,260],[260,300]]
+_Rho = [[0.5],[0.3],[0.5],[0.3],[0.5]]
 #X[4],Densities[4] = init([160,220],[0.5],dx)
 
-network = np.array([[0,0,0,0],[0,0,0,0],[0.4, 0.2,0,0], [0.6, 0.8,0,0]]) 
+network = np.array([[0,0,0,0,0],[0,0,0,0,0],[1.,1.,0,0,0],[0,0,0,0,0],[0,0,1.,1.,0]]) 
 
-ext_in = [0.5,0.5,0,0]
+ext_in = [0.5,0.3,0,0.3,0]
 
 #ext_in5 = [0.5,0.5,0,0,0]
 #ext_out5 = [0,0,0.5,0,0.5]

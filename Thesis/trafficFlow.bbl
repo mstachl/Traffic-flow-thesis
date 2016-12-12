@@ -1,0 +1,62 @@
+\begin{thebibliography}{7}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Biggs(1993)]{Biggs.1993}
+Norman~L. Biggs.
+\newblock \emph{Algebraic graph theory}.
+\newblock Cambridge mathematical library. {Cambridge Univ. Press}, Cambridge,
+  2. ed. edition, 1993.
+\newblock ISBN 9780521458979.
+
+\bibitem[Bressan(2014)]{Bressan-Conservation}
+Alberto Bressan.
+\newblock Conservation law models for traffic flow on a network.
+\newblock 2014.
+
+\bibitem[Colombo et~al.(2011)Colombo, Goatin, and Rosini]{colombo2011}
+Rinaldo~M. Colombo, Paola Goatin, and Massimiliano~D. Rosini.
+\newblock On the modelling and management of traffic.
+\newblock \emph{ESAIM: Mathematical Modelling and Numerical Analysis},
+  45\penalty0 (5):\penalty0 853--872, 009 2011.
+\newblock \doi{10.1051/m2an/2010105}.
+\newblock URL
+  \url{https://www.cambridge.org/core/article/div-class-title-on-the-modelling-and-management-of-traffic-div/17E9462EB0955E24546EFEA3A5D3F946}.
+
+\bibitem[Dafermos(2005)]{Dafermos.2005}
+Constantine~M. Dafermos.
+\newblock \emph{Hyberbolic Conservation Laws in Continuum Physics}, volume 325
+  of \emph{Grundlehren der mathematischen Wissenschaften, A Series of
+  Comprehensive Studies in Mathematics}.
+\newblock {Springer-Verlag Berlin Heidelberg}, Berlin, Heidelberg, second
+  edition edition, 2005.
+\newblock ISBN 9783540254522.
+\newblock \doi{10.1007/3-540-29089-3}.
+\newblock URL \url{http://dx.doi.org/10.1007/3-540-29089-3}.
+
+\bibitem[Garavello and Piccoli(2006)]{Garavello.2006}
+Mauro Garavello and Benedetto Piccoli.
+\newblock \emph{Traffic flow on networks: Conservation laws model}, volume v. 1
+  of \emph{AIMS series on applied mathematics}.
+\newblock {American Institute of Mathematical Sciences}, Springfield, MO, 2006.
+\newblock ISBN 9781601330000.
+
+\bibitem[Godunov(1959)]{godunov1959difference}
+Sergei~Konstantinovich Godunov.
+\newblock A difference method for numerical calculation of discontinuous
+  solutions of the equations of hydrodynamics.
+\newblock \emph{Matematicheskii Sbornik}, 89\penalty0 (3):\penalty0 271--306,
+  1959.
+
+\bibitem[LeVeque(1992)]{LeVeque.1992}
+Randall~J. LeVeque.
+\newblock \emph{Numerical methods for conservation laws}.
+\newblock Lectures in mathematics. Birkh{\"a}user, Basel, 2. ed. edition, 1992.
+\newblock ISBN 0817627235.
+\newblock URL
+  \url{http://www.loc.gov/catdir/enhancements/fy0812/92003400-d.html}.
+
+\end{thebibliography}
