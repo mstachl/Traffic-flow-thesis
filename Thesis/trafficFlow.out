@@ -26,13 +26,15 @@
 \BOOKMARK [3][-]{subsubsection.7.1.1}{Experiment 1}{subsection.7.1}% 26
 \BOOKMARK [1][-]{section.8}{Optimization}{}% 27
 \BOOKMARK [2][-]{subsection.8.1}{Modelling traffic lights}{section.8}% 28
-\BOOKMARK [1][-]{section.9}{Additional Notes - still to be included}{}% 29
-\BOOKMARK [2][-]{subsection.9.1}{Setting}{section.9}% 30
-\BOOKMARK [3][-]{subsubsection.9.1.1}{Scalar conservation law}{subsection.9.1}% 31
-\BOOKMARK [2][-]{subsection.9.2}{Networks}{section.9}% 32
-\BOOKMARK [3][-]{subsubsection.9.2.1}{Traffic flow on networks}{subsection.9.2}% 33
-\BOOKMARK [3][-]{subsubsection.9.2.2}{The Riemann problem on networks}{subsection.9.2}% 34
-\BOOKMARK [2][-]{subsection.9.3}{Models}{section.9}% 35
-\BOOKMARK [3][-]{subsubsection.9.3.1}{Single buffer junction model \(SBJ\)}{subsection.9.3}% 36
-\BOOKMARK [3][-]{subsubsection.9.3.2}{Simulation: preliminaries}{subsection.9.3}% 37
-\BOOKMARK [3][-]{subsubsection.9.3.3}{Example: 2-2 junction}{subsection.9.3}% 38
+\BOOKMARK [3][-]{subsubsection.8.1.1}{First approach}{subsection.8.1}% 29
+\BOOKMARK [3][-]{subsubsection.8.1.2}{Flux optimization by partial outer convexification}{subsection.8.1}% 30
+\BOOKMARK [1][-]{section.9}{Additional Notes - still to be included}{}% 31
+\BOOKMARK [2][-]{subsection.9.1}{Setting}{section.9}% 32
+\BOOKMARK [3][-]{subsubsection.9.1.1}{Scalar conservation law}{subsection.9.1}% 33
+\BOOKMARK [2][-]{subsection.9.2}{Networks}{section.9}% 34
+\BOOKMARK [3][-]{subsubsection.9.2.1}{Traffic flow on networks}{subsection.9.2}% 35
+\BOOKMARK [3][-]{subsubsection.9.2.2}{The Riemann problem on networks}{subsection.9.2}% 36
+\BOOKMARK [2][-]{subsection.9.3}{Models}{section.9}% 37
+\BOOKMARK [3][-]{subsubsection.9.3.1}{Single buffer junction model \(SBJ\)}{subsection.9.3}% 38
+\BOOKMARK [3][-]{subsubsection.9.3.2}{Simulation: preliminaries}{subsection.9.3}% 39
+\BOOKMARK [3][-]{subsubsection.9.3.3}{Example: 2-2 junction}{subsection.9.3}% 40

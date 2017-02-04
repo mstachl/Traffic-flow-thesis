@@ -1,0 +1,17 @@
+\begin{thebibliography}{1}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Colombo et~al.(2011)Colombo, Goatin, and Rosini]{colombo2011}
+Rinaldo~M. Colombo, Paola Goatin, and Massimiliano~D. Rosini.
+\newblock On the modelling and management of traffic.
+\newblock \emph{ESAIM: Mathematical Modelling and Numerical Analysis},
+  45\penalty0 (5):\penalty0 853--872, 009 2011.
+\newblock \doi{10.1051/m2an/2010105}.
+\newblock URL
+  \url{https://www.cambridge.org/core/article/div-class-title-on-the-modelling-and-management-of-traffic-div/17E9462EB0955E24546EFEA3A5D3F946}.
+
+\end{thebibliography}

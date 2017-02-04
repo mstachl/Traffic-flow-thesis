@@ -1,4 +1,4 @@
-\begin{thebibliography}{7}
+\begin{thebibliography}{8}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -58,5 +58,11 @@ Randall~J. LeVeque.
 \newblock ISBN 0817627235.
 \newblock URL
   \url{http://www.loc.gov/catdir/enhancements/fy0812/92003400-d.html}.
+
+\bibitem[{S. G{\"O}TTLICH ,A. POTSCHKA, AND U. ZIEGLER}(2014)]{gottlich2014}
+{S. G{\"O}TTLICH ,A. POTSCHKA, AND U. ZIEGLER}.
+\newblock Partial outer convexification fortraffic light optimization in road
+  networks.
+\newblock \emph{AMS}, 2014.
 
 \end{thebibliography}

@@ -1,0 +1,95 @@
+\documentclass[11pt, oneside]{article}
+
+%\usepackage{ngerman}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+%\usepackage{psfig}
+\usepackage{graphicx}
+\usepackage[latin1]{inputenc}
+\usepackage{abschlussarbeit}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage{mathtools}
+\usepackage{dsfont}
+\usepackage{ulem}
+\usepackage{color}
+\usepackage{natbib}
+
+%\usepackage[T1]{fontenc}
+%\usepackage[english]{babel}
+%\usepackage[ngerman]{babel}
+%\usepackage{lmodern}
+%\usepackage{pict2e}
+%\usepackage{amsmath, amssymb, amstext, amsfonts, mathrsfs}
+%\usepackage[squaren]{SIunits}
+%\usepackage[latin1]{inputenc}
+%\usepackage[ngerman]{babel}
+%\usepackage{pict2e}
+%\usepackage{graphicx}
+%\usepackage{xcolor}
+%\usepackage{amssymb}
+%\usepackage{amstext}
+%\usepackage{amsmath}
+%\usepackage{txfonts}
+%\usepackage{amsfonts}
+%\usepackage{mathrsfs}
+%\usepackage{fancybox}
+%\usepackage{framed}
+%\usepackage{hyperref}
+%\usepackage{dsfont}
+\bibliographystyle{abbrv}
+
+\pagestyle{headings}
+\bibliographystyle{plainnat}
+
+
+
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Satz}{Satz}[section]
+%% Ein sog. "Theorem" mit Abkuerzung "Satz" (das erste "Satz")
+%% Das zweite "Satz" bezeichnet den Namen des Theorems. (z.B. "Satz x.y" erscheint im TeX-File).
+%% [chapter] regelt die Numerierung der Saetze, in diesem Fall werden die Saetze pro Kapitel fortlaufend numeriert.
+%
+\newtheorem{Korollar}[Satz]{Korollar}
+%% Hier haben wir ein "Theorem" mit Abkuerzung "Korollar", welches im Tex-File als "Korollar" erscheint und in die "Theorem"-Nummerierung
+%% fortlaufend eingebunden wird (das "[Theorem]" bewirkt dies).
+%\newtheorem{Proposition}[Satz]{Proposition}
+%% Abkuerzung ist "Proposition", Name ist "Proposition", wird in "Theorem"-Nummerierung eingebunden.
+%%Lemma, ebenfalls in "Theorem"-Nummerierung eingebunden
+%\newtheorem{Lemma}[Satz]{Lemma}
+%%Definition, ebenfalls in "Theorem"-Nummerierung eingebunden
+\newtheorem{Definition}[Satz]{Definition}
+%%Beispiel, ohne Nummerierung
+%\newtheorem{Beispiel}{Beispiel}
+\newtheorem{Example}{Example}
+%%Annahme, nach Kapiteln nummeriert
+%\newtheorem{Annahme}{Annahme}[chapter]
+%% Labelnummerierung in 'roemisch'.
+%\renewcommand{\labelenumi}{(\roman{enumi})}
+\newtheorem{Remark}{Remark}
+
+%% enumerate equations by section, i.e. 5.6 for 6th eq. in section 5
+\numberwithin{equation}{section}
+
+\begin{document}
+\tableofcontents
+\newpage	
+\section{Introduction}
+Analyzing traffic flow has been an interdisciplinary research field of both mathematicians and civil engineers since the early 1950s. Over time different approaches for modelling traffic have been introduced and applied in extensive studies.
+\begin{itemize}
+	\item  On the \textbf{microscopic} scale every vehicle is considered as an individual agent whose dynamics are determined by the solution of an ordinary differential equation (ODE). The interaction between neighboring vehicles are usually based on simple equations and determine the behaviour of the collective. The most famous models of this approach are those of the \textit{follow-the-leader} kind \citep{Pipes.1953}. In those models the entire behaviour of the collective cars is fully determined by the one of the first car, namely the leader. Microscopic models can not only illustrate collective phenomena like traffic jams, but it can also be shown that under certain conditions the microscopic solution converges to the macroscopic solution as the number of vehicles approaches infinity \citep{E.Cristiani.}.
+	\item \textbf{Mesoscopic} - or kinetic - models analyze transportation elements in small homogenous groups, where the probability of each group to be at time $t$ at location $x$ with velocity $v$ can be described by a function $f(t,x,v)$. This modelling approach requires the use of methods from statistical mechanics.
+	\item \textbf{Macroscopic} models utilize the similarities of traffic flow and fluid dynamics. In those models the change of averaged quantities, like density, velocity etc., is described by means of partial differential equations (PDE). The oldest representative of macroscopic modelling are the LWR-models \citep{Richards.1956}, named after their inventors M. J. Lighthill, G. B. Whitham and P. I. Richards. Others include the Aw-Rascle model and the Payne-Whitham approach \citep{Aw.2000,Payne.1971}. For the rest of this thesis, this is the modelling approach of choice.
+\end{itemize}
+
+\newpage
+\section{Abbreviations}
+\begin{tabular}{ll}
+ODE & ordinary differential equation \\
+PDE & partial differential equation
+\end{tabular}
+\newpage
+
+\bibliography{litII}
+\end{document}

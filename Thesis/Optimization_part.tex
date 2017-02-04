@@ -1,0 +1,192 @@
+\documentclass[11pt, oneside]{article}
+
+%\usepackage{ngerman}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+%\usepackage{psfig}
+\usepackage{graphicx}
+\usepackage[latin1]{inputenc}
+\usepackage{abschlussarbeit}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage{mathtools}
+\usepackage{dsfont}
+\usepackage{ulem}
+\usepackage{color}
+\usepackage{natbib}
+
+%\usepackage[T1]{fontenc}
+%\usepackage[english]{babel}
+%\usepackage[ngerman]{babel}
+%\usepackage{lmodern}
+%\usepackage{pict2e}
+%\usepackage{amsmath, amssymb, amstext, amsfonts, mathrsfs}
+%\usepackage[squaren]{SIunits}
+%\usepackage[latin1]{inputenc}
+%\usepackage[ngerman]{babel}
+%\usepackage{pict2e}
+%\usepackage{graphicx}
+%\usepackage{xcolor}
+%\usepackage{amssymb}
+%\usepackage{amstext}
+%\usepackage{amsmath}
+%\usepackage{txfonts}
+%\usepackage{amsfonts}
+%\usepackage{mathrsfs}
+%\usepackage{fancybox}
+%\usepackage{framed}
+%\usepackage{hyperref}
+%\usepackage{dsfont}
+
+
+\pagestyle{headings}
+\bibliographystyle{plainnat}
+
+
+
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Satz}{Satz}[section]
+%% Ein sog. "Theorem" mit Abkuerzung "Satz" (das erste "Satz")
+%% Das zweite "Satz" bezeichnet den Namen des Theorems. (z.B. "Satz x.y" erscheint im TeX-File).
+%% [chapter] regelt die Numerierung der Saetze, in diesem Fall werden die Saetze pro Kapitel fortlaufend numeriert.
+%
+\newtheorem{Korollar}[Satz]{Korollar}
+%% Hier haben wir ein "Theorem" mit Abkuerzung "Korollar", welches im Tex-File als "Korollar" erscheint und in die "Theorem"-Nummerierung
+%% fortlaufend eingebunden wird (das "[Theorem]" bewirkt dies).
+%\newtheorem{Proposition}[Satz]{Proposition}
+%% Abkuerzung ist "Proposition", Name ist "Proposition", wird in "Theorem"-Nummerierung eingebunden.
+%%Lemma, ebenfalls in "Theorem"-Nummerierung eingebunden
+%\newtheorem{Lemma}[Satz]{Lemma}
+%%Definition, ebenfalls in "Theorem"-Nummerierung eingebunden
+\newtheorem{Definition}[Satz]{Definition}
+%%Beispiel, ohne Nummerierung
+%\newtheorem{Beispiel}{Beispiel}
+\newtheorem{Example}{Example}
+%%Annahme, nach Kapiteln nummeriert
+%\newtheorem{Annahme}{Annahme}[chapter]
+%% Labelnummerierung in 'roemisch'.
+%\renewcommand{\labelenumi}{(\roman{enumi})}
+\newtheorem{Remark}{Remark}
+
+%% enumerate equations by section, i.e. 5.6 for 6th eq. in section 5
+\numberwithin{equation}{section}
+
+\begin{document}
+\tableofcontents
+\newpage
+\section{Traffic light optimization}
+For a given network the goal is to "optimize" the flow on every single road and through their intersections. The considered objective function - or also referred to as \textit{cost functionals} - can hereby vary depending on the goals of the simulation and the specific definition of the targeted problem. Typical cost functionals are introduced in the following.\newline
+\newline
+\underline{\textbf{a) Mean travel time}}
+\newline \newline
+From driver's point of view, the key quantity to determine the quality - and therefore the optimal value - of traffic is related to the time needed to reach the desired location. Taking into account the sum of every personal preference hence leads to the definition of the mean arrival time or \textbf{mean travel time} (cf. \cite{colombo2011}). \newline 
+W.l.o.g. let $x=0$ be a point on the network. Then the mean travel time needed to read point $x=\bar{x}>0$ can be described by
+
+\begin{equation*}
+	T(\bar{x}):=\frac{1}{Q_{in}}\int_{t_0}^{t_{end}}tf(\rho(\bar{x},t) dt
+\end{equation*}
+where $Q_{in}=\int_{t_0}^{t_{end}}q_0(t)dt$ is the acumulated influx $q_0(t)$ into point $x=0$ on a compact time interval $\left[t_0,t_{end}\right]$.
+\newline
+\newline
+\underline{\textbf{Remarks:}}
+\begin{itemize}
+\item This approach expects compactly supported inflow into $x=0$.
+\item On complex networks drivers can have distinct preference of their respective arrival points and favoured routes. This means that cars, despite also crossing the point $x=0$, might never reach the reference point $x=\bar{x}$, which complicates the computation of the average travel time between two points on a network.
+\end{itemize}
+\vspace{.3cm}
+\underline{\textbf{b) Cumulative traffic flux}}
+\newline \newline
+From the traffic planner's perspective a more relevant quantity might be the overall flux on the entire network. Therefore the desired goal is to maximize the total number of cars travelling through the network over a certain time interval. \newline
+Let us denote by $\bar{f}$ and $\hat{f}$ incoming fluxes into and outgoing fluxes out of junctions, respectively. Then we can formulate the \textbf{cumulated traffic flux} on the network during time $t=\left[t_0,t_{end}\right]$ as
+\begin{eqnarray}
+	F_T:= \\&&\sum_{i\in\mathcal{E}}\int_0^T\int_{a_i}^{b_i} f(\rho_i(x,t))dxdt +\sum_{i\in\mathcal{E}\setminus\mathcal{E}^{out}}\int_0^T\bar{f}_i(t)dt  +\sum_{j\in\mathcal{E}\setminus\mathcal{E}^{in}}\int_0^T\hat{f}_j(t) dt \nonumber
+\end{eqnarray}
+where $\bar{f}$ and $\hat{f}$ are as defined as \textcolor{red}{ADD ref to fluxes} in the buffer model.\newline\newline
+\underline{\textbf{Remark:}} \newline
+During the following optimization studies the cumulative traffic flux is the cost functional of choice.
+
+\subsection{Traffic light coordination}
+Optimally tuned traffic lights settings provide a setting where drivers encounter a green wave, in particular a sequence of consecutive green lights. The distinction between synchronized and coordinated traffic lights is important. Synchronized traffic signals all switch at the same time and are hardly used in pratice. On the other hand coordinated signals are controlled by a master controller are set up such that they progress (switch) in sequence in order to generate a green wave for crossing vehicles. \textcolor{red}{ADD weiter ausführen}
+\newline
+\newline
+
+\subsubsection{The model}
+Consider a sequence of two intersections with two incoming and one outgoing road (cf. figure \label{fig: delaynetwork}\textcolor{red}{ADD figure of network}) with inflows $q_0(t)$ and $q_k(t)$ for $e_k\in\mathcal{E}^{in}\setminus\left\lbrace e_0\right\rbrace$. Then we can refine the conservation law of \ref{conslaw} to
+\begin{subequations}
+\label{delaymodel}
+\begin{eqnarray}
+	(\rho_k)_t+f(\rho_k)_x&=&0  \hspace{0.5cm}\forall e_k\in\mathcal{E}\\
+	f(\rho_k(b_k,t))&=&\bar{f_k}(t)\eta_k(t) \hspace{0.5cm}\forall e_k\in\mathcal{E}\setminus\mathcal{E}^{out}	\\
+	f(\rho_k(a_k,t))&=&\hat{f_k}(t,\eta) \hspace{0.5cm}\forall e_k\in\mathcal{E}\setminus\mathcal{E}^{in}
+\end{eqnarray}
+where the junction fluxes $\bar{f}$ and $\hat{f}$  are given as in \textcolor{red}{ADD ref} and $\eta=(\eta_0,\eta_1...)\in\left[0,1\right]^{|\mathcal{E}\setminus\mathcal{E}^{out}|}$ is the vector containing all control values. 
+\end{subequations}
+\newline
+\newline
+Impose now that the two traffic lights $\eta_0, \eta_2$ have the same fixed frequency of red/green light - say one time unit -, only set apart by a delay $\tau$, and recall property \textcolor{red}{ADD property  $\sum\eta = 1$}. Then
+\begin{eqnarray*}
+	\eta_0(t)&=&\chi_{\left[0,1\right]\cap\left[2,3\right]\cap\dots}=:\eta(t) \\
+	\eta_1(t)&=&1-\eta(t) \\
+	\eta_2(t)&=&\eta(t-\tau) \\
+	\eta_3(t)&=&1-\eta(t-\tau)
+\end{eqnarray*}
+The goal now is no find the optimal delay $\tau$ to obtain the best value for $F_T$. In particular, the optimization problem can be formulated as
+\begin{eqnarray*}
+	\tau^*:= &&\text{arg}\max_{\tau\in\mathbb{R}} \sum_{i\in\mathcal{E}}\int_0^T\int_{a_i}^{b_i} f(\rho_i(x,t))dxdt +\sum_{i\in\mathcal{E}\setminus\mathcal{E}^{out}}\int_0^T\bar{f}_i(t)\cdot \eta_i(t)dt  \\ &+&\sum_{j\in\mathcal{E}\setminus\mathcal{E}^{in}}\int_0^T\hat{f}_j(t,\eta) dt
+\end{eqnarray*}
+\subsubsection{Example}
+\label{delay_example}
+Consider the same network as provided in \ref{fig: delaynetwork}. Consider constant initial densities $\rho_k(x,0)=0.2, k=0...4$ and constant external influxes $q_0(t)=0.5, q_k(t)=0.2, k=1,3$ on $t\in\left[0s,200s\right]$. The fixed green/red phase duration is set to 60s. Then the evaluation of our cost functional with respect to the delay $\tau\in\left[0,60\right]$ leads to an optimal delay of $\tau^*=31s$ with a optimal cumulated traffix flux $F_T(\eta)\sim 83174.7$.
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.6]{delay_plot}
+\caption{Dependency of the cumulated traffix flux on the value for the delay. Obviously the objective function attains its maximum at $\tau^*\sim 83174.7$.}
+\end{figure}
+\newline
+\textbf{TODO:} 
+\begin{itemize}
+\item Discussion
+\item add sequence of plots of road densities and/or $\eta$
+\end{itemize}
+
+\subsection{Optimization via Model Predictive Control}
+\subsubsection{Theory}
+TODO:
+\subsubsection{Examples}
+a) single junction: two incoming, one outgoing road \newline
+\begin{tabular}{llll}
+$n_p$ & $n_c$ & $F_T$ & computation time $[s]$ \\
+\hline \hline
+1 & 1 & 21541.159 & 24 \\
+2 & 1 & 21535.535 & 36 \\
+10 & 1 & 21539.150 & 903 \\
+10 & 10 & 22046.865 & 236
+\end{tabular}
+\newline
+optimal control value $\eta_0$ \newline 
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.5]{controls_10-10}
+\caption{evolution of the control $\eta_0$ over time. it starts only at t=100s because the network is initially empty and therefore the controls stay at the initial value until the first cars reach the junction. controls change with high frequency until they level out eventually at around 0.5}
+\end{figure}
+\newline
+\newpage
+b) network with 2 junctions - same as \ref{delay_example} \newline \newline
+same input values as in \ref{delay_example} \newline
+\begin{tabular}{llll}
+$n_p$ & $n_c$ & $F_T$ & computation time $[s]$ \\
+\hline \hline
+10 & 10 & 89723.626 & 518.85
+\end{tabular}
+\newline \newline
+
+comparing this to the optimal delay value in \ref{delay_example}: $F_T(\tau^*) \sim 83174.7$
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.7]{control_1_plot_2}
+\caption{abb}
+\end{figure}
+\newpage
+\bibliography{litII}
+\end{document}

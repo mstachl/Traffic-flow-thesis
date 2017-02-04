@@ -1,0 +1,4 @@
+time: 1835
+
+getOverallFlux(totalflux)
+Out[42]: 67335.15758669957

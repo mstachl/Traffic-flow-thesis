@@ -123,7 +123,7 @@ def getOutgoingFluxes(maxOut,incomingFluxes,junction):
     
 def updateBuffer(junction,incomingFluxes,outgoingFluxes):
     #todo: for multiple junctions there are multiple bufferArrays
-    global bufferArray,dt
+    global dt
     TM = junction["matrix"]
     Buffer = junction["Buffer"]
     newBuffer = []
@@ -293,7 +293,7 @@ def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, mode="SB
     RhoPlot = R
     XPlot = initX
     
-    #doAnimation()
+    doAnimation("test")
     return _t,R,initX,junctions
 
 def solveNetworkWithDelay(tend,network,_c,_M,initX,initRho,ext_inflow,tau, mode="SB"):
@@ -335,7 +335,10 @@ def solveNetworkWithDelay(tend,network,_c,_M,initX,initRho,ext_inflow,tau, mode=
         columnSum = np.sum(network,axis=0)
         for i in range(roads):
             if rowSum[i]==0: #has external influx
-                flows[i].insert(0,f(ext_inflow[i]))
+                if t<tend_input:
+                    flows[i].insert(0,f(ext_inflow[i]))
+                else:
+                    flows[i].insert(0,0)
             elif columnSum[i]==0: #has external outflow
                 #flows[i].append(f(ext_outflow[i]))
                 flows[i].append(flows[i][-1])
@@ -346,17 +349,19 @@ def solveNetworkWithDelay(tend,network,_c,_M,initX,initRho,ext_inflow,tau, mode=
     #update global var for animation
     RhoPlot = R
     XPlot = initX
-    traveltime = computeTravelTime(0,3,tend,R)
+    traveltime = computeTravelTime(0,2,tend,R)
+
     return _t,R,initX,junctions, traveltime
 
 def getJunctionFluxesWithDelay(rho_in,rho_out,junction,tao,t,mode="SB"):
     global switchingTimes, switchingValues
     #TODO: adjust computation of TM for multiple outgoing roads
     TM = junction["matrix"]
-    for i in range(len(TM)):
-        TM[i][0]=switchingValues[findIndex(switchingTimes,t-tao)]
-        TM[i][1]=(1-switchingValues[findIndex(switchingTimes,t-tao)])
-    junction["matrix"]=TM
+    #for i in range(len(TM)):
+      #  TM[i][0]=switchingValues[findIndex(switchingTimes,t-tao)]
+       # TM[i][1]=(1-switchingValues[findIndex(switchingTimes,t-tao)])
+    eta = [switchingValues[findIndex(switchingTimes,t-tao)],1-switchingValues[findIndex(switchingTimes,t-tao)]]
+    #eta = [0.,1.]
     roadsin = len(TM[0])
     roadsout = len(TM)
     maxinflow = [0 for s in range(roadsin)]
@@ -368,8 +373,12 @@ def getJunctionFluxesWithDelay(rho_in,rho_out,junction,tao,t,mode="SB"):
         maxoutflow[j]=getMaxOutflux(f,rho_out[j])
     if(mode=="SB"):
         incomingFluxes = getIncomingFluxesSB(maxinflow,junction)
+        for i in range(len(incomingFluxes)):
+            incomingFluxes[i]=incomingFluxes[i]*eta[i]
     elif(mode=="MB"):
         incomingFluxes = getIncomingFluxesMB(maxinflow,junction)
+        for i in range(len(incomingFluxes)):
+            incomingFluxes[i]=incomingFluxes[i]*eta[i]
     outgoingFluxes = getOutgoingFluxes(maxoutflow,incomingFluxes,junction)
     
     return incomingFluxes, outgoingFluxes
@@ -421,11 +430,14 @@ def findIndex(switchingTimes,currentTime):
 def plot2D(x,rho):
 
     f,ax = plt.subplots(len(rho))
+    plt.tight_layout()
     plt.xlabel('x')
     plt.ylabel('\rho')
     #plt.ylim([0,0.8])
     for i in range(len(rho)):
         ax[i].plot(x[i][:-1],np.array(rho[i][-1][:-1]))  
+        ax[i].set_ylabel(r'$\rho$')
+        ax[i].set_yticks([0.0,0.25,0.5,0.75])
         
 def plotBuffers(t,junctions):
     fig = plt.figure()
@@ -464,7 +476,7 @@ def plotTotalDensity(t,rho):
 def animate(i):
     global RhoPlot,XPlot,line,fig,ax
     ax.clear()    
-    ax.plot(XPlot[0],RhoPlot[0][i])
+    ax.plot(XPlot[1],RhoPlot[1][i])
     return line,
 
 def initAnim():
@@ -473,12 +485,14 @@ def initAnim():
     return line,
 
 
-def doAnimation():
+def doAnimation(filename="test_animation"):
     global RhoPlot,XPlot,fig,ax,line,tend,dt
     frames = int(tend/dt)
+    filenamefull = filename+".mp4"
+    print filenamefull
     anim = animation.FuncAnimation(fig, animate, frames=frames,
                               blit=True, init_func=initAnim)
-    anim.save('test_animation.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
+    anim.save(filenamefull, fps=30, extra_args=['-vcodec', 'libx264'])
     plt.show()
 
 def doAnimationNew():
@@ -512,15 +526,17 @@ def simu(network,_c,_M,_vmax,_rhomax,_sigma,_ext_in,_dt,_dx,_tend,_X,_Rho,mode="
     for i in range(len(X)):
         X[i],Densities[i] = init(_X[i],_Rho[i],dx)
     
-    tauValues = np.arange(0.5,10.,0.5)  
+    tauValues = np.arange(2,30.,2)  
     traveltimes = []
     for tau in tauValues:
         time,R,XX,junctions, traveltime = solveNetworkWithDelay(tend,network,c,M,X,Densities,ext_in,[0,tau],mode)
         traveltimes.append((tau,traveltime))       
-    print traveltimes
+    #print traveltimes
     plot2D(XX,R)
     plotBuffers(time,junctions)
     plotTotalDensity(time,R)
+    #doAnimation("test2")
+    print traveltimes
     
 #global variables   
 fig = plt.figure()
@@ -534,28 +550,31 @@ sigma=.5
 initIn = .5
 initOut = 0.5
 dt=.5
-tend = 360
+tend = 500
+tend_input = 200
 t = np.arange(0,tend,dt)
-dx=1.       
+dx=.5    
 #M=[0.5]
 M=[[0.5,0.5],[0.5,0.5]]
 c=[[1.,1.],[1.,1.]]
-switchingTimes = np.arange(0,tend,20)
-myIterator = cycle([0.9,0.1])
-switchingValues = [0.1]+[myIterator.next() for i in range(len(switchingTimes))]
+switchingTimes = np.arange(0,tend,50)
+myIterator = cycle([0.95,0.05])
+switchingValues = [0.05]+[myIterator.next() for i in range(len(switchingTimes))]
 
 #R=test22(100)
 
 #maybe include following in global init function
-
-
+#_X = [[0,100],[0,100],[100,160]]
+#_Rho = [[0.],[0.],[0.]]
+#network = np.array([[0,0,0],[0,0,0],[1.,1.,0]])
+#ext_in = [0.2,0.2,0.]
 _X = [[0,100],[0,100],[100,160],[160,260],[260,300]]
-_Rho = [[0.5],[0.3],[0.5],[0.3],[0.5]]
+_Rho = [[0.],[0.],[0.],[0.],[0.]]
 #X[4],Densities[4] = init([160,220],[0.5],dx)
-
+#
 network = np.array([[0,0,0,0,0],[0,0,0,0,0],[1.,1.,0,0,0],[0,0,0,0,0],[0,0,1.,1.,0]]) 
-
-ext_in = [0.5,0.3,0,0.3,0]
+#
+ext_in = [0.4,0.3,0,0.3,0]
 
 #ext_in5 = [0.5,0.5,0,0,0]
 #ext_out5 = [0,0,0.5,0,0.5]

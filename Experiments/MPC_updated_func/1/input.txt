@@ -1,0 +1,11 @@
+###gamma: ||\dot eta||
+###eps: W
+
+##big network
+
+gamma=10
+eps =1
+
+n_p=n_c=10
+
+tend =200
