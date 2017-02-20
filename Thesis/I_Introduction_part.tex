@@ -1,95 +1,65 @@
-\documentclass[11pt, oneside]{article}
-
-%\usepackage{ngerman}
-\usepackage{latexsym}
-\usepackage{amssymb}
-\usepackage{mathrsfs}
-%\usepackage{psfig}
-\usepackage{graphicx}
-\usepackage[latin1]{inputenc}
-\usepackage{abschlussarbeit}
-\usepackage{hyperref}
-\usepackage{verbatim}
-\usepackage{mathtools}
-\usepackage{dsfont}
-\usepackage{ulem}
-\usepackage{color}
-\usepackage{natbib}
-
-%\usepackage[T1]{fontenc}
-%\usepackage[english]{babel}
-%\usepackage[ngerman]{babel}
-%\usepackage{lmodern}
-%\usepackage{pict2e}
-%\usepackage{amsmath, amssymb, amstext, amsfonts, mathrsfs}
-%\usepackage[squaren]{SIunits}
-%\usepackage[latin1]{inputenc}
-%\usepackage[ngerman]{babel}
-%\usepackage{pict2e}
-%\usepackage{graphicx}
-%\usepackage{xcolor}
-%\usepackage{amssymb}
-%\usepackage{amstext}
-%\usepackage{amsmath}
-%\usepackage{txfonts}
-%\usepackage{amsfonts}
-%\usepackage{mathrsfs}
-%\usepackage{fancybox}
-%\usepackage{framed}
-%\usepackage{hyperref}
-%\usepackage{dsfont}
-\bibliographystyle{abbrv}
-
-\pagestyle{headings}
-\bibliographystyle{plainnat}
-
-
-
-\newtheorem{Theorem}{Theorem}[section]
-\newtheorem{Satz}{Satz}[section]
-%% Ein sog. "Theorem" mit Abkuerzung "Satz" (das erste "Satz")
-%% Das zweite "Satz" bezeichnet den Namen des Theorems. (z.B. "Satz x.y" erscheint im TeX-File).
-%% [chapter] regelt die Numerierung der Saetze, in diesem Fall werden die Saetze pro Kapitel fortlaufend numeriert.
-%
-\newtheorem{Korollar}[Satz]{Korollar}
-%% Hier haben wir ein "Theorem" mit Abkuerzung "Korollar", welches im Tex-File als "Korollar" erscheint und in die "Theorem"-Nummerierung
-%% fortlaufend eingebunden wird (das "[Theorem]" bewirkt dies).
-%\newtheorem{Proposition}[Satz]{Proposition}
-%% Abkuerzung ist "Proposition", Name ist "Proposition", wird in "Theorem"-Nummerierung eingebunden.
-%%Lemma, ebenfalls in "Theorem"-Nummerierung eingebunden
-%\newtheorem{Lemma}[Satz]{Lemma}
-%%Definition, ebenfalls in "Theorem"-Nummerierung eingebunden
-\newtheorem{Definition}[Satz]{Definition}
-%%Beispiel, ohne Nummerierung
-%\newtheorem{Beispiel}{Beispiel}
-\newtheorem{Example}{Example}
-%%Annahme, nach Kapiteln nummeriert
-%\newtheorem{Annahme}{Annahme}[chapter]
-%% Labelnummerierung in 'roemisch'.
-%\renewcommand{\labelenumi}{(\roman{enumi})}
-\newtheorem{Remark}{Remark}
-
-%% enumerate equations by section, i.e. 5.6 for 6th eq. in section 5
-\numberwithin{equation}{section}
-
-\begin{document}
-\tableofcontents
-\newpage	
-\section{Introduction}
+% !TEX root = thesis.tex	
+\chapter{Introduction}
+\section{Motivation}
+The goal of this thesis is...
+\section{Traffic flow modelling}
 Analyzing traffic flow has been an interdisciplinary research field of both mathematicians and civil engineers since the early 1950s. Over time different approaches for modelling traffic have been introduced and applied in extensive studies.
 \begin{itemize}
 	\item  On the \textbf{microscopic} scale every vehicle is considered as an individual agent whose dynamics are determined by the solution of an ordinary differential equation (ODE). The interaction between neighboring vehicles are usually based on simple equations and determine the behaviour of the collective. The most famous models of this approach are those of the \textit{follow-the-leader} kind \citep{Pipes.1953}. In those models the entire behaviour of the collective cars is fully determined by the one of the first car, namely the leader. Microscopic models can not only illustrate collective phenomena like traffic jams, but it can also be shown that under certain conditions the microscopic solution converges to the macroscopic solution as the number of vehicles approaches infinity \citep{E.Cristiani.}.
 	\item \textbf{Mesoscopic} - or kinetic - models analyze transportation elements in small homogenous groups, where the probability of each group to be at time $t$ at location $x$ with velocity $v$ can be described by a function $f(t,x,v)$. This modelling approach requires the use of methods from statistical mechanics.
 	\item \textbf{Macroscopic} models utilize the similarities of traffic flow and fluid dynamics. In those models the change of averaged quantities, like density, velocity etc., is described by means of partial differential equations (PDE). The oldest representative of macroscopic modelling are the LWR-models \citep{Richards.1956}, named after their inventors M. J. Lighthill, G. B. Whitham and P. I. Richards. Others include the Aw-Rascle model and the Payne-Whitham approach \citep{Aw.2000,Payne.1971}. For the rest of this thesis, this is the modelling approach of choice.
 \end{itemize}
-
+In macroscopic models the target is to analyze the change of measurable quantities. A typical quantity used in the analysis of traffic flow, analogous to fluid dynamics, is the density of mass. Let us denote the traffic density on a space interval $\left[x_1,x_2\right]$ at some time $t\in\mathbb{R}$ as $\rho(x,t)$, then we can write the total mass on this interval as 
+\begin{equation}
+	 \text{amount of cars }=\int_{x_1}^{x_2}\rho(x,t)dx
+\end{equation}
+For conserved quantities no mass is neither destroyed nor created. Therefore the mass on an interval can only change by inflowing and outflowing quantities. The quantity mass crossing the point $x$ at a time $t$ is given by the \textbf{traffic flux} $f:[0,\rho_{max}]\rightarrow[0,f^{max}]$. \newline 
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.4]{char_flux_upd}
+\caption{Typical shape of the fundamental diagram of traffic flow}
+\end{figure}
+\newline
+The traffic flux, or also referred to as \textit{fundamental diagram}, is typically assumed to follow the rule
+\begin{equation*}
+f'(\rho)\left(\sigma-\rho\right)>0
+\end{equation*}
+where 
+\begin{equation*}
+\sigma := \text{arg}\max_\rho f(\rho)
+\end{equation*}
+denotes the density where the maximum flux \begin{equation*}
+f^{max} :=  f(\sigma)
+\end{equation*}
+is attained. \newline
+Since the total mass on the global space interval is preserved, the rate of change of the mass on the interval $\left[x_1,x_2\right]$ is defined by the difference of the in- and outfluxes of the interval, e.g. \begin{eqnarray*}
+	\frac{d}{dt}\int_{x_1}^{x_2}\rho(x,t)dx&=&f(\rho(x_1,t))-f(\rho(x_2,t))
+\end{eqnarray*}
+Rewriting this assuming differentiability of both functions $u$ and $f$ and integration over the time interval $\left[t_1,t_2\right]$ leads to:
+\begin{equation}
+\label{eq:integral_form}
+	\int_{t_1}^{t_2}\int_{x_1}^{x_2}\frac{d}{dt}\rho(x,t)\ dx dt=\int_{t_1}^{t_2}\int_{x_1}^{x_2}\frac{d}{dx}\lbrace-f(\rho)\rbrace\ dx dt
+\end{equation}
+Assuming that $f$ is smooth, this leads the differential form of the \textbf{conservation law}:
+\begin{equation}
+\label{eq:conslaw}
+\rho_t+(f(\rho))_x=0
+\end{equation}
+The LWR-model, as it will be the basis for the remaining thesis, assumes that the flux $f(\rho)=\rho(x,t)v(x,t)$ is linearly dependent on the velocity $v(x,t)$ of the wave at point $x$. In particular the flux used for the LWR-model can be written as
+\begin{equation}
+\label{eq:LWRflux}
+f(\rho(x,t))=\rho(x,t)v_{max}\left(1-\frac{\rho(x,t)}{\rho_{max}}\right)
+\end{equation}
+where $u_{max}$ is the maximum density permitted by the road, and $v_{max}$ the maximum velocity obtainable by the wave.\newline
+\newline
+Other approaches like the Greenberg and Payne-Whitham model use highly nonlinear functions for their wave velocities, see \citep{May.1990,Payne.1971}.
+\newline
+\newline
+Extending the conservation law \ref{eq:conslaw} with suitable initial conditions, we can formulate the full \textbf{Lighthill-Whitham-Richards model} as
+\begin{eqnarray}
+\rho_t+\left[v_{max}\rho(1-\frac{\rho}{\rho_{max}})\right]_x&=&0 \hspace{1cm} t>0\\
+\rho(x,0)&=&\rho_0(x) \nonumber
+\end{eqnarray}
+\newline
+The remaining thesis will be structured as follows: In chapter 2 we will extend the given LWR-model on a network of roads in order to be able to analyze urban traffic situations. We will also introduce the concept of buffers to guarantee the existence of unique solutions for the model. In chapter 3 we will discuss the numerical procedures in order to qualitatively simulate traffic flow computationally. Chapter 4 will deal with introduce the concept of traffic lights on the network. We will then propose two different optimization methods to control the light signals in order to maximize the flux on the network. The two approaches consist of a rather brute-force approach and a concept called model predictive control (MPC). The last chapter will then expand the model by the concept of pollution.
 \newpage
-\section{Abbreviations}
-\begin{tabular}{ll}
-ODE & ordinary differential equation \\
-PDE & partial differential equation
-\end{tabular}
-\newpage
-
-\bibliography{litII}
-\end{document}

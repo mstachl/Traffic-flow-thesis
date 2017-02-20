@@ -40,6 +40,8 @@
 %\usepackage{dsfont}
 
 
+\bibliographystyle{abbrv}
+
 \pagestyle{headings}
 \bibliographystyle{plainnat}
 
@@ -211,8 +213,9 @@ For the roads leaving the network we also impose Dirichlet boundary conditions.
 		f(\sigma) & \rho\leq\sigma \\
 		f(\rho) & \rho>\sigma
 	\end{cases}\]
-	This property ensures that Riemann problems on incoming roads are solved by waves with negative speed, and Riemann problems on outgoing roads are solved by waves with positive speed.
-\end{itemize}
+\end{itemize}	
+This property ensures that Riemann problems on incoming roads are solved by waves with negative speed, and Riemann problems on outgoing roads are solved by waves with positive speed.
+
 
 
 \subsection{Junction model}
@@ -486,7 +489,7 @@ s.t. \begin{eqnarray}
 where $||x||_1:\sum_i x_i$ denotes the 1-norm and the $\bar{f}_i$ and $\bar{f}_j$ as defined in \ref{eq:sbj}. The factor $\gamma$ weighs the cost of switching traffic lights. Also incoming and outgoing roads are denoted as in \ref{edges}
 \newline
 \newline
-set of all possible traffic light configurations: $\Omega = \left\lbrace \eta^1,...,\eta^n\right\rbrace$, where $\eta^i\in\left[0,1\right]^{|\mathcal{E}\setminus\mathcal{E}^{out}|}$ and $\eta_j^i\in\left\lbrace 0,1\right\rbrace$ the setting of the j-th road in the i-th configuration
+set of all possible discrete traffic light configurations: $\Omega = \left\lbrace \eta^1,...,\eta^n\right\rbrace$, where $\eta^i\in\left[0,1\right]^{|\mathcal{E}\setminus\mathcal{E}^{out}|}$ and $\eta_j^i\in\left\lbrace 0,1\right\rbrace$ the setting of the j-th road in the i-th configuration
 \newline
 \newline
 \textbf{Discretization:}

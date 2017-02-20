@@ -47,8 +47,8 @@ def godunovFlux(f,rhol,rhor):
     global sigma
     if rhol<= rhor:
         return min([f(rhol),f(rhor)])
-    elif rhol<sigma:
-        return f(rhol)
+#    elif rhol<sigma:
+#        return f(rhol)
     elif rhor<=sigma and rhol>=sigma:
         return f(sigma)
     else:
@@ -129,7 +129,10 @@ def updateBuffer(junction,incomingFluxes,outgoingFluxes):
     newBuffer = []
     for j in range(len(Buffer[-1])):
         temp = np.dot(incomingFluxes,TM[j,:])
-        newBuffer.append(Buffer[-1][j]+dt*(temp-outgoingFluxes[j]))
+        if Buffer[-1][j]+dt*(temp-outgoingFluxes[j])>=0:
+            newBuffer.append(Buffer[-1][j]+dt*(temp-outgoingFluxes[j]))
+        else:
+            newBuffer.append(0)
     junction["Buffer"].append(newBuffer)
 
 def godunovStep(fluxes,rho):
@@ -243,7 +246,7 @@ def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, mode="SB
                 # initRho: (n+m)-dim array consisting of the density at discretization points initX
                 # ext_inflow: (n+m)-dim vector consisting of the external density entering the roads (0 if no influx, e.g. road is exiting from a junction)
                 # mode: "SB" for single buffer junctions, "MB" for multiple buffer junctions    
-    global dt,dx,vmax,rhomax,sigma,c,M,RhoPlot, XPlot
+    global tend_input,dt,dx,vmax,rhomax,sigma,c,M,RhoPlot, XPlot
     _t = np.arange(0,tend+dt,dt)
     roads = len(network)
     junctions = network2junctions(network,_c,_M,mode)
@@ -252,6 +255,7 @@ def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, mode="SB
     flows = [0 for s in range(roads)]
     R = [[s] for s in initRho]
     t=0
+    totalflux=[]
     while t<tend:
         #1 road internal fluxes
         for i in range(roads):
@@ -283,10 +287,14 @@ def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, mode="SB
         columnSum = np.sum(network,axis=0)
         for i in range(roads):
             if rowSum[i]==0: #has external influx
-                flows[i].insert(0,f(ext_inflow[i]))
+                if t<tend_input:
+                    flows[i].insert(0,f(ext_inflow[i]))
+                else: 
+                    flows[i].insert(0,0)
             elif columnSum[i]==0: #has external outflow
                 #flows[i].append(f(ext_outflow[i]))
                 flows[i].append(flows[i][-1])
+        totalflux.append(flows[:])
         #4 godunov step
         for i in range(roads):
             R[i].append(godunovStep(flows[i],R[i][-1]))
@@ -295,10 +303,10 @@ def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, mode="SB
     #update global var for animation
     RhoPlot = R
     XPlot = initX
-    print computeTravelTime(0,3,tend,R)
+    #print computeTravelTime(0,3,tend,R)
     
     #doAnimation()
-    return _t,R,initX,junctions
+    return _t,R,initX,junctions,totalflux
 
 def getJunctionFluxes(rho_in,rho_out,junction,mode="SB"):
     
@@ -335,6 +343,11 @@ def computeTravelTime(roadIndexStart,roadIndexEnd,tend,rho):
     nettoTravelTime =1./totalInflux*travelTime
     return nettoTravelTime
 # plot functions
+
+def getOverallFlux(fluxes):
+    fluxes_on_roads = getTotalFluxesOnNetwork(fluxes)
+    totalFlux = sum([sum(i) for i in fluxes_on_roads])
+    return totalFlux
  
 def plot2D(x,rho):
 
@@ -416,10 +429,21 @@ def simu(network,_c,_M,_vmax,_rhomax,_sigma,_ext_in,_dt,_dx,_tend,_X,_Rho,mode="
     for i in range(len(X)):
         X[i],Densities[i] = init(_X[i],_Rho[i],dx)
         
-    time,R,XX,junctions = solveArbitraryNetworks(tend,network,c,M,X,Densities,ext_in,mode)
+    time,R,XX,junctions,totalflux = solveArbitraryNetworks(tend,network,c,M,X,Densities,ext_in,mode)
     plot2D(XX,R)
     plotBuffers(time,junctions)
     plotTotalDensity(time,R)
+    flux= getOverallFlux(totalflux)    
+    print flux
+    input_data = open("input.txt","w")
+    output_data = open("output.txt","w")
+    input_data.write("X: {}\n Rho: {} network: {}\n external inflow: {}\n input end: {}\n tend:".format(_X,_Rho,network,ext_in,tend_input,tend))
+    #output_data.write("elapsed time: {}\n t: {}\n x: {}\n rho: {}\n fluxes: {}\n controls: {}\n binary controls: {}\n binary fluxes: {}\n feval: {}\n total flux: {}\n binary flux {}".format(elapsedTime,t,x,rho,totalflux,u_vector,u_bin,ff2,feval,flux,flux_from_binary_controls))
+    output_data.write("t: {}\n x: {}\n rho: {}\n fluxes: {}\n total flux: {}".format(t,XX,R,totalflux,flux))
+
+    input_data.close()
+    output_data.close()
+    
     
 #global variables   
 fig = plt.figure()
@@ -433,7 +457,8 @@ sigma=.5
 initIn = .5
 initOut = 0.5
 dt=.5
-tend = 235
+tend = 500
+tend_input = 200
 t = np.arange(0,tend,dt)
 dx=1.       
 #M=[0.5]
@@ -446,13 +471,13 @@ c=[[1.,1.]]
 #maybe include following in global init function
 
 
-_X = [[0,100],[0,100],[100,160],[100,160]]
-_Rho = [[0.],[0.],[0.],[0.]]
+_X = [[0,50],[0,50],[50,150]]
+_Rho = [[0.],[0.],[0.]]
 #X[4],Densities[4] = init([160,220],[0.5],dx)
 
-network = np.array([[0,0,0,0],[0,0,0,0],[0.4, 0.2,0,0], [0.6, 0.8,0,0]]) 
+network = np.array([[0,0,0],[0,0,0],[1,1,0]]) 
 
-ext_in = [0.5,0.5,0,0]
+ext_in = [0.4,0.2,0]
 
 #ext_in5 = [0.5,0.5,0,0,0]
 #ext_out5 = [0,0,0.5,0,0.5]

@@ -1,0 +1,16 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: thesis.aux
+The style file: abbrv.bst
+Illegal, another \bibstyle command---line 21 of file thesis.aux
+ : \bibstyle
+ :          {plainnat}
+I'm skipping whatever remains of this command
+A level-1 auxiliary file: I_Introduction_part.aux
+A level-1 auxiliary file: II_network.aux
+A level-1 auxiliary file: III_numerics.aux
+A level-1 auxiliary file: Optimization_part.aux
+A level-1 auxiliary file: V_Conclusion.aux
+Database file #1: litII.bib
+Warning--I didn't find a database entry for "Strang"
+Warning--empty journal in Bressan-Conservation
+Warning--empty publisher in Richards.1956
+(There was 1 error message)

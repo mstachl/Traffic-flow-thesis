@@ -51,8 +51,8 @@ def godunovFlux(f,rhol,rhor):
     global sigma
     if rhol<= rhor:
         return min([f(rhol),f(rhor)])
-    elif rhol<sigma:
-        return f(rhol)
+#    elif rhol<sigma:
+#        return f(rhol)
     elif rhor<=sigma and rhol>=sigma:
         return f(sigma)
     else:
@@ -255,7 +255,7 @@ def getJunctionFluxesMPC(rho_in,rho_out,u,junction,mode="SB"):
     #print "junction fluxes: ",incomingFluxes,outgoingFluxes
     return incomingFluxes, outgoingFluxes
 
-def dynamicEvolution(rho_init,u,t0):
+def dynamicEvolution(rho_init,u,t0,n_pred):
     global junctions,n_p,n_c,vmax,tend_input,tend,ext_in,rhomax,sigma,c,M,RhoPlot, XPlot, Rho_MPCstep
     roads = len(rho_init)    
     flows = [0 for i in range(roads)]
@@ -276,7 +276,7 @@ def dynamicEvolution(rho_init,u,t0):
     norm_u_dot = 0
     w_eta = 0
     timestep_in_MPC=0
-    while t<=t0+n_p*dt:
+    while t<=t0+n_pred*dt:
         #1 road internal fluxes
         #print timestep_in_MPC,t,n_p
         for i in range(roads):
@@ -292,7 +292,7 @@ def dynamicEvolution(rho_init,u,t0):
             for i in indices_out:
                 rho_out.append(R[i][-1])
             #print column(u,timestep_in_MPC)
-            jfluxes_in,jfluxes_out = getJunctionFluxesMPC(rho_in,rho_out,u[range(sum_of_incoming_roads*timestep_in_MPC,sum_of_incoming_roads*(timestep_in_MPC+1))],junctions[junc]) 
+            jfluxes_in,jfluxes_out = getJunctionFluxesMPC(rho_in,rho_out,u[sum_of_incoming_roads*timestep_in_MPC:sum_of_incoming_roads*(timestep_in_MPC+1)],junctions[junc]) 
             #updateBuffer(junctions[junc],jfluxes_in,jfluxes_out)        
             Buffer[junc].append(computeBuffer_MPC(junctions[junc],jfluxes_in,jfluxes_out))       
             j=0    
@@ -346,7 +346,7 @@ def dynamicEvolution(rho_init,u,t0):
 
 def MPC_functional(u):
     global gamma, eps,junctions, n_p, n_c, MPC_flows, MPC_buffers, t0, Rho_init,dt,dx,vmax,tend_input, rhomax,sigma,c,M,RhoPlot, XPlot, totalflows
-    Rho,flows,buffers_in_n_p,norm_u_dot,w_eta=dynamicEvolution(Rho_init,u,t0)
+    Rho,flows,buffers_in_n_p,norm_u_dot,w_eta=dynamicEvolution(Rho_init,u,t0,n_p)
     #print w_eta
     val = -getOverallFlux(flows)
     #gamma = 0.
@@ -361,6 +361,7 @@ def MPC_main(_X,_Rho,network):
     _t = np.arange(0,tend+dt,dt) #time for plots
     junctions = network2junctions(network,c,M)
     sum_of_incoming_roads = 0
+    
     for junc in junctions:
         sum_of_incoming_roads+=len(junctions[junc]["in"])
     u_init=sum([[0 for i in range(sum_of_incoming_roads)] for i in range(n_p+1)],[])
@@ -372,26 +373,24 @@ def MPC_main(_X,_Rho,network):
         X[i],Densities[i] = init(_X[i],_Rho[i],dx)
     Rho_init = Densities
     XPlot = X
-    #TODO: needs to be adjusted every time
-    ## u is the control vector of the form [controls at t=0, t=1*dt, ...]
-    #u_init =[]    
-    #u_init.extend(sum([[1,0] for i in range(n_p+1)],[]))
-    print u_init
+    
     Adm = network2Adjescency(network)
     cnts = adjescency2constraint(Adm,n_p)
     bnds = sum_of_incoming_roads*(n_p+1)*[(0,1)]
     bnds = tuple(bnds)
     totalflux=0
     res_fluxes=[]
+    feval = 0
     Rho_sol = [[] for i in range(len(X))] #initialize solution array of length #roads    
     while t0<tend:
-        ##TODO: make setting of bounds and indexing of u and Rho_MPCstep generic
-        ## TODO: update uinit
         res = minimize(MPC_functional,u_init,bounds = bnds,constraints = cnts,method="SLSQP")
-        res_fluxes.extend(MPC_flows)    
+        if t0%50==0:
+            print "current time: {}".format(t0)
+        print res
+        res_fluxes.extend(MPC_flows) 
+        feval+=res.nfev
         updateBuffer_MPC(junctions)
-        totalflux+=getOverallFlux(MPC_flows)        
-        print res        
+        totalflux+=getOverallFlux(MPC_flows)                
         controls_sol.append(res.x[:sum_of_incoming_roads*(n_c+1)])
         Rho_init=[]
         for i in range(len(Rho_MPCstep)): #update initial rho for next MPC step
@@ -404,10 +403,184 @@ def MPC_main(_X,_Rho,network):
         for i in range(len(Rho_MPCstep)):
             Rho_sol[i].extend(Rho_MPCstep[i][:n_c+1])
         RhoPlot = Rho_sol
-    print "Buffer: {}".format(junctions[0]["Buffer"])
-    return _t,X,Rho_sol,controls_sol,res_fluxes
+    #print "Buffer: {}".format(junctions[0]["Buffer"])
+    control_vectors=computeControlVectors(controls_sol,network)
+    return _t,X,Rho_sol,control_vectors,res_fluxes,feval
     #print Rho,X
 
+def MPC_main_new(_X,_Rho,network):
+    global MPC_buffers, MPC_flows, Rho_MPCstep, t0,tend,n_p,n_c,junctions,Rho_init,dt, dx, vmax, tend_input, rhomax, simga, c,M,RhoPlot, XPlot, totalflows
+    _t = np.arange(0,tend+dt,dt) #time for plots
+    junctions = network2junctions(network,c,M)
+    sum_of_incoming_roads = 0
+    
+    for junc in junctions:
+        sum_of_incoming_roads+=len(junctions[junc]["in"])
+    u_init=sum([[0 for i in range(sum_of_incoming_roads)] for i in range(n_p+1)],[])
+    t0=0.
+    Densities = [0 for i in range(len(_Rho))] 
+    X = [0 for i in range(len(_X))]
+    controls_sol = []
+    for i in range(len(X)):
+        X[i],Densities[i] = init(_X[i],_Rho[i],dx)
+    Rho_init = Densities
+    XPlot = X
+    
+    Adm = network2Adjescency(network)
+    cnts = adjescency2constraint(Adm,n_p)
+    bnds = sum_of_incoming_roads*(n_p+1)*[(0,1)]
+    bnds = tuple(bnds)
+    totalflux=0
+    res_fluxes=[]
+    feval = 0
+    Rho_sol = [[] for i in range(len(X))] #initialize solution array of length #roads    
+    while t0<tend:
+        #fluxes,rho,controls=doOptimizationStep(u_init,bnds,cnts,feval,sum_of_incoming_roads,junctions)
+        fluxes,rho,controls,feval=doOptimizationStep_updated(u_init,bnds,cnts,feval,sum_of_incoming_roads,junctions,t0)
+        res_fluxes.extend(fluxes) 
+        totalflux+=getOverallFlux(fluxes)  
+        controls_sol.append(controls)
+        Rho_init=[]
+        for i in range(len(rho)): #update initial rho for next MPC step
+            Rho_init.append(rho[i][n_c+1])
+        #update u_init to the a n_p-extension of the controls at time n_c
+        u_init=[]
+        u_init.extend(sum([controls_sol[-1][-sum_of_incoming_roads:] for i in range(n_p+1)],[]))
+        print u_init
+        t0+=n_c*dt+dt
+        for i in range(len(rho)):
+            Rho_sol[i].extend(rho[i])
+    RhoPlot = Rho_sol
+    #print "Buffer: {}".format(junctions[0]["Buffer"])
+    control_vectors=computeControlVectors(controls_sol,network)
+    return _t,X,Rho_sol,control_vectors,res_fluxes,feval
+    #print Rho,X
+
+def doOptimizationStep(u_init,bnds,cnts,feval,sum_of_incoming_roads,junctions):
+    global MPC_flows,dt,n_c,RhoPlot,Rho_MPCstep,Rho_init
+    res = minimize(MPC_functional,u_init,bounds = bnds,constraints = cnts,method="SLSQP")
+    if t0%50==0:
+        print "current time: {}".format(t0)
+    print res
+    feval+=res.nfev
+    updateBuffer_MPC(junctions)                
+    controls_sol=res.x[:sum_of_incoming_roads*(n_c+1)]
+    Rho_init=[]
+    for i in range(len(rho)): #update initial rho for next MPC step
+        Rho_init.append(rho[i][n_c])
+
+    #update u_init to the a n_p-extension of the controls at time n_c
+    temp = np.array(Rho_MPCstep)
+    Rho_s= temp[:,:n_c+2]
+    Rho_sol = Rho_s.tolist()
+    res_fluxes=MPC_flows
+
+    return res_fluxes,Rho_sol,controls_sol
+
+def doOptimizationStep_updated(u_init,bnds,cnts,feval,sum_of_incoming_roads,junctions,t0):
+    global MPC_buffers,MPC_flows,dt,n_c,RhoPlot,Rho_MPCstep,Rho_init
+    res = minimize(MPC_functional,u_init,bounds = bnds,constraints = cnts,method="SLSQP")
+    if t0%50==0:
+        print "current time: {}".format(t0)
+    print res
+    feval+=res.nfev
+    updateBuffer_MPC(junctions)                
+    controls_sol=res.x[:sum_of_incoming_roads*(n_c+1)]
+    controls_bin = [round(x,0) for x in controls_sol]  
+    R,totalflows, Buffer,norm_u_dot,w_eta=dynamicEvolution(Rho_init,controls_bin,t0,n_c)    
+    Rho_init=[]
+    for i in range(len(R)): #update initial rho for next MPC step
+        Rho_init.append(R[i][n_c])
+
+    #update u_init to the a n_p-extension of the controls at time n_c
+    temp = np.array(R)
+    Rho_s= temp[:,:n_c+2]
+    Rho_sol = Rho_s.tolist()
+    res_fluxes=totalflows
+    MPC_buffers=[Buffer[i][:n_c+1] for i in range(len(junctions))] 
+    return res_fluxes,Rho_sol,controls_bin,feval
+
+def computeFluxesFromControls(u,_X,_Rho,network):
+    global MPC_buffers, MPC_flows, Rho_MPCstep, t0,tend,n_p,n_c,junctions,Rho_init,dt, dx, vmax, tend_input, rhomax, simga, c,M,RhoPlot, XPlot, totalflows
+    _t = np.arange(0,tend+dt,dt) #time for plots
+    junctions = network2junctions(network,c,M)
+    sum_of_incoming_roads = 0
+    
+    for junc in junctions:
+        sum_of_incoming_roads+=len(junctions[junc]["in"])
+    Densities = [0 for i in range(len(_Rho))] 
+    X = [0 for i in range(len(_X))]
+    for i in range(len(X)):
+        X[i],Densities[i] = init(_X[i],_Rho[i],dx)
+    R = [[s] for s in Densities]
+    totalflows = []
+    roads = len(Rho_init) 
+    XPlot = X
+    flows = [0 for i in range(roads)]
+    Buffer = [[] for i in range(len(junctions))]
+    #Rho_sol = [[] for i in range(len(X))] #initialize solution array of length #roads    
+    for timestep in range(len(_t)):
+        #1 road internal fluxes
+        for i in range(roads):
+            flows[i]=godunovFluxes(f,R[i][-1])
+        #2 fluxes at junction
+        for junc in junctions:
+            indices_in = junctions[junc]["in"]
+            rho_in = []
+            for i in indices_in:
+                rho_in.append(R[i][-1])
+            indices_out = junctions[junc]["out"]
+            rho_out = []
+            for i in indices_out:
+                rho_out.append(R[i][-1])
+            #print column(u,timestep_in_MPC)
+                
+            def column(matrix, i):
+                return [row[i] for row in matrix]
+            jfluxes_in,jfluxes_out = getJunctionFluxesMPC(rho_in,rho_out,column(u,timestep),junctions[junc]) 
+            #updateBuffer(junctions[junc],jfluxes_in,jfluxes_out)        
+            Buffer[junc].append(computeBuffer_MPC(junctions[junc],jfluxes_in,jfluxes_out))       
+            j=0    
+            k=0
+            for i in junctions[junc]["in"]:
+                flows[i].append(jfluxes_in[j])
+                j+=1
+            for i in junctions[junc]["out"]:
+                flows[i].insert(0,jfluxes_out[k])
+                k+=1
+        rowSum = np.sum(network,axis=1)
+        columnSum = np.sum(network,axis=0)
+        for i in range(roads):
+            if rowSum[i]==0: #has external influx
+                if _t[timestep]<tend_input:
+                    flows[i].insert(0,f(ext_in[i]))
+                else:
+                    flows[i].insert(0,0)
+            elif columnSum[i]==0: #has external outflow
+                #flows[i].append(f(ext_outflow[i]))
+                flows[i].append(flows[i][-1])
+        ##4 godunov step
+        #print "flows at road 0:",flows[0]
+        #print "flows: ", flows
+        totalflows.append(flows[:])
+        MPC_buffers=Buffer
+        updateBuffer_MPC(junctions)
+        #print totalflows
+        for i in range(roads):
+            R[i].append(godunovStep(flows[i],R[i][-1]))
+    
+    #Rho_MPCstep = copy.deepcopy(R)
+    #print Rho_MPCstep
+    return R,totalflows
+
+def roundControls(u):
+    u_rounded = []
+    for control in u:
+        eta_rounded = [int(round(x,0)) for x in control]
+        u_rounded.append(eta_rounded)
+    return u_rounded
+    
+    
 def adjescency2constraint(Adm,n_p):
     # returns necessary constrains for optimization of form \sum_{i in \E^{in}} u_i <=1
     #Adm adjescency matrix, n_p predictive horizon
@@ -611,22 +784,22 @@ MPC_buffers=[]
 
 ### test 2: single junction
 
-#_X = [[0,50],[0,50],[50,150]]
-#_Rho = [[0.],[0.0],[0.]]
-#Rho_init = _Rho
-#Rho_MPCstep = []
-#network = [[0,0,0],[0,0,0],[1.,1.,0]]
-#ext_in = [0.5,0.2,0]
+_X = [[0,50],[0,50],[50,150]]
+_Rho = [[0.],[0.0],[0.]]
+Rho_init = _Rho
+Rho_MPCstep = []
+network = [[0,0,0],[0,0,0],[1.,1.,0]]
+ext_in = [0.4,0.2,0]
 #
 
 ### test 3: two junctions
 
-_X = [[0,50],[0,50],[50,150],[100,150],[150,200]]
-_Rho = [[0.1],[0.1],[0.1],[0.1],[0.1]]
-ext_in = [0.3,0.2,0,0.2,0]
-Rho_init = _Rho
-Rho_MPCstep = []
-network = np.array([[0,0,0,0,0],[0,0,0,0,0],[1.,1.,0,0,0],[0,0,0,0,0],[0,0,1.,1.,0]])
+#_X = [[0,50],[0,50],[50,150],[100,150],[150,200]]
+#_Rho = [[0.2],[0.2],[0.2],[0.2],[0.2]]
+#ext_in = [0.5,0.2,0,0.2,0]
+#Rho_init = _Rho
+#Rho_MPCstep = []
+#network = np.array([[0,0,0,0,0],[0,0,0,0,0],[1.,1.,0,0,0],[0,0,0,0,0],[0,0,1.,1.,0]])
 
 
 # voariables for MPC
@@ -635,18 +808,28 @@ gamma = 10.
 eps = 10.
 n_c= 10
 start = time.time()
-t,x,rho,u,totalflux=MPC_main(_X,_Rho,network)
+t,x,rho,u_vector,totalflux,feval=MPC_main_new(_X,_Rho,network)
 elapsedTime = time.time()-start
 print elapsedTime
-plot2D(x,rho)
-u_vector=computeControlVectors(u,network)
-plotControls(u_vector,0)
-flux = getOverallFlux(totalflux)
+#plot2D(x,rho)
 
-# write data files
+#rr,ff=computeFluxesFromControls(u_vector,_X,_Rho,network)
+#
+##binary controls
+#u_bin=roundControls(u_vector)
+#rr2,ff2=computeFluxesFromControls(u_bin,_X,_Rho,network)
+#flux_from_binary_controls = getOverallFlux(ff2)
+#
+#plotControls(u_vector,0)
+#plotControls(u_bin,0)
+#flux = getOverallFlux(totalflux)
+#
+## write data files
 input_data = open("input.txt","w")
 output_data = open("output.txt","w")
-input_data.write("np: {}\n n_c: {}\n X: {}\n Rho: {} gamma: {}\n eps: {}\n network: {}\n external inflow: {}".format(n_p,n_c,_X,_Rho,gamma, eps,network,ext_in))
-output_data.write("elapsed time: {}\n t: {}\n x: {}\n rho: {}\n fluxes: {}\n controls: {}\n total flux: {}".format(elapsedTime,t,x,rho,totalflux,u_vector,flux))
+input_data.write("np: {}\n n_c: {}\n X: {}\n Rho: {} gamma: {}\n eps: {}\n network: {}\n external inflow: {}\n input end: {}\n tend:".format(n_p,n_c,_X,_Rho,gamma, eps,network,ext_in,tend_input,tend))
+#output_data.write("elapsed time: {}\n t: {}\n x: {}\n rho: {}\n fluxes: {}\n controls: {}\n binary controls: {}\n binary fluxes: {}\n feval: {}\n total flux: {}\n binary flux {}".format(elapsedTime,t,x,rho,totalflux,u_vector,u_bin,ff2,feval,flux,flux_from_binary_controls))
+output_data.write("elapsed time: {}\n t: {}\n x: {}\n rho: {}\n fluxes: {}\n controls: {}\n feval: {}\n total flux: {}".format(elapsedTime,t,x,rho,totalflux,u_vector,feval,flux))
+
 input_data.close()
 output_data.close()

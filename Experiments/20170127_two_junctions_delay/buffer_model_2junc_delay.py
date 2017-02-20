@@ -11,6 +11,7 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import time
 
 #functions
 
@@ -48,8 +49,8 @@ def godunovFlux(f,rhol,rhor):
     global sigma
     if rhol<= rhor:
         return min([f(rhol),f(rhor)])
-    elif rhol<sigma:
-        return f(rhol)
+#    elif rhol<sigma:
+#        return f(rhol)
     elif rhor<=sigma and rhol>=sigma:
         return f(sigma)
     else:
@@ -130,7 +131,10 @@ def updateBuffer(junction,incomingFluxes,outgoingFluxes):
     #print len(Buffer)
     for j in range(len(Buffer[-1])):
         temp = np.dot(incomingFluxes,TM[j,:])
-        newBuffer.append(Buffer[-1][j]+dt*(temp-outgoingFluxes[j]))
+        if Buffer[-1][j]+dt*(temp-outgoingFluxes[j])>=0:
+            newBuffer.append(Buffer[-1][j]+dt*(temp-outgoingFluxes[j]))
+        else:
+            newBuffer.append(0)
     junction["Buffer"].append(newBuffer)
 
 def godunovStep(fluxes,rho):
@@ -363,7 +367,7 @@ def getJunctionFluxesWithDelay(rho_in,rho_out,junction,tao,t,mode="SB"):
     #for i in range(len(TM)):
       #  TM[i][0]=switchingValues[findIndex(switchingTimes,t-tao)]
        # TM[i][1]=(1-switchingValues[findIndex(switchingTimes,t-tao)])
-    eta = [switchingValues[findIndex(switchingTimes,t-tao)],1-switchingValues[findIndex(switchingTimes,t-tao)]]
+    eta = [1,1]
     #eta = [0.,1.]
     roadsin = len(TM[0])
     roadsout = len(TM)
@@ -561,7 +565,7 @@ def simu(network,_c,_M,_vmax,_rhomax,_sigma,_ext_in,_dt,_dx,_tend,_X,_Rho,mode="
         X[i],Densities[i] = init(_X[i],_Rho[i],dx)
     
     #tauValues = np.arange(2,120.,2)  
-    tauValues = np.arange(120) 
+    tauValues = np.arange(1) 
     traveltimes = []
     for tau in tauValues:
         time,R,XX,junctions, totalflows = solveNetworkWithDelay(tend,network,c,M,X,Densities,ext_in,[0,tau],mode)
@@ -590,15 +594,15 @@ initOut = 0.5
 dt=.5
 totalflows = []
 tend = 500
-tend_input = +200
+tend_input = 200
 t = np.arange(0,tend,dt)
 dx=.5    
 #M=[0.5]
 M=[[0.5,0.5],[0.5,0.5]]
 c=[[1.,1.],[1.,1.]]
 switchingTimes = np.arange(0,tend,60)
-myIterator = cycle([0.95,0.05])
-switchingValues = [0.05]+[myIterator.next() for i in range(len(switchingTimes))]
+myIterator = cycle([1,1])
+switchingValues = [1]+[myIterator.next() for i in range(len(switchingTimes))]
 
 #R=test22(100)
 
@@ -607,15 +611,23 @@ switchingValues = [0.05]+[myIterator.next() for i in range(len(switchingTimes))]
 #_Rho = [[0.],[0.],[0.]]
 #network = np.array([[0,0,0],[0,0,0],[1.,1.,0]])
 #ext_in = [0.4,0.2,0.]
-_X = [[0,50],[0,50],[50,150],[100,150],[150,200]]
-_Rho = [[0.2],[0.2],[0.2],[0.2],[0.2]]
+_X = [[0,50],[0,50],[50,150]]
+_Rho = [[0.],[0.],[0.]]
 #X[4],Densities[4] = init([160,220],[0.5],dx)
 #
-network = np.array([[0,0,0,0,0],[0,0,0,0,0],[1.,1.,0,0,0],[0,0,0,0,0],[0,0,1.,1.,0]]) 
+network = np.array([[0,0,0],[0,0,0],[1.,1.,0]]) 
 #
-ext_in = [0.5,0.3,0,0.3,0]
+ext_in = [0.4,0.2,0]
 
 #ext_in5 = [0.5,0.5,0,0,0]
 #ext_out5 = [0,0,0.5,0,0.5]
+time_start=time.time()
 fluxes=simu(network,c,M,vmax,rhomax,sigma,ext_in,dt,dx,tend,_X,_Rho,"SB")
+elapsedTime = time.time()-time_start
 #doAnimationNew("blaaaa2")
+input_data = open("input.txt","w")
+output_data = open("output.txt","w")
+input_data.write("X: {}\n Rho: {}\n network: {}\n external inflow: {}\n input end: {}\n tend:".format(_X,_Rho,network,ext_in,tend_input,tend))
+output_data.write("elapsed time: {}\n t: {}\n x: {}\n fluxes: {}".format(elapsedTime,t,XPlot,fluxes))
+input_data.close()
+output_data.close()

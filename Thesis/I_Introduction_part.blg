@@ -5,9 +5,5 @@ Illegal, another \bibstyle command---line 20 of file I_Introduction_part.aux
  :          {plainnat}
 I'm skipping whatever remains of this command
 Database file #1: litII.bib
-Repeated entry---line 153 of file litII.bib
- : @article{E.Cristiani.
- :                      ,
-I'm skipping whatever remains of this entry
 Warning--empty publisher in Richards.1956
-(There were 2 error messages)
+(There was 1 error message)

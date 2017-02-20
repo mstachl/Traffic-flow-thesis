@@ -705,9 +705,9 @@ network = np.array([[0,0,0,0,0],[0,0,0,0,0],[1.,1.,0,0,0],[0,0,0,0,0],[0,0,1.,1.
 
 
 # voariables for MPC
-n_p =10
+n_p =20
 
-n_c= 10
+n_c= 20
 start = time.time()
 t,x,rho,u,totalflux=MPC_main(_X,_Rho,network)
 elapsedTime = time.time()-start

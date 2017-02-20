@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{3}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -13,5 +13,19 @@ Rinaldo~M. Colombo, Paola Goatin, and Massimiliano~D. Rosini.
 \newblock \doi{10.1051/m2an/2010105}.
 \newblock URL
   \url{https://www.cambridge.org/core/article/div-class-title-on-the-modelling-and-management-of-traffic-div/17E9462EB0955E24546EFEA3A5D3F946}.
+
+\bibitem[Gr{\"u}ne and Pannek(2017)]{Grune.2017}
+Lars Gr{\"u}ne and J{\"u}rgen Pannek.
+\newblock \emph{Nonlinear model predictive control: Theory and algorithms}.
+\newblock Communications and Control Engineering. Springer, Cham, Switzerland,
+  second edition edition, 2017.
+\newblock ISBN 3319460242.
+
+\bibitem[Modica and Mortola(1977)]{modica1977}
+Luciano Modica and Stefano Mortola.
+\newblock Il limite nella $\gamma$-convergenza di una famiglia di funzionali
+  ellittici.
+\newblock \emph{Boll. Un. Mat. Ital. A (5)}, 14\penalty0 (3):\penalty0
+  526--529, 1977.
 
 \end{thebibliography}
