@@ -47,8 +47,8 @@ def godunovFlux(f,rhol,rhor):
     global sigma
     if rhol<= rhor:
         return min([f(rhol),f(rhor)])
-#    elif rhol<sigma:
-#        return f(rhol)
+    elif rhol<sigma:
+        return f(rhol)
     elif rhor<=sigma and rhol>=sigma:
         return f(sigma)
     else:
@@ -260,7 +260,7 @@ def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, mode="SB
         #1 road internal fluxes
         for i in range(roads):
             flows[i]=godunovFluxes(f,R[i][-1])
-        print "before: {}".format(len(flows[0]))
+        #print "before: {}".format(len(flows[0]))
         #2 fluxes at junction
         for junc in junctions:
             indices_in = junctions[junc]["in"]
@@ -281,7 +281,7 @@ def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, mode="SB
             for i in junctions[junc]["out"]:
                 flows[i].insert(0,jfluxes_out[k])
                 k+=1
-        print "middle: {}".format(len(flows[0]))
+        #print "middle: {}".format(len(flows[0]))
         #3 external fluxes
         rowSum = np.sum(network,axis=1)
         columnSum = np.sum(network,axis=0)
@@ -299,7 +299,7 @@ def solveArbitraryNetworks(tend,network,_c,_M,initX,initRho,ext_inflow, mode="SB
         for i in range(roads):
             R[i].append(godunovStep(flows[i],R[i][-1]))
         t+=dt
-        print "after: {}".format(len(flows[0]))
+        #print "after: {}".format(len(flows[0]))
     #update global var for animation
     RhoPlot = R
     XPlot = initX
@@ -343,6 +343,14 @@ def computeTravelTime(roadIndexStart,roadIndexEnd,tend,rho):
     nettoTravelTime =1./totalInflux*travelTime
     return nettoTravelTime
 # plot functions
+def getTotalFluxesOnNetwork(fluxes):
+    totalFluxes = []
+    for i in range(len(fluxes)):
+        totalFluxes.append(getRoadFluxes(fluxes[i]))
+    return totalFluxes
+            
+def getRoadFluxes(fluxes):
+    return [sum(i) for i in fluxes]  
 
 def getOverallFlux(fluxes):
     fluxes_on_roads = getTotalFluxesOnNetwork(fluxes)
@@ -389,6 +397,54 @@ def plotTotalDensity(t,rho):
     ax = fig.add_subplot(111)
     ax.plot(t,totalRho)
     #plt.ylim([100,200])
+    
+def plotBars(t,x,rho):
+    figure, ax = plt.subplots(len(x))
+    plt.xlabel('x')
+    #plt.tight_layout()
+    figure.set_size_inches(10, 8)
+    #plt.yticks([0,0.5])
+    #plt.ylim([0,0.8])
+    for i in range(len(rho)):
+        densities = rho[i][-1][:-1]
+        color=[str(c) for c in densities]
+        y=[0 for a in densities]
+        sc=ax[i].scatter(x[i][:-1],y,s=2000,marker="|",linewidth=5, c=color)
+        ax[i].set_ylabel(r'$\rho$')
+        #ax[i].set_yticks([0.0,0.25,0.5,0.75])
+        ax[i].set_xlim(_X[i])
+        ax[i].set_ylim([-0.05,0.05])
+    figure.colorbar(sc, ax=ax.ravel().tolist())
+    
+
+def animateBars(filename="test_animation"):
+    global RhoPlot,XPlot,tend,dt
+    frames = int(tend/dt)
+    ff,ax=plt.subplots(len(XPlot))
+    x=[XPlot[i][:-1] for i in range(len(XPlot))]
+    y=[[0 for i in x[j]] for j in range(len(x))]
+    color = [[0 for i in x[j]] for j in range(len(x))]
+    scat = []
+    for i in range(len(XPlot)):
+        ax[i].set_ylabel(r'$\rho$')
+        ax[i].set_xlim([XPlot[i][0],XPlot[i][-1]])
+        ax[i].set_ylim([-0.05,0.05])
+        scat.append(ax[i].scatter(x[i],y[i],s=2000,marker="|",linewidth=3,c=color[i]))
+        
+    
+    def update_plot(j,XPlot,RhoPlot,scat):
+        for i in range(len(XPlot)):
+            densities = RhoPlot[i][j][:-1]
+            color=[str(c) for c in densities]
+            scat[i].set_array(color)
+        #figure.colorbar(sc,ax=ax.ravel().tolist())
+        return scat
+        
+    filenamefull = filename+".mp4"   
+    anim = animation.FuncAnimation(ff, update_plot, frames=frames,
+                              fargs=(XPlot,RhoPlot,scat),blit=True)
+    anim.save(filenamefull, fps=30, extra_args=['-vcodec', 'libx264'])
+    
 
 def animate(i):
     global RhoPlot,XPlot,line,fig,ax
@@ -430,6 +486,7 @@ def simu(network,_c,_M,_vmax,_rhomax,_sigma,_ext_in,_dt,_dx,_tend,_X,_Rho,mode="
         X[i],Densities[i] = init(_X[i],_Rho[i],dx)
         
     time,R,XX,junctions,totalflux = solveArbitraryNetworks(tend,network,c,M,X,Densities,ext_in,mode)
+    plotBars(time,XX,R)    
     plot2D(XX,R)
     plotBuffers(time,junctions)
     plotTotalDensity(time,R)
@@ -440,7 +497,7 @@ def simu(network,_c,_M,_vmax,_rhomax,_sigma,_ext_in,_dt,_dx,_tend,_X,_Rho,mode="
     input_data.write("X: {}\n Rho: {} network: {}\n external inflow: {}\n input end: {}\n tend:".format(_X,_Rho,network,ext_in,tend_input,tend))
     #output_data.write("elapsed time: {}\n t: {}\n x: {}\n rho: {}\n fluxes: {}\n controls: {}\n binary controls: {}\n binary fluxes: {}\n feval: {}\n total flux: {}\n binary flux {}".format(elapsedTime,t,x,rho,totalflux,u_vector,u_bin,ff2,feval,flux,flux_from_binary_controls))
     output_data.write("t: {}\n x: {}\n rho: {}\n fluxes: {}\n total flux: {}".format(t,XX,R,totalflux,flux))
-
+    #animateBars("aa")
     input_data.close()
     output_data.close()
     
@@ -457,10 +514,10 @@ sigma=.5
 initIn = .5
 initOut = 0.5
 dt=.5
-tend = 500
+tend = 50
 tend_input = 200
 t = np.arange(0,tend,dt)
-dx=1.       
+dx=.5       
 #M=[0.5]
 M=[[0.5,0.5]]
 c=[[1.,1.]]

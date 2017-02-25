@@ -106,8 +106,8 @@ f(u_r) \hspace{1cm}\text{if} \ \sigma\leq u_r \leq u_l \ \text{ or } u_r\leq u_l
 \end{equation}
 \textcolor{red}{ADD picture of different shocks, rarefaction waves} \newline
 \newline
-In the following we want to apply the Godunov scheme on the buffer model defined in section \ref{buffer}
-\subsection{The Godunov scheme on networks}
+In the following we want to apply the Godunov scheme on the buffer model defined in section \ref{buffer_model}.
+\subsection{The Godunov scheme for the buffer model}
 Let us consider an arbitrary connected road network $(\mathcal{N},\mathcal{E})$ with $n_R$ roads and $n_J$ junctions. On every road $e_i=[a_i,b_i]$ we apply the discretization $x_{i,j}=a_{i,jh}, j=0,...,D_i, x_{i,D_ih}=b_i$, with $D_i=\frac{b_i-a_i}{h}-1$ the number of cells on road $e_i$. Let us then denote $u_{i,j}^n$ the density on the j-th cell of road $e_i$ at time $t=nk$.\newline
 \newline
 We can now define on all \textit{inner cells} of every road $e_i$ the Godunov scheme 
@@ -118,15 +118,19 @@ We incorporate the \textit{externally inflowing densities} $q_i(t), e_i\in\mathc
 \begin{equation}
 u_{i,0}^{n+1}=u_{i,0}^n-\frac{k}{h}\left[f(u^*(u_{i,0}^n,u_{i,1}^n)-f(u^*(v_{i,1}^n,u_{i,0}^n)) \right], \hspace{1cm} i\in\mathcal{E}^{in}
 \end{equation} 
-with the inflowing density $v_{i,1}^n:=\int_{t_n}^{t_{n+1}}q_i(t)dt$. \newline
+with the inflowing density $v_{i,1}^n:=\int_{t_n}^{t_{n+1}}\rho_{in,i}(t)dt$. \newline
 The outfluxes leaving the network can be treated analogously. \newline
 \newline
-For junctions we recall Definiton \ref{SBJ} for the junction fluxes in the single buffer model. Accordingly, we define for roads coming into junction $J$
+For junctions we recall equations \eqref{eq:sbj} for the junction fluxes in the single buffer model. Accordingly, we define for roads coming into junction $J$
 \begin{equation}
 u_{i,D_i}^{n+1}=u_{i,D_i}^n-\frac{k}{h}\left[\bar{f}_i-f(u^*(u_{i,D_i-1}^n,u_{i,D_i}^n)) \right], \hspace{1cm} i\in\delta^{in}(J)
 \end{equation}
 For outgoing roads of junction $J$ we analogously define the scheme
 \begin{equation}
 u_{i,0}^{n+1}=u_{i,0}^n-\frac{k}{h}\left[f(u^*(u_{i,0}^n,u_{i,1}^n))-\hat{f}_i \right], \hspace{1cm} i\in\delta^{out}(J)
+\end{equation}
+\underline{\textbf{Note:}}\newline For the computation of the buffer, which is needed for the junction fluxes, we use a simple difference quotient to approximate $\dot{q}$,
+\begin{equation}
+	q_j^{n+1}=q_j^n+k\left[\sum_{i\in\delta^{in}(J)}\bar{\Theta}_{i,j}\bar{f_i}-\bar{f_j}\right], \hspace{1cm}J\in\mathcal{N},j\in\delta^{out}(J)
 \end{equation}
 \section{Examples}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.16)  20 FEB 2017 01:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.16)  24 FEB 2017 21:51
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -334,17 +334,6 @@ LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
 ("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\dstroke\dsfont.st
 y"
 Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
-) ("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ulem\ulem.sty"
-\UL@box=\box28
-\UL@hyphenbox=\box29
-\UL@skip=\skip51
-\UL@hook=\toks25
-\UL@height=\dimen127
-\UL@pe=\count116
-\UL@pixel=\dimen128
-\ULC@box=\box30
-Package: ulem 2012/05/18
-\ULdepth=\dimen129
 )
 ("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\color.st
 y"
@@ -359,15 +348,106 @@ Package color Info: Driver file: pdftex.def on input line 142.
 ("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\natbib\natbib.sty
 "
 Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip52
-\bibsep=\skip53
+\bibhang=\skip51
+\bibsep=\skip52
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count117
+\c@NAT@ctr=\count116
 )
-\c@Algorithm=\count118
-\c@Theorem=\count119
-\c@Satz=\count120
-\c@Example=\count121
+("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\changes\changes.s
+ty"
+Package: changes 2015/04/27 v2.0.4 changes package
+
+*** changes package 2015/04/27 v2.0.4 ***
+
+("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\xkeyval\xkeyval.s
+ty"
+Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
+
+("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\generic\xkeyval\xkeyval
+.tex"
+("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\generic\xkeyval\xkvutil
+s.tex"
+\XKV@toks=\toks25
+\XKV@tempa@toks=\toks26
+)
+\XKV@depth=\count117
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\xifthen\xifthen.s
+ty"
+Package: xifthen 2015/11/05 v1.4.0 Extended ifthen features
+
+("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ifthen.sty"
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ifmtarg\ifmtarg.s
+ty"
+Package: ifmtarg 2009/09/02 v1.2a check for an empty argument
+))
+("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\xcolor\xcolor.sty
+"
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\00miktex\color.cf
+g"
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+LaTeX Info: Redefining \color on input line 702.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+)
+("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\pdfcolmk
+.sty"
+Package: pdfcolmk 2008/08/11 v1.2 Color support for pdfTeX via marks (HO)
+Package pdfcolmk Info: The color stack of pdfTeX >= 1.40 is used. Therefore
+(pdfcolmk)             this package is not necessary and not loaded.
+)
+("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ulem\ulem.sty"
+\UL@box=\box28
+\UL@hyphenbox=\box29
+\UL@skip=\skip53
+\UL@hook=\toks27
+\UL@height=\dimen127
+\UL@pe=\count118
+\UL@pixel=\dimen128
+\ULC@box=\box30
+Package: ulem 2012/05/18
+\ULdepth=\dimen129
+)
+\c@Changes@AuthorCount=\count119
+\c@Changes@Author=\count120
+\c@Changes@AddCount=\count121
+\c@Changes@DeleteCount=\count122
+\c@Changes@ReplaceCount=\count123
+
+("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\truncate\truncate
+.sty"
+Package: truncate 2001/08/20  ver 3.6
+\@Trunc@RestHyph=\toks28
+)
+\Changes@Len@summ=\skip54
+)
+("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\umlaute\umlaute.s
+ty"
+Package: umlaute 2006/01/29 v2.1 umlaute package (AS)
+
+
+Package umlaute Warning: This package has been superseeded by the `inputenc' pa
+ckage on input line 32.
+
+)
+\c@Algorithm=\count124
+\c@Theorem=\count125
+\c@Satz=\count126
+\c@Example=\count127
 
 ("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\mdframed\mdframed
 .sty"
@@ -390,24 +470,24 @@ L3 Module: l3tl 2015/09/29 v6121 L3 Token lists
 L3 Module: l3str 2016/01/03 v6357 L3 Strings
 L3 Module: l3seq 2015/08/05 v5777 L3 Sequences and stacks
 L3 Module: l3int 2015/09/25 v6089 L3 Integers
-\c_max_int=\count122
-\l_tmpa_int=\count123
-\l_tmpb_int=\count124
-\g_tmpa_int=\count125
-\g_tmpb_int=\count126
+\c_max_int=\count128
+\l_tmpa_int=\count129
+\l_tmpb_int=\count130
+\g_tmpa_int=\count131
+\g_tmpb_int=\count132
 L3 Module: l3quark 2015/08/17 v5855 L3 Quarks
 L3 Module: l3prg 2015/11/01 v6216 L3 Control structures
-\g__prg_map_int=\count127
+\g__prg_map_int=\count133
 L3 Module: l3clist 2015/09/02 v5901 L3 Comma separated lists
 L3 Module: l3token 2015/11/11 v6249 L3 Experimental token manipulation
 L3 Module: l3prop 2015/08/05 v5777 L3 Property lists
 L3 Module: l3msg 2015/09/28 v6113 L3 Messages
 L3 Module: l3file 2015/12/03 v6317 L3 File and I/O operations
-\l_iow_line_count_int=\count128
-\l__iow_target_count_int=\count129
-\l__iow_current_line_int=\count130
-\l__iow_current_word_int=\count131
-\l__iow_current_indentation_int=\count132
+\l_iow_line_count_int=\count134
+\l__iow_target_count_int=\count135
+\l__iow_current_line_int=\count136
+\l__iow_current_word_int=\count137
+\l__iow_current_indentation_int=\count138
 L3 Module: l3skip 2015/09/25 v6089 L3 Dimensions and skips
 \c_zero_dim=\dimen130
 \c_max_dim=\dimen131
@@ -415,12 +495,12 @@ L3 Module: l3skip 2015/09/25 v6089 L3 Dimensions and skips
 \l_tmpb_dim=\dimen133
 \g_tmpa_dim=\dimen134
 \g_tmpb_dim=\dimen135
-\c_zero_skip=\skip54
-\c_max_skip=\skip55
-\l_tmpa_skip=\skip56
-\l_tmpb_skip=\skip57
-\g_tmpa_skip=\skip58
-\g_tmpb_skip=\skip59
+\c_zero_skip=\skip55
+\c_max_skip=\skip56
+\l_tmpa_skip=\skip57
+\l_tmpb_skip=\skip58
+\g_tmpa_skip=\skip59
+\g_tmpb_skip=\skip60
 \c_zero_muskip=\muskip12
 \c_max_muskip=\muskip13
 \l_tmpa_muskip=\muskip14
@@ -428,18 +508,18 @@ L3 Module: l3skip 2015/09/25 v6089 L3 Dimensions and skips
 \g_tmpa_muskip=\muskip16
 \g_tmpb_muskip=\muskip17
 L3 Module: l3keys 2015/11/17 v6284 L3 Key-value interfaces
-\g__keyval_level_int=\count133
-\l_keys_choice_int=\count134
+\g__keyval_level_int=\count139
+\l_keys_choice_int=\count140
 L3 Module: l3fp 2015/08/25 v5890 L3 Floating points
-\c__fp_leading_shift_int=\count135
-\c__fp_middle_shift_int=\count136
-\c__fp_trailing_shift_int=\count137
-\c__fp_big_leading_shift_int=\count138
-\c__fp_big_middle_shift_int=\count139
-\c__fp_big_trailing_shift_int=\count140
-\c__fp_Bigg_leading_shift_int=\count141
-\c__fp_Bigg_middle_shift_int=\count142
-\c__fp_Bigg_trailing_shift_int=\count143
+\c__fp_leading_shift_int=\count141
+\c__fp_middle_shift_int=\count142
+\c__fp_trailing_shift_int=\count143
+\c__fp_big_leading_shift_int=\count144
+\c__fp_big_middle_shift_int=\count145
+\c__fp_big_trailing_shift_int=\count146
+\c__fp_Bigg_leading_shift_int=\count147
+\c__fp_Bigg_middle_shift_int=\count148
+\c__fp_Bigg_trailing_shift_int=\count149
 L3 Module: l3box 2015/08/09 v5822 L3 Experimental boxes
 \c_empty_box=\box31
 \l_tmpa_box=\box32
@@ -490,19 +570,19 @@ L3 Module: l3luatex 2015/11/11 v6250 L3 Experimental LuaTeX-specific functions
 ("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\l3kernel\l3pdfmod
 e.def"
 File: l3pdfmode.def 2015/11/11 v6250 L3 Experimental driver: PDF mode
-\l__driver_color_stack_int=\count144
+\l__driver_color_stack_int=\count150
 ))
 Package: xparse 2015/12/20 v6326 L3 Experimental document command parser
-\l__xparse_current_arg_int=\count145
-\l__xparse_m_args_int=\count146
-\l__xparse_mandatory_args_int=\count147
-\l__xparse_processor_int=\count148
-\l__xparse_v_nesting_int=\count149
+\l__xparse_current_arg_int=\count151
+\l__xparse_m_args_int=\count152
+\l__xparse_mandatory_args_int=\count153
+\l__xparse_processor_int=\count154
+\l__xparse_v_nesting_int=\count155
 )
 ("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\etoolbox\etoolbox
 .sty"
 Package: etoolbox 2015/08/02 v2.2a e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count150
+\etb@tempcnta=\count156
 )
 ("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\zref-abs
 page.sty"
@@ -515,54 +595,54 @@ Package zref Info: New property list: main on input line 759.
 Package zref Info: New property: default on input line 760.
 Package zref Info: New property: page on input line 761.
 )
-\c@abspage=\count151
+\c@abspage=\count157
 Package zref Info: New property: abspage on input line 62.
 )
 ("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\needspace\needspa
 ce.sty"
 Package: needspace 2010/09/12 v1.3d reserve vertical space
 )
-\mdf@templength=\skip60
-\c@mdf@globalstyle@cnt=\count152
-\mdf@skipabove@length=\skip61
-\mdf@skipbelow@length=\skip62
-\mdf@leftmargin@length=\skip63
-\mdf@rightmargin@length=\skip64
-\mdf@innerleftmargin@length=\skip65
-\mdf@innerrightmargin@length=\skip66
-\mdf@innertopmargin@length=\skip67
-\mdf@innerbottommargin@length=\skip68
-\mdf@splittopskip@length=\skip69
-\mdf@splitbottomskip@length=\skip70
-\mdf@outermargin@length=\skip71
-\mdf@innermargin@length=\skip72
-\mdf@linewidth@length=\skip73
-\mdf@innerlinewidth@length=\skip74
-\mdf@middlelinewidth@length=\skip75
-\mdf@outerlinewidth@length=\skip76
-\mdf@roundcorner@length=\skip77
-\mdf@footenotedistance@length=\skip78
-\mdf@userdefinedwidth@length=\skip79
-\mdf@needspace@length=\skip80
-\mdf@frametitleaboveskip@length=\skip81
-\mdf@frametitlebelowskip@length=\skip82
-\mdf@frametitlerulewidth@length=\skip83
-\mdf@frametitleleftmargin@length=\skip84
-\mdf@frametitlerightmargin@length=\skip85
-\mdf@shadowsize@length=\skip86
-\mdf@extratopheight@length=\skip87
-\mdf@subtitleabovelinewidth@length=\skip88
-\mdf@subtitlebelowlinewidth@length=\skip89
-\mdf@subtitleaboveskip@length=\skip90
-\mdf@subtitlebelowskip@length=\skip91
-\mdf@subtitleinneraboveskip@length=\skip92
-\mdf@subtitleinnerbelowskip@length=\skip93
-\mdf@subsubtitleabovelinewidth@length=\skip94
-\mdf@subsubtitlebelowlinewidth@length=\skip95
-\mdf@subsubtitleaboveskip@length=\skip96
-\mdf@subsubtitlebelowskip@length=\skip97
-\mdf@subsubtitleinneraboveskip@length=\skip98
-\mdf@subsubtitleinnerbelowskip@length=\skip99
+\mdf@templength=\skip61
+\c@mdf@globalstyle@cnt=\count158
+\mdf@skipabove@length=\skip62
+\mdf@skipbelow@length=\skip63
+\mdf@leftmargin@length=\skip64
+\mdf@rightmargin@length=\skip65
+\mdf@innerleftmargin@length=\skip66
+\mdf@innerrightmargin@length=\skip67
+\mdf@innertopmargin@length=\skip68
+\mdf@innerbottommargin@length=\skip69
+\mdf@splittopskip@length=\skip70
+\mdf@splitbottomskip@length=\skip71
+\mdf@outermargin@length=\skip72
+\mdf@innermargin@length=\skip73
+\mdf@linewidth@length=\skip74
+\mdf@innerlinewidth@length=\skip75
+\mdf@middlelinewidth@length=\skip76
+\mdf@outerlinewidth@length=\skip77
+\mdf@roundcorner@length=\skip78
+\mdf@footenotedistance@length=\skip79
+\mdf@userdefinedwidth@length=\skip80
+\mdf@needspace@length=\skip81
+\mdf@frametitleaboveskip@length=\skip82
+\mdf@frametitlebelowskip@length=\skip83
+\mdf@frametitlerulewidth@length=\skip84
+\mdf@frametitleleftmargin@length=\skip85
+\mdf@frametitlerightmargin@length=\skip86
+\mdf@shadowsize@length=\skip87
+\mdf@extratopheight@length=\skip88
+\mdf@subtitleabovelinewidth@length=\skip89
+\mdf@subtitlebelowlinewidth@length=\skip90
+\mdf@subtitleaboveskip@length=\skip91
+\mdf@subtitlebelowskip@length=\skip92
+\mdf@subtitleinneraboveskip@length=\skip93
+\mdf@subtitleinnerbelowskip@length=\skip94
+\mdf@subsubtitleabovelinewidth@length=\skip95
+\mdf@subsubtitlebelowlinewidth@length=\skip96
+\mdf@subsubtitleaboveskip@length=\skip97
+\mdf@subsubtitlebelowskip@length=\skip98
+\mdf@subsubtitleinneraboveskip@length=\skip99
+\mdf@subsubtitleinnerbelowskip@length=\skip100
 
 ("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\mdframed\md-frame
 -0.mdf"
@@ -573,34 +653,34 @@ File: md-frame-0.mdf 2013/07/01\ 1.9b: md-frame-0
 \mdf@splitbox@one=\box48
 \mdf@splitbox@two=\box49
 \mdf@splitbox@save=\box50
-\mdfsplitboxwidth=\skip100
-\mdfsplitboxtotalwidth=\skip101
-\mdfsplitboxheight=\skip102
-\mdfsplitboxdepth=\skip103
-\mdfsplitboxtotalheight=\skip104
-\mdfframetitleboxwidth=\skip105
-\mdfframetitleboxtotalwidth=\skip106
-\mdfframetitleboxheight=\skip107
-\mdfframetitleboxdepth=\skip108
-\mdfframetitleboxtotalheight=\skip109
-\mdffootnoteboxwidth=\skip110
-\mdffootnoteboxtotalwidth=\skip111
-\mdffootnoteboxheight=\skip112
-\mdffootnoteboxdepth=\skip113
-\mdffootnoteboxtotalheight=\skip114
-\mdftotallinewidth=\skip115
-\mdfboundingboxwidth=\skip116
-\mdfboundingboxtotalwidth=\skip117
-\mdfboundingboxheight=\skip118
-\mdfboundingboxdepth=\skip119
-\mdfboundingboxtotalheight=\skip120
-\mdf@freevspace@length=\skip121
-\mdf@horizontalwidthofbox@length=\skip122
-\mdf@verticalmarginwhole@length=\skip123
-\mdf@horizontalspaceofbox=\skip124
-\mdfsubtitleheight=\skip125
-\mdfsubsubtitleheight=\skip126
-\c@mdfcountframes=\count153
+\mdfsplitboxwidth=\skip101
+\mdfsplitboxtotalwidth=\skip102
+\mdfsplitboxheight=\skip103
+\mdfsplitboxdepth=\skip104
+\mdfsplitboxtotalheight=\skip105
+\mdfframetitleboxwidth=\skip106
+\mdfframetitleboxtotalwidth=\skip107
+\mdfframetitleboxheight=\skip108
+\mdfframetitleboxdepth=\skip109
+\mdfframetitleboxtotalheight=\skip110
+\mdffootnoteboxwidth=\skip111
+\mdffootnoteboxtotalwidth=\skip112
+\mdffootnoteboxheight=\skip113
+\mdffootnoteboxdepth=\skip114
+\mdffootnoteboxtotalheight=\skip115
+\mdftotallinewidth=\skip116
+\mdfboundingboxwidth=\skip117
+\mdfboundingboxtotalwidth=\skip118
+\mdfboundingboxheight=\skip119
+\mdfboundingboxdepth=\skip120
+\mdfboundingboxtotalheight=\skip121
+\mdf@freevspace@length=\skip122
+\mdf@horizontalwidthofbox@length=\skip123
+\mdf@verticalmarginwhole@length=\skip124
+\mdf@horizontalspaceofbox=\skip125
+\mdfsubtitleheight=\skip126
+\mdfsubsubtitleheight=\skip127
+\c@mdfcountframes=\count159
 
 ****** mdframed patching \endmdf@trivlist
 
@@ -616,13 +696,13 @@ File: md-frame-0.mdf 2013/07/01\ 1.9b: md-frame-0
 . 
 . Defining command \mdtheorem with sig. ' O{} m o m o ' on line 701.
 .................................................
-\mdf@envdepth=\count154
-\c@mdf@env@i=\count155
-\c@mdf@env@ii=\count156
-\c@mdf@zref@counter=\count157
+\mdf@envdepth=\count160
+\c@mdf@env@i=\count161
+\c@mdf@env@ii=\count162
+\c@mdf@zref@counter=\count163
 Package zref Info: New property: mdf@pagevalue on input line 895.
 )
-\c@mytheo=\count158
+\c@mytheo=\count164
 
 ("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\booktabs\booktabs
 .sty"
@@ -637,53 +717,53 @@ Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \cmidrulesep=\dimen168
 \cmidrulekern=\dimen169
 \defaultaddspace=\dimen170
-\@cmidla=\count159
-\@cmidlb=\count160
+\@cmidla=\count165
+\@cmidlb=\count166
 \@aboverulesep=\dimen171
 \@belowrulesep=\dimen172
-\@thisruleclass=\count161
-\@lastruleclass=\count162
+\@thisruleclass=\count167
+\@lastruleclass=\count168
 \@thisrulewidth=\dimen173
 )
-\c@algorithm=\count163
- (thesis.aux (I_Introduction_part.aux) (II_network.aux) (III_numerics.aux) (Opt
-imization_part.aux) (V_Conclusion.aux))
+\c@algorithm=\count169
+ (figures/tumlogo.tex) (thesis.aux (I_Introduction_part.aux)
+(II_network.aux) (III_numerics.aux) (Optimization_part.aux) (V_Conclusion.aux))
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 93.
-LaTeX Font Info:    ... okay on input line 93.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 93.
-LaTeX Font Info:    ... okay on input line 93.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 93.
-LaTeX Font Info:    ... okay on input line 93.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 93.
-LaTeX Font Info:    ... okay on input line 93.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 93.
-LaTeX Font Info:    ... okay on input line 93.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 93.
-LaTeX Font Info:    ... okay on input line 93.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 93.
-LaTeX Font Info:    ... okay on input line 93.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
 
 ("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-pdf.m
 kii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count164
+\scratchcounter=\count170
 \scratchdimen=\dimen174
 \scratchbox=\box51
-\nofMPsegments=\count165
-\nofMParguments=\count166
-\everyMPshowfont=\toks26
-\MPscratchCnt=\count167
+\nofMPsegments=\count171
+\nofMParguments=\count172
+\everyMPshowfont=\toks29
+\MPscratchCnt=\count173
 \MPscratchDim=\dimen175
-\MPnumerator=\count168
-\makeMPintoPDFobject=\count169
-\everyMPtoPDFconversion=\toks27
+\MPnumerator=\count174
+\makeMPintoPDFobject=\count175
+\everyMPtoPDFconversion=\toks30
 )
 Package marginnote Info: \pdfoutput not 0 and \pdflastxpos available.
 (marginnote)             Extended position detection mode activated.
 \AtBeginShipoutBox=\box52
-Package hyperref Info: Link coloring OFF on input line 93.
+Package hyperref Info: Link coloring OFF on input line 91.
 
 ("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\nameref.
 sty"
@@ -693,48 +773,91 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 lestring.sty"
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count170
+\c@section@level=\count176
 )
-LaTeX Info: Redefining \ref on input line 93.
-LaTeX Info: Redefining \pageref on input line 93.
-LaTeX Info: Redefining \nameref on input line 93.
+LaTeX Info: Redefining \ref on input line 91.
+LaTeX Info: Redefining \pageref on input line 91.
+LaTeX Info: Redefining \nameref on input line 91.
  (thesis.out) (thesis.out)
 \@outlinefile=\write3
 \openout3 = `thesis.out'.
 
- (thesis.toc
-LaTeX Font Info:    Try loading font information for U+lasy on input line 2.
+
+<figures/logo1.jpg, id=87, 225.84375pt x 225.84375pt>
+File: figures/logo1.jpg Graphic file (type jpg)
+ <use figures/logo1.jpg>
+Package pdftex.def Info: figures/logo1.jpg used on input line 112.
+(pdftex.def)             Requested size: 91.04742pt x 91.04922pt.
+
+[1
+
+{C:/Users/Markus/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./figures/
+logo1.jpg>]
+LaTeX Font Info:    Try loading font information for U+lasy on input line 141.
 
 ("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ulasy.fd"
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 2.
+LaTeX Font Info:    Try loading font information for U+msa on input line 141.
 
 ("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 2.
+LaTeX Font Info:    Try loading font information for U+msb on input line 141.
  ("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd
 "
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 2.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 141.
 
 ("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\jknappen\ursfs.fd
 "
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
-))
+)pdfTeX warning (ext4): destination with the same identifier (name{page.}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.148 \newpage
+               [2]
+Underfull \hbox (badness 10000) in paragraph at lines 153--156
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--156
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--156
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--156
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--156
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--156
+
+ []
+
+[1] [2] [3] [4] (thesis.toc)
 \tf@toc=\write4
 \openout4 = `thesis.toc'.
 
- [1
+ [5
 
-
-{C:/Users/Markus/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+]
 \openout2 = `I_Introduction_part.aux'.
 
-
-(I_Introduction_part.tex
+ (I_Introduction_part.tex
 Chapter 1.
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 8.
 ("C:\Users\Markus\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\omscmr.fd"
@@ -743,16 +866,16 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 8.
 
-[2
+[1
 
 
-] <char_flux_upd.png, id=106, 651.93562pt x 445.665pt>
+] <char_flux_upd.png, id=163, 651.93562pt x 445.665pt>
 File: char_flux_upd.png Graphic file (type png)
 
 <use char_flux_upd.png>
 Package pdftex.def Info: char_flux_upd.png used on input line 19.
 (pdftex.def)             Requested size: 260.76962pt x 178.26283pt.
- [3 <./char_flux_upd.png>]
+ [2 <./char_flux_upd.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 52--59
 
  []
@@ -762,7 +885,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 52--59
 
  []
 
-[4])
+[3])
 \openout2 = `II_network.aux'.
 
  (II_network.tex
@@ -777,7 +900,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 5--8
 
  []
 
-[5
+[4
 
 
 
@@ -787,141 +910,148 @@ Underfull \hbox (badness 10000) in paragraph at lines 28--32
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 40--45
+Underfull \hbox (badness 10000) in paragraph at lines 40--44
 
  []
 
-<example_network.png, id=149, 1211.27531pt x 470.50781pt>
+<example_network.png, id=205, 1211.27531pt x 470.50781pt>
 File: example_network.png Graphic file (type png)
 
 <use example_network.png>
-Package pdftex.def Info: example_network.png used on input line 53.
+Package pdftex.def Info: example_network.png used on input line 61.
 (pdftex.def)             Requested size: 363.3854pt x 141.15343pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 58--63
-
- []
-
-[6]
-Underfull \hbox (badness 10000) in paragraph at lines 74--83
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 91--96
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 74--83
+[6 <./example_network.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 108--117
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--92
+Underfull \hbox (badness 10000) in paragraph at lines 108--117
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--92
+Underfull \hbox (badness 10000) in paragraph at lines 121--126
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 121--126
 
  []
 
 [7pdfTeX warning (ext4): destination with the same identifier (name{equation.2.
-3.1}) has been already used, duplicate ignored
+4.1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.92 \begin{itemize}
-                     <./example_network.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 97--102
+l.128 \item[II.]
+                 Given the densities, the lenghts $q_j$ of the queues can be...
+]
+Underfull \hbox (badness 10000) in paragraph at lines 131--136
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 97--102
+Underfull \hbox (badness 10000) in paragraph at lines 131--136
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 103--104
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
 
  []
 
-pdfTeX warning (ext4): destination with the same identifier (name{equation.2.3.
+pdfTeX warning (ext4): destination with the same identifier (name{equation.2.4.
 2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.110 \begin{equation}
+l.144 \begin{equation}
                        [8]pdfTeX warning (ext4): destination with the same iden
-tifier (name{equation.2.3.3}) has been already used, duplicate ignored
+tifier (name{equation.2.4.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.125 \begin{equation}
+l.159 \begin{equation}
                       
-Underfull \hbox (badness 10000) in paragraph at lines 127--131
+Underfull \hbox (badness 10000) in paragraph at lines 161--165
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 136--140
+Underfull \hbox (badness 10000) in paragraph at lines 170--174
 
  []
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 151--154
+Underfull \hbox (badness 10000) in paragraph at lines 196--199
 
  []
 
-pdfTeX warning (ext4): destination with the same identifier (name{equation.2.3.
+pdfTeX warning (ext4): destination with the same identifier (name{equation.2.4.
 1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.168 \begin{equation}
+l.213 \begin{equation}
                       
-Underfull \hbox (badness 10000) in paragraph at lines 157--168
+Underfull \hbox (badness 10000) in paragraph at lines 202--213
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 157--168
+Underfull \hbox (badness 10000) in paragraph at lines 202--213
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 157--168
+Underfull \hbox (badness 10000) in paragraph at lines 202--213
 
  []
 
-pdfTeX warning (ext4): destination with the same identifier (name{equation.2.3.
+pdfTeX warning (ext4): destination with the same identifier (name{equation.2.4.
 2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.171 \begin{equation}
+l.216 \begin{equation}
                       \hat{f}_j=\Bigg\lbrace\begin{array}{ll}
-Underfull \hbox (badness 10000) in paragraph at lines 175--185
+Underfull \hbox (badness 10000) in paragraph at lines 220--230
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 175--185
+Underfull \hbox (badness 10000) in paragraph at lines 220--230
 
  []
 
 [10]
-
-LaTeX Warning: Reference `eq:sbj' on page 11 undefined on input line 200.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 199--203
+Underfull \hbox (badness 10000) in paragraph at lines 245--255
 
  []
 
-) [11]
+
+Underfull \hbox (badness 10000) in paragraph at lines 245--255
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 245--255
+
+ []
+
+[11]) [12]
 \openout2 = `III_numerics.aux'.
 
  (III_numerics.tex
 Chapter 3.
-<numeric_schemes.png, id=202, 825.83531pt x 541.27219pt>
+<numeric_schemes.png, id=287, 825.83531pt x 541.27219pt>
 File: numeric_schemes.png Graphic file (type png)
 
 <use numeric_schemes.png>
@@ -939,7 +1069,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Package natbib Warning: Citation `Strang' on page 12 undefined on input line 53
+Package natbib Warning: Citation `Strang' on page 13 undefined on input line 53
 .
 
 
@@ -947,11 +1077,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 53--54
 
  []
 
-[12
+[13
 
 
 
-] [13] [14 <./numeric_schemes.png>]
+] [14] [15 <./numeric_schemes.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 86--91
 
  []
@@ -960,9 +1090,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 86--91
 Underfull \hbox (badness 10000) in paragraph at lines 97--102
 
  []
-
-
-LaTeX Warning: Reference `buffer' on page 15 undefined on input line 109.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 106--110
@@ -974,16 +1101,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 111--114
 
  []
 
-[15]
-
-LaTeX Warning: Reference `SBJ' on page 16 undefined on input line 124.
-
-
+[16]
 Underfull \hbox (badness 10000) in paragraph at lines 120--125
 
  []
 
-) [16]
+) [17]
 \openout2 = `Optimization_part.aux'.
 
  (Optimization_part.tex
@@ -1008,7 +1131,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 31--39
 
  []
 
-[17
+[18
 
 
 
@@ -1033,198 +1156,219 @@ Underfull \hbox (badness 10000) in paragraph at lines 57--61
 
  []
 
-[18] <example1.png, id=270, 737.75626pt x 295.85532pt>
+[19] <example1.png, id=358, 737.75626pt x 295.85532pt>
 File: example1.png Graphic file (type png)
  <use example1.png>
 Package pdftex.def Info: example1.png used on input line 70.
 (pdftex.def)             Requested size: 368.87723pt x 147.92729pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 80--86
+Underfull \hbox (badness 10000) in paragraph at lines 81--87
 
  []
 
-[19pdfTeX warning (ext4): destination with the same identifier (name{equation.4
+[20pdfTeX warning (ext4): destination with the same identifier (name{equation.4
 .1.1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.91 \end{eqnarray*}
-                     <./example1.png>] [20]
-<delay_plot.png, id=290, 407.5225pt x 272.01625pt>
+l.87 \begin{eqnarray*}
+                       <./example1.png>] [21]
+<delay_plot.png, id=376, 407.5225pt x 272.01625pt>
 File: delay_plot.png Graphic file (type png)
  <use delay_plot.png>
-Package pdftex.def Info: delay_plot.png used on input line 123.
+Package pdftex.def Info: delay_plot.png used on input line 139.
 (pdftex.def)             Requested size: 244.51538pt x 163.211pt.
 
-[21 <./delay_plot.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 134--144
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 134--144
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 134--144
-
- []
-
-[22] <mpc.png, id=311, 457.71pt x 214.55156pt>
-File: mpc.png Graphic file (type png)
- <use mpc.png>
-Package pdftex.def Info: mpc.png used on input line 158.
-(pdftex.def)             Requested size: 366.1685pt x 171.64146pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 164--169
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 169--169
-
- []
-
-[23 <./mpc.png>]
-Package mdframed Info: mdframed inside float 
- mdframed uses option nobreak mdframed on input line 217.
-Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 217.
-
-Underfull \hbox (badness 10000) in paragraph at lines 191--224
+Underfull \hbox (badness 10000) in paragraph at lines 104--144
 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+[22]
+Underfull \hbox (badness 10000) in paragraph at lines 157--165
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 157--165
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 157--165
+
+ []
+
+[23 <./delay_plot.png>] <mpc.png, id=393, 457.71pt x 214.55156pt>
+File: mpc.png Graphic file (type png)
+
+<use mpc.png>
+Package pdftex.def Info: mpc.png used on input line 179.
+(pdftex.def)             Requested size: 366.1685pt x 171.64146pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 185--190
+
+ []
+
+[24 <./mpc.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 190--190
+
+ []
+
 Package mdframed Info: mdframed inside float 
- mdframed uses option nobreak mdframed on input line 245.
+ mdframed uses option nobreak mdframed on input line 239.
 Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 245.
-<justification_label.png, id=330, 746.03719pt x 587.94656pt>
+ mdframed uses option nobreak mdframed on input line 239.
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--246
+
+ []
+
+[25]
+Package mdframed Info: mdframed inside float 
+ mdframed uses option nobreak mdframed on input line 267.
+Package mdframed Info: mdframed inside a box 
+ mdframed uses option nobreak mdframed on input line 267.
+ <justification_label.png, id=421, 746.03719pt x 587.94656pt>
 File: justification_label.png Graphic file (type png)
 
 <use justification_label.png>
-Package pdftex.def Info: justification_label.png used on input line 257.
+Package pdftex.def Info: justification_label.png used on input line 279.
 (pdftex.def)             Requested size: 373.01767pt x 293.97256pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 227--272
+Underfull \hbox (badness 10000) in paragraph at lines 249--294
 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[24] [25pdfTeX warning (ext4): destination with the same identifier (name{equat
-ion.4.2.1}) has been already used, duplicate ignored
+[26pdfTeX warning (ext4): destination with the same identifier (name{equation.4
+.2.1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.273 \newpage
-              pdfTeX warning (ext4): destination with the same identifier (name
-{equation.4.2.2}) has been already used, duplicate ignored
+l.294 
+      pdfTeX warning (ext4): destination with the same identifier (name{equatio
+n.4.2.2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.273 \newpage
-              ]
-Underfull \hbox (badness 3000) in paragraph at lines 275--275
+l.294 
+      ] [27] [28 <./justification_label.png>]
+Underfull \hbox (badness 3000) in paragraph at lines 297--297
 [][][]\OT1/cmr/m/n/10 Python Soft-ware Foun-da-tion. Python Lan-guage Ref-er-en
 ce, ver-sion 2.7. Avail-able at
  []
 
-<controls_10-10.png, id=351, 379.4175pt x 256.96pt>
+<controls_10-10.png, id=453, 379.4175pt x 256.96pt>
 File: controls_10-10.png Graphic file (type png)
  <use controls_10-10.png>
-Package pdftex.def Info: controls_10-10.png used on input line 290.
+Package pdftex.def Info: controls_10-10.png used on input line 312.
 (pdftex.def)             Requested size: 189.70828pt x 128.47968pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 275--294
+Underfull \hbox (badness 10000) in paragraph at lines 297--316
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 275--294
+Underfull \hbox (badness 10000) in paragraph at lines 297--316
 
  []
 
-[26] [27 <./justification_label.png>] [28 <./controls_10-10.png>]
-<control_1_plot_2.png, id=384, 395.4775pt x 272.01625pt>
+[29 <./controls_10-10.png>]
+<control_1_plot_2.png, id=466, 395.4775pt x 272.01625pt>
 File: control_1_plot_2.png Graphic file (type png)
 
 <use control_1_plot_2.png>
-Package pdftex.def Info: control_1_plot_2.png used on input line 306.
+Package pdftex.def Info: control_1_plot_2.png used on input line 328.
 (pdftex.def)             Requested size: 197.73827pt x 136.00778pt.
 
-<N3_no_init_control0.png, id=385, 395.4775pt x 272.01625pt>
+<N3_no_init_control0.png, id=467, 395.4775pt x 272.01625pt>
 File: N3_no_init_control0.png Graphic file (type png)
 
 <use N3_no_init_control0.png>
-Package pdftex.def Info: N3_no_init_control0.png used on input line 314.
+Package pdftex.def Info: N3_no_init_control0.png used on input line 336.
 (pdftex.def)             Requested size: 276.83235pt x 190.41006pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 295--317
+Underfull \hbox (badness 10000) in paragraph at lines 317--339
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 295--317
+Underfull \hbox (badness 10000) in paragraph at lines 317--339
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 295--317
+Underfull \hbox (badness 10000) in paragraph at lines 317--339
 
  []
 
-
-Package natbib Warning: Citation `git' undefined on input line 318.
-
-) [29 <./control_1_plot_2.png> <./N3_no_init_control0.png>]
+) [30 <./control_1_plot_2.png> <./N3_no_init_control0.png>]
 \openout2 = `V_Conclusion.aux'.
 
- (V_Conclusion.tex)
-[30
+ (V_Conclusion.tex
+Chapter 5.
+) [31
 
 
-] [31
 
-] (thesis.bbl [32
+] [32
 
-])
+] (thesis.bbl [33
+
+]) [34] (thesis.loc
+Overfull \hbox (871.26546pt too wide) detected at line 2
+\OT1/cmr/m/n/12 The \OT1/cmr/bx/n/12 maximum fluxes \OT1/cmr/m/n/12 that can en
+ter and exit the intersection depend on the current filling level on the incomi
+ng and outgoing road, respectively. In particular they are given by the followi
+ng equations. 
+ []
+
+
+Overfull \hbox (917.83913pt too wide) detected at line 3
+\OT1/cmr/m/n/12 Let $\OML/cmm/m/it/12 []\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x; t
+\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 ; e[] \OMS/cmsy/m/n/12 2 E$ \OT1/cmr/m/n/12 a
+nd $\OML/cmm/m/it/12 q[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 t\OT1/cmr/m/n/12 )\OM
+L/cmm/m/it/12 ; e[] \OMS/cmsy/m/n/12 2 E n E[]$ \OT1/cmr/m/n/12 now be such tha
+t equations []2.4.6[] and [] are fulfilled. Then we say that the densities $\OM
+L/cmm/m/it/12 []\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x; t\OT1/cmr/m/n/12 )$ provi
+de a solution to the Cauchy problem [] close to the intersections. 
+ []
+
+)
+\tf@loc=\write5
+\openout5 = `thesis.loc'.
+
+
 
 Package natbib Warning: There were undefined citations.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 112.
-[33]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 112.
+\Changes@OutFile=\write6
+\openout6 = `thesis.soc'.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 190.
+[35]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 190.
  (thesis.aux (I_Introduction_part.aux) (II_network.aux) (III_numerics.aux)
-(Optimization_part.aux) (V_Conclusion.aux)
-
-Package natbib Warning: Citation(s) may have changed.
-(natbib)                Rerun to get citations correct.
-
-)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 112.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 112.
+(Optimization_part.aux) (V_Conclusion.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 190.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 190.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 6D8FB51CCE03664C5F3472F290949924;1163.
-
-
-LaTeX Warning: There were undefined references.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 112.
+(rerunfilecheck)             Checksum: C604C2EA5DF5C5FA0636AFDF3462C6BE;1512.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 190.
  ) 
 Here is how much of TeX's memory you used:
- 15430 strings out of 493634
- 266939 string characters out of 3134831
- 351577 words of memory out of 3000000
- 18464 multiletter control sequences out of 15000+200000
+ 16437 strings out of 493634
+ 282691 string characters out of 3134831
+ 371270 words of memory out of 3000000
+ 19394 multiletter control sequences out of 15000+200000
  15302 words of font info for 64 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 40i,20n,42p,10420b,526s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 40i,20n,42p,10420b,682s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Markus/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
 s/cm/cmbx12.pfb><C:/Users/Markus/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
 public/amsfonts/cm/cmex10.pfb><C:/Users/Markus/AppData/Local/Programs/MiKTeX 2.
@@ -1234,20 +1378,22 @@ ta/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users
 /Markus/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.
 pfb><C:/Users/Markus/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfo
 nts/cm/cmr12.pfb><C:/Users/Markus/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
-/public/amsfonts/cm/cmr6.pfb><C:/Users/Markus/AppData/Local/Programs/MiKTeX 2.9
-/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Markus/AppData/Local/Program
-s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Markus/AppData/L
-ocal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsl12.pfb><C:/Users/Ma
-rkus/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pf
-b><C:/Users/Markus/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
-s/cm/cmsy6.pfb><C:/Users/Markus/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
-ublic/amsfonts/cm/cmsy8.pfb><C:/Users/Markus/AppData/Local/Programs/MiKTeX 2.9/
-fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/Markus/AppData/Local/Progra
-ms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/Markus/AppDat
-a/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (33 pages, 738406 bytes).
+/public/amsfonts/cm/cmr17.pfb><C:/Users/Markus/AppData/Local/Programs/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/Markus/AppData/Local/Progra
+ms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Markus/AppData/
+Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Mar
+kus/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsl12.pfb
+><C:/Users/Markus/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmsy10.pfb><C:/Users/Markus/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/cm/cmsy6.pfb><C:/Users/Markus/AppData/Local/Programs/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Markus/AppData/Local/Program
+s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/Markus/AppData
+/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/
+Markus/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/ms
+bm10.pfb>
+Output written on thesis.pdf (42 pages, 797659 bytes).
 PDF statistics:
- 503 PDF objects out of 1000 (max. 8388607)
- 145 named destinations out of 1000 (max. 500000)
- 179 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 608 PDF objects out of 1000 (max. 8388607)
+ 171 named destinations out of 1000 (max. 500000)
+ 224 words of extra memory for PDF output out of 10000 (max. 10000000)
 

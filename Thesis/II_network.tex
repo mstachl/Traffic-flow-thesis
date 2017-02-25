@@ -25,24 +25,32 @@ We further require the following properties:
 \item[2)\label{item}] For junctions $I,J\in\mathcal{N}, I\neq J$ we require $\delta^{in}(I)\cap \delta^{in}(J)=\emptyset$ and $\delta^{out}(I)\cap \delta^{out}(J)=\emptyset$ 
 \item[3)] \label{edges} If $e_i\not\in\bigcup_{J\in\mathcal{N}}\delta^{in}(J)$ then $b_i=\infty$. In this case $e_i\in\mathcal{E}^{out}$ where $\mathcal{E}^{out}$ denotes the set of all outgoing roads for the network. Furthermore if $e_i\not\in\bigcup_{J\in\mathcal{N}}\delta^{out}(J)$ then $a_i=-\infty$. In this case $e_i\in\mathcal{E}^{in}$ where $\mathcal{E}^{in}$ denotes the set of all incoming roads for the network.
 \end{itemize}
-These assumptions guarantee that the resulting network is indeed a valid graph. Requirement 1) implies that every road starts and ends in at most one junction. Requirement 2) then says that if a road does not start (end) at a junction then it is considered as an inflow (outflow) of the network. \newline
+These assumptions guarantee that the resulting network is indeed a valid graph. Requirement 2) implies that every road starts and ends in at most one junction. Requirement 3) then says that if a road does not start (end) at a junction then it is considered as an inflow (outflow) of the network. \newline
 \newline
-Another method to represent a road network is via so-called \textbf{adjescency matrices} \citep{Biggs.1993}.
+Another method to represent a road network is via so-called \textbf{adjacency matrices} \citep{Biggs.1993}.
 \begin{Definition}
 \label{adjesM}
-Let $\mathcal{N}$ be a set of edges with $|\mathcal{N}|=n_R$. Then the adjescency matrix is a square $n_R\times n_R$-matrix $A$ with \begin{equation*} 
+Let $\mathcal{N}$ be a set of edges with $|\mathcal{N}|=n_R$. Then the adjacency matrix $A$ is a square $n_R\times n_R$-matrix with \begin{equation*} 
 A_{ij} = \bigg\{\begin{array}{ll}
 	1 & \text{if there exists a junction between road} \ e_j \ \text{and} \ e_i \\
 	0 & \text{else}
 \end{array}
 \end{equation*}
 \end{Definition}
-The adjescency matrix stores information if there is a direct connection between road $e_j$ and $e_i$. \newline
+The adjacency matrix stores information if there is a direct connection between road $e_j$ and $e_i$. \newline
 \newline
 \underline{\textbf{Remark:}} \newline
-Having given the network as in definition \ref{network} one can easily derive the corresponding adjescency matrix as in definition \ref{adjesM}, and vice versa. \textbf{BEING MORE SPECIFIC??? also about problem of non-unique indexing of junctions?}
+The adjacency matrix only provides information about the general infrastructure of the network. Later on we will incorporate information about the drivers' turning preferences $\Theta_{i,j}$. We then speak of the transition matrix $\Theta$ with 
+\begin{equation*}
+\Theta_{ji} = \bigg\{\begin{array}{ll}
+	\Theta_{i,j} & \text{if there exists a junction between road} \ e_j \ \text{and} \ e_i \\
+	0 & \text{else}
+\end{array}
+\end{equation*}
+where $\Theta_{i,j}\in\left[0,1\right]$ reflects the preference of a driver coming from road $e_i$ and leaving the junction in direction of road $e_j$.
+%ion about Having given the network as in definition \ref{network} one can easily derive the corresponding adjacency matrix as in definition \ref{adjesM}, and vice versa. \textbf{BEING MORE SPECIFIC??? also about problem of non-unique indexing of junctions?}
 \begin{Example}
-Let us consider network displayed in figure \ref{fig:network_ex}. Then the corresponding adjescency matrix can be written as
+Let us consider the network displayed in figure \ref{fig:network_ex}. Then the corresponding adjacency matrix can be written as
 \begin{equation*}
 A=\left(\begin{array}{ccccc} 0 & 0 & 0 & 0 & 0\\0 & 0 & 0 & 0 & 0\\1 & 1 & 0 & 0 & 0\\0 & 0 & 0 & 0 & 0\\0 & 0 & 1 & 1 & 0
 \end{array} \right)
@@ -53,7 +61,32 @@ A=\left(\begin{array}{ccccc} 0 & 0 & 0 & 0 & 0\\0 & 0 & 0 & 0 & 0\\1 & 1 & 0 & 0
 \includegraphics[scale=0.3]{example_network}
 \caption{Example of a network\label{fig:network_ex}}
 \end{figure}
-\section{Modelling on networks - the buffer model}
+Generally for every road $e_i$ we write $\rho_i:[a_i,b_i]\times[0,\infty)\rightarrow[0,1]$ for the density of cars at any point $x\in [a_i,b_i]$ at any time $t\geq0$. We then want $\rho_i$ to be a weak entropy solution on $[a_i,b_i]$, i.e. for every smooth test function $\phi:[a_i,b_i]\times [0,\infty)\rightarrow \mathbb{R}$ with compact support on $(a_i,b_i)\times (0,\infty)$
+\begin{equation}
+\int_0^\infty \int_{a_i}^{b_i}\left(\rho_i\frac{\delta\phi}{\delta t}+f(\rho_i)\frac{\delta\phi}{\delta x}\right)dxdt=0
+\end{equation}
+\begin{Definition}
+\label{def:weak_sol}
+Let J be a junction with n incoming roads and m outgoing roads. A weak solution at J is a collection of functions $\rho_i:[a_i,b_i]\times[0,\infty)\rightarrow[0,1], i=1,\dots,n+m$, such that
+\begin{equation}
+\sum_{i=1}^{n+m}\left(\int_0^\infty\int_{a_i}^{b_i}\left(\rho_i\frac{\delta\phi_i}{\delta t}+f(\rho_i)\frac{\delta\phi_i}{\delta x}\right)dxdt\right)=0
+\end{equation}
+for smooth functions $\phi_i, i=1,\dots,n+m$. In particular $\phi$ is also smooth across junctions, namely
+\begin{equation*}
+\phi_i(b_i,\cdot)=\phi_j(a_j,\cdot), \hspace{1cm} \frac{\delta\phi_i}{\delta x}(b_i,\cdot)=\frac{\delta\phi_j}{\delta x}(a_j,\cdot)
+\end{equation*}
+\end{Definition}
+From Definition \ref{def:weak_sol} we can also follow the so-called Rankine-Hugoniot condition.
+\begin{Lemma}{Rankine-Hugoniot condition}
+\label{lemma:Rankine-Hugoniot}
+\newline
+Let $\rho=(\rho_1,\cdots,\rho_{n+m})$ be a weak solution at junction $J$. Then $\rho$ satisfies the Rankine-Hugoniot condition
+\begin{equation}
+\sum_{i=1}^n f(\rho_i(b_i,t) = \sum_{j=1}^m f(\rho_j(a_j,t)
+\end{equation}
+\end{Lemma}
+\section{The Riemann problem}
+\section{Modelling of junctions - the buffer model}
 \label{buffer_model}
 \underline{\textbf{The setting:}} \newline
 \newline
@@ -63,16 +96,17 @@ Consider a family of $n+m$ roads, all joining at a single junction. The indices 
 \begin{equation} 
 	(\rho_k)_t+f(\rho_k)_x=0.
 \end{equation}
-accompanied by intial densities $\rho_k(x,0)=\rho_{k,0}(x)$ and external inflows into the network defined by 
+accompanied by intial densities $\rho_k(x,0)=\rho_{k,0}(x)$ and external inflows $f(\rho_{in,k})$ into the network defined by 
 \begin{equation}
-f(\rho_k(a_k,t)=q_k(t) \hspace{0.4cm} \forall e_k\in\mathcal{E}^{in}
+f(\rho_k(a_k,t)=f(\rho_{in,k}(t)) \hspace{0.4cm} \forall e_k\in\mathcal{E}^{in}
 \end{equation}
+where $\rho_{in,k}(t)$ denotes the incoming densite into road $e_k\in\mathcal{E}^{in}$. 
 Furthermore the corresponding inflows and outflows of the junctions are given as
 \begin{eqnarray}
 	f(\rho_k(b_k,t))=\bar{f_k}(t) & \forall e_k\in\mathcal{E}\setminus\mathcal{E}^{out} \\
 	f(\rho_k(a_k,t))=\hat{f_k}(t) & \forall e_k\in\mathcal{E}\setminus\mathcal{E}^{in}
 \end{eqnarray}
-where the junctions fluxes $\bar{f_k}$ and $\hat{f_k}$ are defined later. \newline
+where the junctions fluxes $\bar{f_k}$ and $\hat{f_k}$ are defined later in equation \eqref{eq:sbj}. \newline
 For the roads leaving the network we also impose Dirichlet boundary conditions.
 \end{subequations}
 \newline
@@ -90,7 +124,7 @@ In \citep{Bressan-Conservation} a model is proposed where each intersection in t
 \newline
 The main results of their analysis can be stated as:
 \begin{itemize}
-\item[I.] If the queue lenghts $q_j$ for every outgoing road are given, the initial boundary value problems on each road become decoupled and can be solved individually, first on every incoming road, and secondly on every outgoing road. The densities $\rho_k(t,x)$ on every road $k=1...m+n$ can then be explicitly computed via a Lax type formula.
+\item[I.] If the queue lenghts $q_j$ for every outgoing road are given, the initial boundary value problems on each road become decoupled and can be solved individually, first on every incoming road, and secondly on every outgoing road. The densities $\rho_k(t,x)$ on every road $k=1...m+n$ can then be explicitly computed via a Lax type formula \citep{Evans.2015}.
 \item[II.] Given the densities, the lenghts $q_j$ of the queues can be determined by balancing the influxes and outfluxes of the intersection. The queue lengths can finally be obtained as a fixpoint of a contractive transformation $q\rightarrow\Delta(q)$ where $q$ needs to be Lipschitz continuous.
 \item[III.] The buffer model is thus well-posed at intersections for general $\mathcal{L}^\infty$ data. It is also shown that the traffic flow model is continous w.r.t. weak convergence.
 \end{itemize}
@@ -115,7 +149,7 @@ Given a junction $J$ with $n:=|\delta^{in}(J)|$ incoming roads, say $e_1,...,e_n
 \end{array}\right)
 \end{equation}
 where $0\leq \Theta_{i,j}\leq 1$ for every $i=1,...,n$ and $j=n+1,...,n+m$. Furthermore we impose the validity condition
-\[\Theta_{i,j}\in\left[0,1\right], \hspace{1cm}\sum_{j\in\delta^{out}(J)}\Theta_{i,j}=1\]
+\[\Theta_{i,j}\in\left[0,1\right], \hspace{1cm}\sum_{j\in\delta^{out}(J)}\Theta_{i,j}=1\hspace{0.5cm}\forall i=1,\dots,n\]
 \end{Definition}
 In general, $\Theta_{i,j}=\Theta_{i,j}(t,x)$ needs not to be necessarily constant, but can be time- and location-dependent. In the following it is assumed that the drivers' preferences are known in advance and that they do not change their itinerary throughout the network. Then the conservation law reads
 \[(\Theta_{i,j}\rho_i)_t+[\rho_i\Theta_{i,j}v(\rho_i)]_x=0\]
@@ -125,7 +159,7 @@ The second term vanishes as the general conservation law still needs to be fulfi
 \begin{equation}
 (\Theta_{i,j})_t+v(\rho_i)(\Theta_{i,j})_x=0
 \end{equation}
-A similar approach has been persued by \citep{Bressan.2013}. In their intersection model the capacity of the queues is arbitrarily big. Cars wanting to ender road $j$ but exceed the maximum outflux of the intersection are instead stored in the queue. As a consequence there is no backward propagation of queues and therefore no emergence of shocks on incoming roads. \newline
+A similar approach has been persued by \citep{Bressan.2013}. In their intersection model the capacity of the queues is arbitrarily big. Cars wanting to enter road $j$ but exceeding the maximum outflux of the intersection are instead stored in the queue. As a consequence there is no backward propagation of queues and therefore no emergence of shocks on incoming roads. \newline
 \newline
 The model by \citep{Bressan-Conservation} extends this model. Consider a single junction and let $M>0$ be the maximum capacity of the queue. Then the incoming fluxes into the junction depend on the current degree of occupancy of the buffer, which is defined by 
 \[q=(q_j)_{j\in\mathcal{O}},\hspace{1cm}q\in\mathbb{R}^n\]
@@ -136,16 +170,27 @@ The Cauchy problem for traffic flow on a network can thus be formulated as
 \end{eqnarray*}
 supplemented by suitable initial conditions.\newline
 \newline
-The \textbf{maximum fluxes} that can enter and exit the intersection depend on the current filling level on the incoming and outgoing road, respectively. In particular they are given by the following equations.
+\added{We denote the boundary values at the junction $J$ by}
+\begin{equation}
+\renewcommand{\arraystretch}{2}%
+\left\{\begin{array}{rllr}
+\bar{\Theta}_{i,j}(t)&:=& \lim_{x\rightarrow0-}\Theta_{i,j}  &e_i\in\delta^{in}(J), e_j\in\delta^{out}(J) \\
+\bar{\rho}_i(t)&:=& \lim_{x\rightarrow b_i-}\rho_i(x,t) &e_i\in\delta^{in}(J) \\
+\hat{\rho}_j(t)&:=& \lim_{x\rightarrow a_j+}\rho_j(x,t) &e_j\in\delta^{out}(J) \\
+\bar{f}_i(t) &:=& f_i(\bar{\rho}_i(t))=\lim_{x\rightarrow b_i-}f_i(\rho_i(x,t)) &e_i\in\delta^{in}(J) \\
+\hat{f}_j(t) &:=& f_j(\hat{\rho}_j(t))=\lim_{x\rightarrow a_j+}f_j(\rho_j(x,t)) &e_j\in\delta^{out}(J)
+\end{array}\right.
+\end{equation}
+\added{The \textbf{maximum fluxes} that can enter and exit the intersection depend on the current filling level on the incoming and outgoing road, respectively. In particular they are given by the following equations.}
 \begin{itemize}
 	\label{eg:maxfluxes}
-	\item Maximum fluxes on incoming roads: \[\omega_i(\rho):=\begin{cases}
-		f(\rho) & \rho\leq\sigma \\
-		f(\sigma) & \rho>\sigma \end{cases}
+	\item Maximum fluxes on incoming roads: \[\omega_i:=\omega_i(\bar{\rho})=\begin{cases}
+		f(\bar{\rho}) & \bar{\rho}\leq\sigma \\
+		f(\sigma) & \bar{\rho}>\sigma \end{cases}
 	\]
-	\item Maximum fluxes on outgoing roads: \[\omega_j(\rho):=\begin{cases}
-		f(\sigma) & \rho\leq\sigma \\
-		f(\rho) & \rho>\sigma
+	\item Maximum fluxes on outgoing roads: \[\omega_j:=\omega_j(\hat{\rho})=\begin{cases}
+		f(\sigma) & \hat{\rho}\leq\sigma \\
+		f(\hat{\rho}) & \hat{\rho}>\sigma
 	\end{cases}\]
 \end{itemize}	
 This property ensures that Riemann problems on incoming roads are solved by waves with negative speed, and Riemann problems on outgoing roads are solved by waves with positive speed. \newline
@@ -153,9 +198,9 @@ This property ensures that Riemann problems on incoming roads are solved by wave
 Based on the junctions fluxes, we can also derive the rate of change of the size of the junction buffer. In detail, conservation of mass yields the additional differential equation for the \textbf{evolution of the queue size}
 \begin{equation}
 \label{eq:queue}
-\dot{q_j}=\sum_{i\in\mathcal{I}}\bar{\Theta}_{i,j}\bar{f_i}-\bar{f_j}
+\dot{q_j}=\sum_{i\in\mathcal{I}}\bar{\Theta}_{i,j}\bar{f_i}-\hat{f_j}
 \end{equation}
-where $\bar{f_j}$ denote the boundary fluxes at the junction, $k\in\mathcal{I}\cup\mathcal{O}$. \newline
+where $\bar{f_i},\hat{f}_j$ denote the boundary fluxes at the junction. \newline
 \newline
 We are now ready to state two sets of equations regarding the incoming and outgoing junction fluxes depending on the drivers' choices $\Theta_{ij}$ and the queue lenghts $q_j$. \newline \newline
 %SBJ
@@ -164,9 +209,9 @@ The first model provides a shared buffer of capacity $M$ for every outgoing junc
 \textbf{Single Buffer Junction model (SBJ):} Consider a constant $M>0$, describing the maximum capacity of the junction at any given time, and constants $c_i>0, i\in\mathcal{I}$ accounting for priorities given to the differnt incoming roads. \newline
 We then require that the incoming fluxes $\bar{f}_i$ satisfy
 \begin{subequations}
-\label{{eq:sbj}}
+\label{eq:sbj}
 \begin{equation}
-\bar{f}_i=\min\lbrace \omega_i,c_i(M-\sum_{j\in\mathcal{O}}q_j)\rbrace, \hspace{1cm} i\in\mathcal{I}\end{equation}
+\bar{f}_i=\min\left\lbrace \omega_i,c_i(M-\sum_{j\in\mathcal{O}}q_j)\right\rbrace, \hspace{1cm} i\in\mathcal{I}\end{equation}
 Furthermore, the outgoing fluxes $\hat{f}_j$ should satisfy
 \begin{equation}\hat{f}_j=\Bigg\lbrace\begin{array}{ll}
 	\omega_j & q_j>0 \\
@@ -191,16 +236,29 @@ Furthermore, the outgoing fluxes $\hat{f}_j$ should satisfy
 \end{array}\]
 Now we can define the full \textbf{buffer model} by Bressan et al. \citep{Bressan-Conservation}
 \begin{eqnarray}
+\label{eq:full_buffer}
 (\rho_i)_t+f_i(\rho_i)_x&=&0 \hspace{1cm},e_i\in \mathcal{E} \\
 \dot{q_j}&=&\sum_{i\in\mathcal{I}}\bar{\Theta}_{i,j}\bar{f_i}-\bar{f_j} \nonumber\\
-f(\rho_k(a_k,t)&=&q_k(t) \hspace{1cm}\forall e_k\in\mathcal{E}^{in} \nonumber\\
+f(\rho_k(a_k,t)&=&f(\rho_{in,k}(t)) \hspace{1cm}\forall e_k\in\mathcal{E}^{in} \nonumber\\
 f(\rho_k(b_k,t))&=&\bar{f_k}(t)  \hspace{1cm}\forall e_k\in\mathcal{E}\setminus\mathcal{E}^{out} \nonumber\\
 	f(\rho_k(a_k,t))&=&\hat{f_k}(t) \hspace{1cm}\forall e_k\in\mathcal{E}\setminus\mathcal{E}^{in} \nonumber
 \end{eqnarray}
-with external inflows $q_k(t)$ and junctions fluxes $\bar{f_k}(t)$ and $\hat{f_k}(t)$ as defined in \eqref{eq:sbj}
+with external inflows $f(\rho_{in,k}(t))$ and junctions fluxes $\bar{f_k}(t)$ and $\hat{f_k}(t)$ as defined in \eqref{eq:sbj}. \newline
+\added[remark={wondering if definition of Riemann solver is needed somewhere}]{ Let $\rho_k(x,t), e_k\in\mathcal{E}$ and $q_j(t), e_j\in\mathcal{E}\setminus\mathcal{E}^{in}$ now be such that equations \ref{eq:sbj} and \eqref{eq:queue} are fulfilled. Then we say that the densities $\rho_k(x,t)$ provide a solution to the Cauchy problem \eqref{eq:full_buffer} close to the intersections.}
+\newline
+\newline
+\underline{\textbf{Remark:}}\newline
+\newline
+In the following we restrict ourselves to the use of the single buffer junction model (SBJ).
 \newline
 \newline
 \textbf{Limitations of this approach:} \begin{itemize}
-\item This approach focuses on maximizing the flux of mass through the junction. A counter-intuitive effect of this approach is the following:
-\item Consider a trivial junction at $x=0$ with one incoming and one outgoing road and initial data $\rho_{in}>\sigma$ and $\rho_{out}=0$. Then the result won't be continuous at $x=0$. In particular the outgoing flux will be $f^{max}=f(\sigma)$, hence $\rho(0^+,t)=\sigma$ whereas $\rho(0^-,t)>\sigma$ by assumption.
+\item This approach focuses on maximizing the flux of mass through the junction. A counter-intuitive effect of this approach is the following: \newline
+ Consider a trivial junction at $x=0$ with one incoming and one outgoing road and initial data $\rho_{in}>\sigma$ and $\rho_{out}=0$. Then the result won't be continuous at $x=0$. In particular the outgoing flux will be $f^{max}=f(\sigma)$, hence $\rho(0^+,t)=\sigma$ whereas $\rho(0^-,t)>\sigma$ by assumption.
+\item The buffer model in general violates the Rankine-Hugoniot condition \ref{lemma:Rankine-Hugoniot}:
+\begin{eqnarray}
+	\sum_{\substack{e_j\in\delta^{out}(J) \\ J\in\mathcal{N}}}\hat{f}_j&=&\sum_{\substack{e_j\in\delta^{out}(J)\\J\in\mathcal{N}}}\sum_{\substack{e_i\in\delta^{in}(J)\\J\in\mathcal{N}}}\bar{f}_i\Theta_{i,j}-\sum_{\substack{e_j\in\delta^{out}(J)\\J\in\mathcal{N}}}\dot{q}_j \\
+	&=& \sum_{\substack{e_i\in\delta^{in}(J)\\J\in\mathcal{N}}}\bar{f}_i-\sum_{\substack{e_j\in\delta^{out}(J)\\J\in\mathcal{N}}}\dot{q}_j
+\end{eqnarray}
+as $\sum_{\substack{e_j\in\delta^{out}(J)\\J\in\mathcal{N}}}\Theta_{i,j}=1$ for every $i\in\delta^{in}(J),J\in\mathcal{N}$. This does not fulfill the Rankine-Hugoniot condition as long as at least one queue $q_j$ changes its length.
 \end{itemize}

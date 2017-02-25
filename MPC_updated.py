@@ -700,6 +700,24 @@ def computeControlVectors(all_controls,network):
             control_vector[index].append(i[control])
     return control_vector
 
+def plotBars(t,x,rho):
+    figure, ax = plt.subplots(len(x))
+    plt.xlabel('x')
+    #plt.tight_layout()
+    figure.set_size_inches(10, 8)
+    #plt.yticks([0,0.5])
+    #plt.ylim([0,0.8])
+    for i in range(len(rho)):
+        densities = rho[i][-1][:-1]
+        color=[str(c) for c in densities]
+        y=[0 for a in densities]
+        sc=ax[i].scatter(x[i][:-1],y,s=2000,marker="|",linewidth=5, color=color)
+        ax[i].set_ylabel(r'$\rho$')
+        #ax[i].set_yticks([0.0,0.25,0.5,0.75])
+        ax[i].set_xlim(_X[i])
+        ax[i].set_ylim([-0.05,0.05])
+    fig.colorbar(sc, ax=ax.ravel().tolist())
+
 def animate(i):
     global RhoPlot,XPlot,line,fig,ax
     ax.clear()    
@@ -820,6 +838,10 @@ print elapsedTime
 #rr2,ff2=computeFluxesFromControls(u_bin,_X,_Rho,network)
 #flux_from_binary_controls = getOverallFlux(ff2)
 #
+flux = getOverallFlux(totalflux)
+
+
+
 #plotControls(u_vector,0)
 #plotControls(u_bin,0)
 #flux = getOverallFlux(totalflux)

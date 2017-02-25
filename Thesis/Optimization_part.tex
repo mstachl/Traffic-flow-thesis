@@ -63,13 +63,14 @@ During the following optimization studies the cumulative traffic flux is the cos
 \label{sec:sync}
 Optimally tuned traffic lights settings provide a setting where drivers encounter a green wave, in particular a sequence of consecutive green lights. The distinction between synchronized and coordinated traffic lights is important. Synchronized traffic signals all switch at the same time and are hardly used in pratice. On the other hand coordinated signals are controlled by a master controller are set up such that they progress (switch) in sequence in order to generate a green wave for crossing vehicles. \textcolor{red}{ADD weiter ausführen}
 
-\subsubsection{The model}
-Consider a sequence of two intersections with two incoming and one outgoing road (cf. figure \ref{delaynetwork}) with inflows $q_k(t)$ for $e_k\in\mathcal{E}^{in}$. 
+\subsection{The model}
+Consider a sequence of two intersections with two incoming and one outgoing road (cf. figure \ref{delaynetwork}) with inflows $q_k(t)$ for $e_k\in\mathcal{E}^{in}$.\newline
 \begin{figure}[h]
 \center
 \includegraphics[scale=.5]{example1}
 \caption{Example network consisting of two junctions and four controls. \label{delaynetwork}}
 \end{figure}
+\newline
 Then we can refine the conservation law of \ref{eq:conslaw} to
 \begin{subequations}
 \label{delaymodel}
@@ -82,7 +83,7 @@ accounting the restrictions on the fluxes induced by the traffic configuration $
 \end{subequations}
 \newline
 \newline
-Impose now that the two traffic lights $\eta_0, \eta_2$ have the same fixed frequency of red/green light - say one time unit -, only set apart by a delay $\tau$, and recall the feasibility condition \ref{eq:feasibility}. Then the controls satisfy
+Impose now that the two traffic lights $\eta_0, \eta_2$ have the same fixed frequency of red/green light (also called their lifetime)- say one time unit -, only set apart by a delay $\tau$, and recall the feasibility condition \ref{eq:feasibility}. Then the controls satisfy
 \begin{eqnarray*}
 	\eta_0(t)&=&\chi_{\left[0,1\right]\cap\left[2,3\right]\cap\dots}=:\eta_C(t) \\
 	\eta_1(t)&=&1-\eta_C(t) \\
@@ -99,13 +100,28 @@ and the optimal delay is given by
 	\tau^*:= &&\text{arg}\max_{\tau\in\mathbb{R}} \sum_{i\in\mathcal{E}}\int_0^T\int_{a_i}^{b_i} f(\rho_i(x,t))dxdt +\sum_{i\in\mathcal{E}\setminus\mathcal{E}^{out}}\int_0^T\bar{f}_i(t)\cdot \eta_i(t)dt  \nonumber\\ &+&\sum_{j\in\mathcal{E}\setminus\mathcal{E}^{in}}\int_0^T\hat{f}_j(t,\eta) dt 
 \end{eqnarray}
 \newpage
-\subsubsection{Example}
+\subsection{Experiments on coordinated light signals}
+\textbf{Experiment a)} \newline
+In the first study we want to examine the effect of the duration of the green and red phases on the total flux on the network. Here we consider a single junction with two incoming roads and one outgoing road. Every road is filled initially with traffic density $\rho_i(x,0)=0.2, i=0,1,2$. On the incoming roads $e_0, e_1$ traffic of density $\rho_{in,0}=0.4, \rho_{in,1}=0.2$ is constantly inflowing. Cars at the end of road $e_2$ just exit the network and vanish. \begin{table}[h]
+\center
+\begin{tabular}{l|ccc}
+\textbf{road} & \textbf{length} & \textbf{initial density $\rho_0$} & \textbf{inflow $f(\rho_{in,i}(t))$ on $\left[0,200\right]$} \\
+\hline \hline
+$e_0$ & 50 & 0.2 & f(0.4) \\
+$e_1$ & 50 & 0.2 & f(0.2) \\
+$e_2$ & 100 & 0.2 & -  
+\end{tabular}
+\caption{Setup for the network of example a)}
+\end{table}
+\newline
+\newline
+\textbf{Experiment b)} \newline
 \label{delay_example}
 Consider the same network as provided in figure \ref{delaynetwork} with the following properties: \newline
 \begin{table}[h]
 \center
 \begin{tabular}{l|ccc}
-\textbf{road} & \textbf{length} & \textbf{initial density $\rho_0$} & \textbf{inflow $q_i(t)$ on $\left[0,200\right]$} \\
+\textbf{road} & \textbf{length} & \textbf{initial density $\rho_0$} & \textbf{inflow $f(\rho_{in,i}(t))$ on $\left[0,200\right]$} \\
 \hline \hline
 $e_0$ & 50 & 0.2 & f(0.4) \\
 $e_1$ & 50 & 0.2 & f(0.2) \\
@@ -113,10 +129,10 @@ $e_2$ & 100 & 0.2 & - \\
 $e_3$ & 50 & 0.2 & f(0.2) \\
 $e_4$ & 50 & 0.2 & - 
 \end{tabular}
-\caption{Setup for the network of example}
+\caption{Setup for the network of example b)}
 \end{table}
 \newline
-Furthermore let the externl inflows be compactly supported on $t\in\left[0s,200s\right]$ and let the fixed green/red phase duration be set to 60s. 
+Furthermore let the external inflows be compactly supported on $t\in\left[0s,200s\right]$ and let the fixed green/red phase duration be set to 60s. 
 Then the evaluation of our cost functional with respect to the delay $\tau\in\left[0,60\right]$ up to final time $T=500$, according to equation \ref{eq:opt_delay}, leads to an optimal delay of $\tau^*=31s$ with an optimal cumulated traffix flux $F_T^*\sim 83174.7$.
 \begin{figure}[h]
 \center
@@ -133,7 +149,12 @@ Then the evaluation of our cost functional with respect to the delay $\tau\in\le
 \section{Optimization via Model Predictive Control}
 In contrary to chapter \ref{sec:sync} the optimal master controller should not work on fixed green and red light periods but be able to adjust traffic lights based on the current - and ideally even future - traffic situation in front of the traffic lights. 
 %The longer the green phase period on one road, the more vehicles coming from this road can cross the intersection and proceed driving towards their final destination (while - of course - cars from the other incoming roads of the junction have to wait due to the current red light phase). 
-Based on the possible fluxes the master controller would assign traffic light configurations such that the total flow on the network is maximized over the full time horizon. Unfortunately in real networks complete knowledge of the future volume of traffic over the whole time horizon is usually not given (at best educated guesses about the volume of traffic and the occupation of the network can be made at certain times throughout the day). This is where \textbf{model predictive control} comes into play.
+Based on the possible fluxes the master controller would assign traffic light configurations such that the total flow on the network is maximized over the full time horizon. While trying optimization over the full time horizon we run into two problems:
+\begin{itemize}
+\item In real networks complete knowledge of the future volume of traffic over the whole time horizon is usually not given (at best educated guesses about the volume of traffic and the occupation of the network can be made at certain times throughout the day).
+\item The computational needed to find the optimal solution might be too high to solve the optimization problem in reasonable time.
+\end{itemize}
+This is where \textbf{model predictive control} comes into play.
 \newline
 \newline
 Model Predictive Control (MPC) is a method to control complex dynamic processes and has a wide range of applications. MPC algorithms use a model of the underlying system under consideration in order to find optimal control signals, taking the future behaviour of the system into account. MPC methods are suitable to control systems in which prediction is a key aspect. \\
@@ -160,7 +181,7 @@ using a receeding horizon scheme.
 \end{figure}
 %\newline \newline
 In the following the theory on MPC will be provided, supplemented by numerical examples. Also a comparison with the results from the delay modelling in \ref{sec:sync} will be given.
-\subsubsection{Theory}
+\subsection{Theory}
 relaxation of binary values for the light signals on $\left[0,1\right]$. \newline
 \newline
 Let $K_i\in \left\lbrace0,1\right\rbrace^{n_J}$ be a feasible discrete configuration for all traffic lights such that the feasibility condition \ref{eq:feasibility} is met, where $K_i^j\in \left\lbrace0,1\right\rbrace$ denotes the individual configuration of the $j-th$ traffic light. Then we can define $\Omega:=\left\lbrace K_1,...,K_{n_\Omega}\right\rbrace$ as the set of all \textbf{feasible discrete traffic light configurations}.
@@ -176,20 +197,21 @@ For a single junction with 3 incoming and a single outgoing road $\Omega$ would 
 \end{Example}
 The flux functional $F_{MPC}$ can then be defined as 
 \begin{eqnarray*}
-	F_{MPC}(t_n,\eta)&:=& \sum_{i\in\mathcal{E}}\int_{t_n}^{t_n+n_p\Delta t}\int_{a_i}^{b_i} f(\rho_i(x,t))dxdt +\sum_{i\in\mathcal{E}\setminus\mathcal{E}^{out}}\int_{t_n}^{t_n+n_p\Delta t}\bar{\bar{f}}_i(t,\eta_i)dt  \\ &+&\sum_{j\in\mathcal{E}\setminus\mathcal{E}^{in}}\int_{t_n}^{t_n+n_p\Delta t}\hat{\hat{f}}_j(t,\eta) dt+\gamma_1\int_{t_n}^{t_n+n_p\Delta t} \sum_{i=1}^{n_J}W_i(t,\eta_i)dt \\ &+& \gamma_2\int_{t_n}^{t_n+n_p\Delta t}||\dot{\eta}||^2dt \\
-	&=& F_{n_C}(t_n,\eta)+R(t_n,\eta)
+	F_{MPC}(t_n,\eta)&:=& \sum_{i\in\mathcal{E}}\int_{t_n}^{t_n+n_p\Delta t}\int_{a_i}^{b_i} f(\rho_i(x,t))dxdt +\sum_{i\in\mathcal{E}\setminus\mathcal{E}^{out}}\int_{t_n}^{t_n+n_p\Delta t}\bar{\bar{f}}_i(t,\eta_i)dt  \\ &+&\sum_{j\in\mathcal{E}\setminus\mathcal{E}^{in}}\int_{t_n}^{t_n+n_p\Delta t}\hat{\hat{f}}_j(t,\eta) dt-\gamma_1\int_{t_n}^{t_n+n_p\Delta t} \sum_{i=1}^{n_J}W_i(t,\eta_i)dt \\ &-& \gamma_2\int_{t_n}^{t_n+n_p\Delta t}||\dot{\eta}||^2dt \\
+	&=& F_{n_C}(t_n,\eta)-R(t_n,\eta)
 \end{eqnarray*}
 with $\gamma_1,\gamma_2>0$ and where 
 \begin{itemize}
-\item $F_{n_C}(t_n,\eta)$ refers to the cummulated flux travelled through the network during $t\in\left[t_n,t_n+n_C\Delta t\right]$ and
-\item $R$ marks the influencing terms ???????
+\item $F_{n_C}(t_n,\eta)$ is the target functional refering to the cummulated flux travelled through the network during $t\in\left[t_n,t_n+n_C\Delta t\right]$ and
+\item $R$ marks the penalization terms
  \begin{itemize}
 \item[a)] $W_i(t):=||\prod_{j}(\eta_i(t)-K_i^j)||^2$ is a \textbf{multi-well function}, as it is also used in the Modica-Mortola-functional \citep{modica1977}. It works as a de-relaxation term meaning that the resulting controls $\eta_i$ stay close to the binary values 0 and 1 \label{dot}
 \item[b)] and the term $||\dot{\eta}||^2$ which limits the frequency with which traffic lights can switch.
 \end{itemize}
 \end{itemize}
-Then by substituting the time integrals by finite sums and discretizing the derivative via the backward difference quotient \[\int_{t_n}^{t_n+n_p\Delta t}||\dot{\eta}||^2dt\sim\gamma_2\sum_{j=n+1}^{n+n_p}\frac{\Delta t}{\Delta t}\sum_{i=1}^{n_J}(\eta_i(t_j)-\eta_i(t_{j-1}))^2=\gamma_2\sum_{j=n+1}^{n+n_p}\sum_{i=1}^{n_J}(\eta_i(t_j)-\eta_i(t_{j-1}))^2\] we can define the \textbf{discrete optimal control problem} (OCP) over the finite horizon $[t_n,t_n+n_p\Delta t]$ as 
+Then by substituting the time integrals by finite sums and discretizing the derivative via the backward difference quotient \[\int_{t_n}^{t_n+n_p\Delta t}||\dot{\eta}||^2dt\sim\gamma_2\sum_{j=n+1}^{n+n_p}\sum_{i=1}^{n_J}(\eta_i(t_j)-\eta_i(t_{j-1}))^2\] we can define the \textbf{discrete optimal control problem} (OCP) over the finite horizon $[t_n,t_n+n_p\Delta t]$ as 
 \begin{figure}[h]
+\center
 \begin{mytheo*}{}
 \begin{subequations}
 \label{eq:OCP}
@@ -271,7 +293,7 @@ d) & 48398.24 & 396.31
 \end{table}
 
 \newpage
-\subsubsection{Examples}
+\subsection{Examples}
 To solve the optimization problems \eqref{eq:OCP} we use a sequential least squares programming optimizer (SLSQP) implemented as part of the SciPy module\footnote{Jones E, Oliphant E, Peterson P, et al. SciPy: Open Source Scientific Tools for Python, 2001-, http://www.scipy.org/} in Python 2.7\footnote{Python Software Foundation. Python Language Reference, version 2.7. Available at http://www.python.org}. The SLSQP uses the Han-Powell quasi-Newton method with a Broyden-Fletcher-Goldfarb-Shanno (BFGS) update \citep{Kraft.1988}. In particular we choose the convergence accuracy $\epsilon=10^{-6}$ for the optimization. \newline
 \newline
 a) single junction: two incoming, one outgoing road \newline

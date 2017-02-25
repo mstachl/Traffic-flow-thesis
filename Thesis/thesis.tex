@@ -12,10 +12,10 @@
 \usepackage{verbatim}
 \usepackage{mathtools}
 \usepackage{dsfont}
-\usepackage{ulem}
+%\usepackage{ulem}
 \usepackage{color}
 \usepackage{natbib}
-
+\usepackage{changes}
 %\usepackage[T1]{fontenc}
 %\usepackage[english]{babel}
 %\usepackage[ngerman]{babel}
@@ -39,10 +39,10 @@
 %\usepackage{hyperref}
 %\usepackage{dsfont}
 
-
+\usepackage{umlaute}
 \bibliographystyle{abbrv}
 
-\pagestyle{headings}
+\pagestyle{plain}
 \bibliographystyle{plainnat}
 
 
@@ -59,7 +59,7 @@
 %\newtheorem{Proposition}[Satz]{Proposition}
 %% Abkuerzung ist "Proposition", Name ist "Proposition", wird in "Theorem"-Nummerierung eingebunden.
 %%Lemma, ebenfalls in "Theorem"-Nummerierung eingebunden
-%\newtheorem{Lemma}[Satz]{Lemma}
+\newtheorem{Lemma}[Satz]{Lemma}
 %%Definition, ebenfalls in "Theorem"-Nummerierung eingebunden
 \newtheorem{Definition}[Satz]{Definition}
 %%Beispiel, ohne Nummerierung
@@ -76,8 +76,6 @@
 \oddsidemargin0cm
 \evensidemargin0cm
 
-
-
 \pagestyle{headings}
 %% enumerate equations by section, i.e. 5.6 for 6th eq. in section 5
 \numberwithin{equation}{section}
@@ -88,10 +86,88 @@
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
 
 \newmdtheoremenv{algorithm}{Algorithm}
-
+\input{figures/tumlogo}
 
 \begin{document}
+\pagenumbering{gobble}
+\hoffset=5mm
+\thispagestyle{empty}
+\begin{center}
+	\bigskip \bigskip \bigskip 
+	\oTUM{6.0cm} \\
+	\vspace*{0.8cm}
+	{\huge \textbf{Technische Universit{\"a}t} } \\
+	\bigskip
+	{\huge \bf M{\"u}nchen} \\
+	\bigskip \bigskip \bigskip
+	{\huge \bf Department of Mathematics} \\
+	\bigskip \bigskip \bigskip
+	{\Large \bf Master's Thesis in Mathematics} \\
+	\bigskip \bigskip \bigskip \bigskip \bigskip
+	{\Large Modelling and control of traffic flow on networks} \\        
+	\bigskip \bigskip \bigskip \bigskip
+	{\Large Markus Stachl} \\    
+	\bigskip
+	\begin{figure}[ht]
+	\centering \includegraphics[width=0.2\linewidth]{figures/logo1.jpg}
+	\end{figure}
+	\bigskip 
+\end{center}
+\vfill
+
+\newpage
+\hoffset=5mm
+\thispagestyle{empty}
+
+\begin{center}
+	\bigskip \bigskip \bigskip 
+	\oTUM{6.0cm} \\
+	\vspace*{0.8cm}
+	{\huge \bf Technische Universit{\"a}t} \\
+	\bigskip
+	{\huge \bf M{\"u}nchen} \\
+	\bigskip \bigskip \bigskip
+	{\huge \bf Department of Mathematics} \\
+	\bigskip \bigskip \bigskip
+	{\Large \bf Master's Thesis in Mathematics} \\
+	\bigskip \bigskip \bigskip \bigskip \bigskip
+	{\Large Modelling and control of traffic flow on networks} \\
+	\bigskip \bigskip \bigskip
+	{\Large Modellierung und Kontrolle von Fahrzeugverkehr auf Netzwerken} \\
+	\bigskip
+\end{center}
+\vfill
+
+\begin{tabular}{ll}
+{\Large \bf Author:} & {\Large Markus Stachl} \\\\
+{\Large \bf Supervisor:} & {\Large Prof. Dr. Massimo Fornasier} \\\\
+{\Large \bf Advisor:} & {\Large Dr. Giacomo Albi} \\\\
+{\Large \bf Submission:} & {\Large 15.04.2017}
+\end{tabular}
+
+\newpage	
+\pagenumbering{roman}
+%\thispagestyle{empty}
+\hoffset=0mm
+\vspace*{\fill}
+\noindent I assure the single handed composition of this master's thesis only supported by declared resources.\\\\
+M{\"u}nchen, 15.04.2017\\\\\\\\\\\\
+\noindent \textit{(Markus Stachl)}
+
+\newpage
+\thispagestyle{empty}
+\null
+\newpage
+\thispagestyle{empty}
+\hoffset=0mm
+\section*{Abstract}
+\section*{Zusammenfassung}
+\newpage
+\section*{Acknowledgements}
+\newpage
 \tableofcontents
+\newpage
+\pagenumbering{arabic}
 \include{I_Introduction_part}
 \include{II_network}
 \include{III_numerics}
@@ -109,4 +185,6 @@ TL & traffic light
 \end{tabular}
 \newpage
 \bibliography{litII} 
+\newpage
+\listofchanges
 \end{document}

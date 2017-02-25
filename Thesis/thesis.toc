@@ -1,20 +1,21 @@
-\contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.1}
-\contentsline {section}{\numberline {1.1}Motivation}{2}{section.1.1}
-\contentsline {section}{\numberline {1.2}Traffic flow modelling}{2}{section.1.2}
-\contentsline {chapter}{\numberline {2}The LWR model on networks}{5}{chapter.2}
-\contentsline {section}{\numberline {2.1}Related literature}{5}{section.2.1}
-\contentsline {section}{\numberline {2.2}Basic principles of networks}{5}{section.2.2}
-\contentsline {section}{\numberline {2.3}Modelling on networks - the buffer model}{6}{section.2.3}
-\contentsline {chapter}{\numberline {3}Numerical approximations}{12}{chapter.3}
-\contentsline {section}{\numberline {3.1}The Godunov scheme for nonlinear conservation laws}{13}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Theory of conservative numerical schemes}{13}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}The Godunov scheme on networks}{15}{subsection.3.1.2}
-\contentsline {section}{\numberline {3.2}Examples}{16}{section.3.2}
-\contentsline {chapter}{\numberline {4}Traffic light optimization}{17}{chapter.4}
-\contentsline {section}{\numberline {4.1}Traffic light coordination}{19}{section.4.1}
-\contentsline {subsubsection}{The model}{19}{section*.2}
-\contentsline {subsubsection}{Example}{21}{section*.3}
-\contentsline {section}{\numberline {4.2}Optimization via Model Predictive Control}{22}{section.4.2}
-\contentsline {subsubsection}{Theory}{23}{section*.4}
-\contentsline {subsubsection}{Examples}{26}{section*.5}
-\contentsline {section}{\numberline {4.3}Conclusion and possible extensions}{30}{section.4.3}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Motivation}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Traffic flow modelling}{1}{section.1.2}
+\contentsline {chapter}{\numberline {2}The LWR model on networks}{4}{chapter.2}
+\contentsline {section}{\numberline {2.1}Related literature}{4}{section.2.1}
+\contentsline {section}{\numberline {2.2}Basic principles of networks}{4}{section.2.2}
+\contentsline {section}{\numberline {2.3}The Riemann problem}{7}{section.2.3}
+\contentsline {section}{\numberline {2.4}Modelling of junctions - the buffer model}{7}{section.2.4}
+\contentsline {chapter}{\numberline {3}Numerical approximations}{13}{chapter.3}
+\contentsline {section}{\numberline {3.1}The Godunov scheme for nonlinear conservation laws}{14}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Theory of conservative numerical schemes}{14}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}The Godunov scheme for the buffer model}{16}{subsection.3.1.2}
+\contentsline {section}{\numberline {3.2}Examples}{17}{section.3.2}
+\contentsline {chapter}{\numberline {4}Traffic light optimization}{18}{chapter.4}
+\contentsline {section}{\numberline {4.1}Traffic light coordination}{20}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}The model}{20}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Experiments on coordinated light signals}{22}{subsection.4.1.2}
+\contentsline {section}{\numberline {4.2}Optimization via Model Predictive Control}{23}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Theory}{25}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Examples}{29}{subsection.4.2.2}
+\contentsline {chapter}{\numberline {5}Conclusion and possible extensions}{31}{chapter.5}

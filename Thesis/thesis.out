@@ -4,13 +4,18 @@
 \BOOKMARK [0][-]{chapter.2}{The LWR model on networks}{}% 4
 \BOOKMARK [1][-]{section.2.1}{Related literature}{chapter.2}% 5
 \BOOKMARK [1][-]{section.2.2}{Basic principles of networks}{chapter.2}% 6
-\BOOKMARK [1][-]{section.2.3}{Modelling on networks - the buffer model}{chapter.2}% 7
-\BOOKMARK [0][-]{chapter.3}{Numerical approximations}{}% 8
-\BOOKMARK [1][-]{section.3.1}{The Godunov scheme for nonlinear conservation laws}{chapter.3}% 9
-\BOOKMARK [2][-]{subsection.3.1.1}{Theory of conservative numerical schemes}{section.3.1}% 10
-\BOOKMARK [2][-]{subsection.3.1.2}{The Godunov scheme on networks}{section.3.1}% 11
-\BOOKMARK [1][-]{section.3.2}{Examples}{chapter.3}% 12
-\BOOKMARK [0][-]{chapter.4}{Traffic light optimization}{}% 13
-\BOOKMARK [1][-]{section.4.1}{Traffic light coordination}{chapter.4}% 14
-\BOOKMARK [1][-]{section.4.2}{Optimization via Model Predictive Control}{chapter.4}% 15
-\BOOKMARK [1][-]{section.4.3}{Conclusion and possible extensions}{chapter.4}% 16
+\BOOKMARK [1][-]{section.2.3}{The Riemann problem}{chapter.2}% 7
+\BOOKMARK [1][-]{section.2.4}{Modelling of junctions - the buffer model}{chapter.2}% 8
+\BOOKMARK [0][-]{chapter.3}{Numerical approximations}{}% 9
+\BOOKMARK [1][-]{section.3.1}{The Godunov scheme for nonlinear conservation laws}{chapter.3}% 10
+\BOOKMARK [2][-]{subsection.3.1.1}{Theory of conservative numerical schemes}{section.3.1}% 11
+\BOOKMARK [2][-]{subsection.3.1.2}{The Godunov scheme for the buffer model}{section.3.1}% 12
+\BOOKMARK [1][-]{section.3.2}{Examples}{chapter.3}% 13
+\BOOKMARK [0][-]{chapter.4}{Traffic light optimization}{}% 14
+\BOOKMARK [1][-]{section.4.1}{Traffic light coordination}{chapter.4}% 15
+\BOOKMARK [2][-]{subsection.4.1.1}{The model}{section.4.1}% 16
+\BOOKMARK [2][-]{subsection.4.1.2}{Experiments on coordinated light signals}{section.4.1}% 17
+\BOOKMARK [1][-]{section.4.2}{Optimization via Model Predictive Control}{chapter.4}% 18
+\BOOKMARK [2][-]{subsection.4.2.1}{Theory}{section.4.2}% 19
+\BOOKMARK [2][-]{subsection.4.2.2}{Examples}{section.4.2}% 20
+\BOOKMARK [0][-]{chapter.5}{Conclusion and possible extensions}{}% 21
