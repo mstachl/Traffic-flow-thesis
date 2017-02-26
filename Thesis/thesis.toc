@@ -9,13 +9,13 @@
 \contentsline {chapter}{\numberline {3}Numerical approximations}{13}{chapter.3}
 \contentsline {section}{\numberline {3.1}The Godunov scheme for nonlinear conservation laws}{14}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}Theory of conservative numerical schemes}{14}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}The Godunov scheme for the buffer model}{16}{subsection.3.1.2}
-\contentsline {section}{\numberline {3.2}Examples}{17}{section.3.2}
-\contentsline {chapter}{\numberline {4}Traffic light optimization}{18}{chapter.4}
-\contentsline {section}{\numberline {4.1}Traffic light coordination}{20}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}The model}{20}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}Experiments on coordinated light signals}{22}{subsection.4.1.2}
-\contentsline {section}{\numberline {4.2}Optimization via Model Predictive Control}{23}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Theory}{25}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Examples}{29}{subsection.4.2.2}
-\contentsline {chapter}{\numberline {5}Conclusion and possible extensions}{31}{chapter.5}
+\contentsline {subsection}{\numberline {3.1.2}The Godunov scheme for the buffer model}{17}{subsection.3.1.2}
+\contentsline {section}{\numberline {3.2}Examples}{18}{section.3.2}
+\contentsline {chapter}{\numberline {4}Traffic light optimization}{19}{chapter.4}
+\contentsline {section}{\numberline {4.1}Traffic light coordination}{21}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}The model}{21}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Experiments on coordinated light signals}{23}{subsection.4.1.2}
+\contentsline {section}{\numberline {4.2}Optimization via Model Predictive Control}{25}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Theory}{27}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Examples}{31}{subsection.4.2.2}
+\contentsline {chapter}{\numberline {5}Conclusion and possible extensions}{33}{chapter.5}

@@ -98,19 +98,43 @@ c_C:=\frac{k}{h}|\sup(f'(u))|\leq 1
 $c_C$ is also called the Courant-number and serves as the one-dimensional CFL-condition \citep{Courant.1928}.
 \newline
 \newline
-The \textbf{Godunov method} now consists of seperately solving every Riemann problem between every two neighboring cells. Let $u_l$ and $u_r$ be the densities on two neighboring cells. Then the flux $f(u^*(u_l,u_r)$ is given by
+The \textbf{Godunov method} now consists of seperately solving every Riemann problem between every two neighboring cells. Let $u_j$ and $u_{j+1}$ be the densities on two neighboring cells. Then the flux $f(u^*(u_j,u_{j+1})$ is given by
 \begin{equation}
-f(u^*(u_l,u_r))=\begin{cases} \min [f(u_l),f(u_r)] \hspace{1cm}\text{if} \ u_l\leq u_r \\
-f(\sigma)\hspace{1cm}\text{if} \ u_r\leq\sigma\leq u_l \\
-f(u_r) \hspace{1cm}\text{if} \ \sigma\leq u_r \leq u_l \ \text{ or } u_r\leq u_l\leq\sigma\end{cases}
+\label{eq:numerical_flux}
+f(u^*(u_j,u_{j+1}))=\begin{cases} \min \left[f(u_j),f(u_{j+1})\right] \hspace{1cm}\text{if} \ u_l\leq u_r \\
+%f(\sigma)\hspace{1cm}\text{if} \ u_r\leq\sigma\leq u_l \\
+%f(u_r) \hspace{1cm}\text{if} \ \sigma\leq u_r \leq u_l \\
+%f(u_l) \hspace{1cm}\text{if} \  u_r\leq u_l\leq\sigma
+\max \left[f(u_j),f(u_{j+1})\right] \hspace{1cm}\text{if} \ u_l\geq u_r
+\end{cases}
 \end{equation}
-\textcolor{red}{ADD picture of different shocks, rarefaction waves} \newline
+This form of the resulting flux function is valid for any general scalar conservation laws, even for nonconvex fluxes.
+In the convex case we can distinguish 4 cases for the numerical flux \eqref{eq:numerical_flux}, see Figure \ref{fig:solution_types}:
+\begin{enumerate}
+\item $f'(u_j),f'(u_{j+1})\geq 0$: Here the solution consists of a rarefaction wave with $u^*(u_l,u_r)=u_j$.
+\item $f'(u_j),f'(u_{j+1})\leq 0$: The solution consists of a rarefaction wave with $u^*(u_l,u_r)=u_{j+1}$.
+\item $f'(u_{j+1})<0\leq f'(u_j)$: Then there is a shock through $x_{j+\frac{1}{2}}$ and \begin{equation*}
+u^*(u_j,u_{j+1})=\begin{cases} u_j &: s\geq 0 \\
+u_{j+1} &:s<0\end{cases}
+\end{equation*}
+with the shock speed \begin{equation*}
+s=\frac{f(u_{j+1})-f(u_j)}{u_{j+1}-u_j}
+\end{equation*}
+\item $f'(u_{j+1})>0\geq f'(u_j)$: In this case we have the so-called transonic rarefaction wave and $u^*(u_j,u_{j+1})=\sigma$, with $u=\sigma$ the unique point at which $f'(u)=0$ (cf. \eqref{eq:max_flux}).
+\end{enumerate}
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.6]{figures/solution_types}
+\caption{\label{fig:solution_types} Different types of solutions for the Riemann problem dependent on densities $u_j^n$ and $u_{j+1}^n$.}
+\end{figure} \newline
 \newline
 In the following we want to apply the Godunov scheme on the buffer model defined in section \ref{buffer_model}.
 \subsection{The Godunov scheme for the buffer model}
 Let us consider an arbitrary connected road network $(\mathcal{N},\mathcal{E})$ with $n_R$ roads and $n_J$ junctions. On every road $e_i=[a_i,b_i]$ we apply the discretization $x_{i,j}=a_{i,jh}, j=0,...,D_i, x_{i,D_ih}=b_i$, with $D_i=\frac{b_i-a_i}{h}-1$ the number of cells on road $e_i$. Let us then denote $u_{i,j}^n$ the density on the j-th cell of road $e_i$ at time $t=nk$.\newline
 \newline
 We can now define on all \textit{inner cells} of every road $e_i$ the Godunov scheme 
+\begin{subequations}
+\label{eq:Godunov}
 \begin{equation}
 u_{i,j}^{n+1}=u_{i,j}^n-\frac{k}{h}\left[f(u^*(u_{i,j}^n,u_{i,j+1}^n))-f(u^*(u_{i,j-1}^n,u_{i,j}^n))\right],\hspace{1cm} e_i\in\mathcal{E}, j=1,\dots,D_i-1
 \end{equation}  
@@ -129,8 +153,15 @@ For outgoing roads of junction $J$ we analogously define the scheme
 \begin{equation}
 u_{i,0}^{n+1}=u_{i,0}^n-\frac{k}{h}\left[f(u^*(u_{i,0}^n,u_{i,1}^n))-\hat{f}_i \right], \hspace{1cm} i\in\delta^{out}(J)
 \end{equation}
-\underline{\textbf{Note:}}\newline For the computation of the buffer, which is needed for the junction fluxes, we use a simple difference quotient to approximate $\dot{q}$,
+\end{subequations}
+\underline{\textbf{Remarks:}}\begin{itemize}
+\item For the computation of the buffer, which is needed for the junction fluxes, we use a simple difference quotient to approximate $\dot{q}$,
 \begin{equation}
 	q_j^{n+1}=q_j^n+k\left[\sum_{i\in\delta^{in}(J)}\bar{\Theta}_{i,j}\bar{f_i}-\bar{f_j}\right], \hspace{1cm}J\in\mathcal{N},j\in\delta^{out}(J)
 \end{equation}
+\item For convenience we condense equations \eqref{eq:Godunov}a-d on road $e_i$ to the condensed Godunov scheme 
+\begin{equation}
+u_i^{n+1}=G(u_i^n)
+\end{equation}
+\end{itemize} 
 \section{Examples}

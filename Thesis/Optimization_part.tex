@@ -113,8 +113,19 @@ $e_2$ & 100 & 0.2 & -
 \end{tabular}
 \caption{Setup for the network of example a)}
 \end{table}
-\newline
-\newline
+The traffic lights $\eta_0, \eta_1$ at the end of the incoming roads switch during time. The period, consisting of one green and red phase cicle, is fixed at $T_s=50s$. The goal of this experiment is to find the optimal distribution of green times for both light signals based on the densities on the incoming roads.
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.5]{figures/delay_a_greenphases}
+\caption{\label{fig:greenphases} Switching traffic lights over time.}
+\end{figure}
+Using compactly supported inflow on both incoming roads in $[0s,200s]$ we compute the total flux $F_T$ on the network upt to $T=500s$ for varying green time percentages $p_0$ (Note, that $p_1=1-p_0$ as it is a valid configuration). The optimal flux is eventually attained if $\eta_0=1$ (meaning keeping its green phase) during $56\%$ of its period (cf. Figure \ref{fig:fluxes_varying_greenphases}).
+ \begin{figure}[h]
+\center
+\includegraphics[scale=0.5]{figures/ft_to_greenphase_2}
+\caption{\label{fig:fluxes_varying_greenphases} Total fluxes on the network dependent on the green time distribution $p_0$. The optimal flux is obtained if the green phase lasts $0.56 \ T_s$.}
+\end{figure}
+\newpage
 \textbf{Experiment b)} \newline
 \label{delay_example}
 Consider the same network as provided in figure \ref{delaynetwork} with the following properties: \newline
@@ -133,17 +144,16 @@ $e_4$ & 50 & 0.2 & -
 \end{table}
 \newline
 Furthermore let the external inflows be compactly supported on $t\in\left[0s,200s\right]$ and let the fixed green/red phase duration be set to 60s. 
-Then the evaluation of our cost functional with respect to the delay $\tau\in\left[0,60\right]$ up to final time $T=500$, according to equation \ref{eq:opt_delay}, leads to an optimal delay of $\tau^*=31s$ with an optimal cumulated traffix flux $F_T^*\sim 83174.7$.
+Then the evaluation of our cost functional with respect to the delay $\tau\in\left[0,60\right]$ up to final time $T=500$, according to equation \ref{eq:opt_delay}, leads to an optimal delay of $\tau^*=34s$ with an optimal cumulated traffix flux $F_T^*\sim 82851.38$.
 \begin{figure}[h]
 \center
-\includegraphics[scale=0.6]{delay_plot}
-\caption{Dependency of the cumulated traffix flux $F_T$ on the value for the delay. Obviously the objective function attains its maximum $F_T^*$ at $\tau^*\sim 83174.7$.}
+\includegraphics[scale=0.6]{../Experiments/Exp_Thesis/Optimization/Delay_b/pic}
+\caption{Left: Dependency of the cumulated traffix flux $F_T$ on the value for the delay. In experiment b) the objective function attains its maximum $F_T^*=82851.38$ at $\tau^*\sim 34$. Right: Plotted controls with applied optimal delay $\tau^*$.} 
 \end{figure}
 \newline
 \textbf{TODO:} 
 \begin{itemize}
 \item Discussion
-\item add sequence of plots of road densities and/or $\eta$
 \end{itemize}
 \newpage
 \section{Optimization via Model Predictive Control}
@@ -229,7 +239,6 @@ s.t. \begin{eqnarray}
   \text{junction outfluxes}&\hat{\hat{f}}_j=\begin{cases}
 	\omega_j & q_j>0 \\
 	\min\lbrace\omega_j, \sum_{i\in\mathcal{I}}\hat{\hat{f}}_i\bar{\Theta}_{ij}\rbrace & q_j=0
-
 \end{cases}\\
 	\text{queue}& q_j^{n+1}=q_j^n+\Delta t \left(\sum_{i\in\mathcal{I}}\bar{\Theta}_{ij}\bar{\bar{f_i}}-\bar{\bar{f_j}}\right)\\
   \text{inital values}& \rho_{i}^n,q_{j}^n,\eta^n \\
