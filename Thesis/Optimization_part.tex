@@ -93,16 +93,23 @@ Impose now that the two traffic lights $\eta_0, \eta_2$ have the same fixed freq
 We fix $\eta_C(t)$. The goal now is to find the optimal delay $\tau$ in order to obtain the best value for $F_T$. \newline In particular, the optimization problem can be formulated as
 \begin{eqnarray}
 \label{eq:opt_delay}
-F_T^*:=\max_{\tau\in\mathbb{R}} & \sum_{i\in\mathcal{E}}\int_0^T\int_{a_i}^{b_i} f(\rho_i(x,t))dxdt +\sum_{i\in\mathcal{E}\setminus\mathcal{E}^{out}}\int_0^T\bar{f}_i(t)\cdot \eta_i(t)dt  \nonumber\\ &+\sum_{j\in\mathcal{E}\setminus\mathcal{E}^{in}}\int_0^T\hat{f}_j(t,\eta) dt
+F_T^*:=\max_{\tau\in\mathbb{R}} & \sum_{i\in\mathcal{E}}\int_0^T\int_{a_i}^{b_i} f(\rho_i(x,t))dxdt +\sum_{i\in\mathcal{E}\setminus\mathcal{E}^{out}}\int_0^T\bar{\bar{f}}_i(t,\eta_i(t))dt  \nonumber\\ &+\sum_{j\in\mathcal{E}\setminus\mathcal{E}^{in}}\int_0^T\hat{\hat{f}}_j(t,\eta(t)) dt
 \end{eqnarray}
 and the optimal delay is given by
 \begin{eqnarray}
-	\tau^*:= &&\text{arg}\max_{\tau\in\mathbb{R}} \sum_{i\in\mathcal{E}}\int_0^T\int_{a_i}^{b_i} f(\rho_i(x,t))dxdt +\sum_{i\in\mathcal{E}\setminus\mathcal{E}^{out}}\int_0^T\bar{f}_i(t)\cdot \eta_i(t)dt  \nonumber\\ &+&\sum_{j\in\mathcal{E}\setminus\mathcal{E}^{in}}\int_0^T\hat{f}_j(t,\eta) dt 
+	\tau^*:= &&\text{arg}\max_{\tau\in\mathbb{R}} \sum_{i\in\mathcal{E}}\int_0^T\int_{a_i}^{b_i} f(\rho_i(x,t))dxdt +\sum_{i\in\mathcal{E}\setminus\mathcal{E}^{out}}\int_0^T\bar{\bar{f}}_i(t, \eta_i(t))dt  \nonumber\\ &+&\sum_{j\in\mathcal{E}\setminus\mathcal{E}^{in}}\int_0^T\hat{\hat{f}}_j(t,\eta) dt 
 \end{eqnarray}
-\newpage
-\subsection{Experiments on coordinated light signals}
+%\newpage
+\subsection{Experiments on coordinated light signals} \label{sec:exp_delay}
 \textbf{Experiment a)} \newline
-In the first study we want to examine the effect of the duration of the green and red phases on the total flux on the network. Here we consider a single junction with two incoming roads and one outgoing road. Every road is filled initially with traffic density $\rho_i(x,0)=0.2, i=0,1,2$. On the incoming roads $e_0, e_1$ traffic of density $\rho_{in,0}=0.4, \rho_{in,1}=0.2$ is constantly inflowing. Cars at the end of road $e_2$ just exit the network and vanish. \begin{table}[h]
+In the first study we want to examine the effect of the duration of the green and red phases on the total flux on the network. Here we consider a single junction with two incoming roads and one outgoing road, hence the traffic distribution matrix is given by \begin{equation*}
+\Theta=\left(\begin{array}{ccc}
+0 & 0 & 0 \\
+0 & 0 & 0 \\
+1 & 1 & 0
+\end{array}\right)
+\end{equation*}
+Every road is filled initially with traffic density $\rho_i(x,0)=0.2, i=0,1,2$. On the incoming roads $e_0, e_1$ traffic of density $\rho_{in,0}=0.4, \rho_{in,1}=0.2$ is constantly inflowing. Cars at the end of road $e_2$ just exit the network and vanish. \begin{table}[h]
 \center
 \begin{tabular}{l|ccc}
 \textbf{road} & \textbf{length} & \textbf{initial density $\rho_0$} & \textbf{inflow $f(\rho_{in,i}(t))$ on $\left[0,200\right]$} \\
@@ -119,8 +126,8 @@ The traffic lights $\eta_0, \eta_1$ at the end of the incoming roads switch duri
 \includegraphics[scale=0.5]{figures/delay_a_greenphases}
 \caption{\label{fig:greenphases} Switching traffic lights over time.}
 \end{figure}
-Using compactly supported inflow on both incoming roads in $[0s,200s]$ we compute the total flux $F_T$ on the network upt to $T=500s$ for varying green time percentages $p_0$ (Note, that $p_1=1-p_0$ as it is a valid configuration). The optimal flux is eventually attained if $\eta_0=1$ (meaning keeping its green phase) during $56\%$ of its period (cf. Figure \ref{fig:fluxes_varying_greenphases}).
- \begin{figure}[h]
+Using compactly supported inflow on both incoming roads in $[0s,200s]$ we compute the total flux $F_T$ on the network upt to $T=500s$ for varying green time percentages $p_0$ (Note, that $p_1=1-p_0$ as it is a valid configuration). The optimal flux is eventually attained if $\eta_0=1$ (meaning keeping its green phase) during $56\%$ of its period (cf. Figure \ref{fig:fluxes_varying_greenphases}). We then obtain an optimal flux of $F_T\sim39382.84$.\newline
+\begin{figure}[h]
 \center
 \includegraphics[scale=0.5]{figures/ft_to_greenphase_2}
 \caption{\label{fig:fluxes_varying_greenphases} Total fluxes on the network dependent on the green time distribution $p_0$. The optimal flux is obtained if the green phase lasts $0.56 \ T_s$.}
@@ -128,9 +135,20 @@ Using compactly supported inflow on both incoming roads in $[0s,200s]$ we comput
 \newpage
 \textbf{Experiment b)} \newline
 \label{delay_example}
-Consider the same network as provided in figure \ref{delaynetwork} with the following properties: \newline
+Consider the same network as provided in figure \ref{delaynetwork}, hence its traffic distribution matrix is given by
+\begin{equation*}
+\Theta=\left(\begin{array}{ccccc}
+0 & 0 & 0& 0 & 0 \\
+0 & 0 & 0 & 0 & 0\\
+1 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0\\
+0&0&1&1&0
+\end{array}\right)
+\end{equation*}
+Also we consider the initial setup given in Table \ref{exp:delay_b}.
 \begin{table}[h]
 \center
+\label{exp:delay_b}
 \begin{tabular}{l|ccc}
 \textbf{road} & \textbf{length} & \textbf{initial density $\rho_0$} & \textbf{inflow $f(\rho_{in,i}(t))$ on $\left[0,200\right]$} \\
 \hline \hline
@@ -143,8 +161,8 @@ $e_4$ & 50 & 0.2 & -
 \caption{Setup for the network of example b)}
 \end{table}
 \newline
-Furthermore let the external inflows be compactly supported on $t\in\left[0s,200s\right]$ and let the fixed green/red phase duration be set to 60s. 
-Then the evaluation of our cost functional with respect to the delay $\tau\in\left[0,60\right]$ up to final time $T=500$, according to equation \ref{eq:opt_delay}, leads to an optimal delay of $\tau^*=34s$ with an optimal cumulated traffix flux $F_T^*\sim 82851.38$.
+Furthermore let the external inflows be constant over a compact interval $\left[0s,200s\right]$ and let the fixed green/red phase duration be set to 60s. 
+Then the evaluation of our cost functional with respect to the delay $\tau\in\left[0,120\right]$ up to final time $T=500$, according to equation \ref{eq:opt_delay}, leads to an optimal delay of $\tau^*=34s$ with an optimal cumulated traffix flux $F_T^*\sim 82851.38$.
 \begin{figure}[h]
 \center
 \includegraphics[scale=0.6]{../Experiments/Exp_Thesis/Optimization/Delay_b/pic}
@@ -155,6 +173,7 @@ Then the evaluation of our cost functional with respect to the delay $\tau\in\le
 \begin{itemize}
 \item Discussion
 \end{itemize}
+\newpage
 \newpage
 \section{Optimization via Model Predictive Control}
 In contrary to chapter \ref{sec:sync} the optimal master controller should not work on fixed green and red light periods but be able to adjust traffic lights based on the current - and ideally even future - traffic situation in front of the traffic lights. 
@@ -170,7 +189,7 @@ This is where \textbf{model predictive control} comes into play.
 Model Predictive Control (MPC) is a method to control complex dynamic processes and has a wide range of applications. MPC algorithms use a model of the underlying system under consideration in order to find optimal control signals, taking the future behaviour of the system into account. MPC methods are suitable to control systems in which prediction is a key aspect. \\
 The main advantage of MPC over non-predictive control is, that MPC methods inherently make a trade-off between immediate performance and future outputs \citep{hegyi.2004}. \newline \newline
 MPC is based on an iterative, finite-horizon optimization of an objective function whose state variables are derived from the solution of a system of PDEs. \\
-The finite time interval used for MPC optimization is called \textbf{predictive horizon} $n_p$. The resulting optimal control sequence obtained after one optimization step is then applied as input for the light signals up to a \textbf{control horizon} $n_c$, when the optimization step repeats on the new time interval. As the predictive horizon keeps being shifted forward MPC is also referred to as \textit{receding horizon control}. \newline \newline
+The finite time interval used for MPC optimization is called \textbf{predictive horizon} $n_p$. The resulting optimal control sequence obtained after one optimization step is then applied as input for the light signals up to a \textbf{control horizon} $n_c$, when the optimization step repeats on the new time interval (Note that the condition $n_c\leq n_p$ needs to be fulfilled). As the predictive horizon keeps being shifted forward MPC is also referred to as \textit{receding horizon control}. \newline \newline
 In the following we provide a high level description of the MPC method \citep{hein.2009}:
 \begin{enumerate}
 \item \textbf{Prediction.} The current state $x(t_n)$ of the system, expected external influences and a planned control signal are used to predict the behavior of the considered system in
@@ -205,7 +224,7 @@ For a single junction with 3 incoming and a single outgoing road $\Omega$ would 
 0 \\ 0 \\ 1
 \end{array}\right)\right\rbrace, \]supposing that only one signal can be green at every instant.
 \end{Example}
-The flux functional $F_{MPC}$ can then be defined as 
+The flux functional $F_{MPC}$ over the time interval $[t_n,t_{n+n_c}]$ can then be defined as 
 \begin{eqnarray*}
 	F_{MPC}(t_n,\eta)&:=& \sum_{i\in\mathcal{E}}\int_{t_n}^{t_n+n_p\Delta t}\int_{a_i}^{b_i} f(\rho_i(x,t))dxdt +\sum_{i\in\mathcal{E}\setminus\mathcal{E}^{out}}\int_{t_n}^{t_n+n_p\Delta t}\bar{\bar{f}}_i(t,\eta_i)dt  \\ &+&\sum_{j\in\mathcal{E}\setminus\mathcal{E}^{in}}\int_{t_n}^{t_n+n_p\Delta t}\hat{\hat{f}}_j(t,\eta) dt-\gamma_1\int_{t_n}^{t_n+n_p\Delta t} \sum_{i=1}^{n_J}W_i(t,\eta_i)dt \\ &-& \gamma_2\int_{t_n}^{t_n+n_p\Delta t}||\dot{\eta}||^2dt \\
 	&=& F_{n_C}(t_n,\eta)-R(t_n,\eta)
@@ -231,8 +250,8 @@ Then by substituting the time integrals by finite sums and discretizing the deri
 \end{eqnarray}
 s.t. \begin{eqnarray}
   \text{valid TL configs}&  \sum_{e_i\in \delta^{in}(J)}\eta_i(t_k)=1, \hspace{0.3cm}k=n...n+n_p, J\in\mathcal{N}  \\
-  \text{Godunov scheme}&
-\rho_j^{n+1}=\rho_j^n-\frac{k}{h}\left[f(u^\star(\rho_j^n,\rho_{j+1}^n))-f(u^\star(\rho_{j-1}^n,\rho_{j}^n))\right]
+  \text{Godunov scheme}& \rho^{n+1}=G(\rho^n,\eta(t_n))
+%\rho_j^{n+1}=\rho_j^n-\frac{k}{h}\left[f(u^\star(\rho_j^n,\rho_{j+1}^n))-f(u^\star(\rho_{j-1}^n,\rho_{j}^n))\right]
  \\
   \text{maximum fluxes}&  \omega_i, \omega_j, \text{cf.} \ref{eg:maxfluxes}\\
   \text{junction influxes}&  \bar{\bar{f}}_i=\min\lbrace \omega_i,c_i(M-\sum_{j\in\mathcal{O}}q_j)\rbrace \\
@@ -265,12 +284,12 @@ where $n_{MPC}$ denotes the number of MPC-steps computed. \newline
 \begin{enumerate}
 \item Measure the densities $\rho_i(x,t_n)$ on every road $e_i$ of the network
 \item Solve the OCP \ref{eq:OCP} and denote the resulting optimal control sequence for TL $i$ by $\eta_i^*:=\left\lbrace\eta_i(t_n),\eta_i(t_{n+1}),...,\eta_i(t_{n+n_p})\right\rbrace$
-\item Apply the rounding function 
+\item Apply the quantization function 
 \begin{equation}
-P(\eta):=\begin{cases} 1 \hspace{0.5cm} \eta\geq0.5\\ 0 \hspace{0.5cm} \eta<0.5\end{cases}
+Q(\eta):=\begin{cases} 1 \hspace{0.5cm} \eta\geq0.5\\ 0 \hspace{0.5cm} \eta<0.5\end{cases}
 \end{equation}
 on the optimal control sequence $u_i^*|_{n_c}:=\left\lbrace\eta_i(t_n),\eta_i(t_{n+1}),...,\eta_i(t_{n+n_c})\right\rbrace$ in order to obtain a (sub-)optimal binary control sequence $u_{i,bin}^*|_{n_c}$.
-\item Take $u_{bin}^*|_{n_c}:=\left\lbrace u_{0,bin}^*|_{n_c},u_{1,bin}^*|_{n_c},...,u_{n_J,bin}^*|_{n_c}\right\rbrace$ as an input for the Godunov scheme to obtain densities $\rho_i(x,t_{n+n_c})$ and to compute the optimal flux $F_{n_C}(t_n,u_{bin}^*|_{n_c})$. Proceed with 1.
+\item Take $u_{bin}^*|_{n_c}:=\left\lbrace u_{0,bin}^*|_{n_c},u_{1,bin}^*|_{n_c},...,u_{n_J,bin}^*|_{n_c}\right\rbrace$ as an input for the Godunov scheme to obtain densities $\rho_i(x,t_{n+n_c})$ and to compute the (sub-)optimal flux $F_{n_C}(t_n,u_{bin}^*|_{n_c})$. Proceed with 1.
 \item Compute the total flux $F_T(u_{bin}^*)$ based on equation \ref{eq:totalflux}.
 \end{enumerate}
 \end{algorithm}
@@ -278,17 +297,23 @@ on the optimal control sequence $u_i^*|_{n_c}:=\left\lbrace\eta_i(t_n),\eta_i(t_
 \end{figure}
  \newline
 A similar variation of algorithm \ref{Algo:MPC} can be found in \citep{Grune.2017}. The solution of this algorithm then converges to a local optimum and for appropriate choices of $\gamma_1, \gamma_2$ the elements of the optimal control sequences are close to binary.
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.6]{figures/mpc_workflow}
+\caption{Closed loop diagram of the MPC algorithm.}
+\end{figure}
  \newline
 \newline
 \underline{\textbf{Justification of the use of $W(t)$ and $||\dot{\eta}||:$}} \newline
 Consider a simple network consisting of a single junction with two incoming roads and one outgoing road. Initially the network is empty, so $\rho_i(x,0)=0 \forall i=1...3$. In the given network we have two traffic lights (controls) $\eta_1$ and $\eta_2$ referring two the two incoming roads. Furthermore at every time step $t$ the feasibility condition \ref{eq:feasibility} is satisfied. \newline
 Using this basic network we want to evaluate the effect of the two additional terms $W(t)$ and $||\dot{\eta}||$. \newline
+\newpage
 \begin{figure}[p]
 \center
 \includegraphics[scale=0.5]{justification_label}
 \caption{Plots of control $\eta_1(t)$ using different functionals. (a) The flux functional $\tilde{F}$ without considering terms $\tilde{W}$ and $\tilde{D}$. We notice high frequencies between 0-(red-)phases and 1-(green-)phases and the existence of clearly non-binary states $\eta_1(t)\in (0,1)$. (b) $\gamma_1=0,\gamma_2=10$. Application of the de-relaxation term $\tilde{W}$ . The rate of occurrance for non-binary controls is reduced. Nevertheless we still observe high frequencies of switching. (c) $\gamma_1=10,\gamma_2=0$. Application of switching cost $||\dot{\eta}||$. Switching frequencies are decreased but mainly non-binary control states occur. (d) $\gamma_1=10,\gamma_2=10$. Both de-relaxation and switching cost are applied. Low frequency and mainly binary states occur.}
 \end{figure}
-\begin{table}
+\begin{table}[h]
 \center
 \begin{tabular}{l||l|l}
  & \textbf{fluxes} & \textbf{computation time $[s]$}\\
@@ -302,26 +327,63 @@ d) & 48398.24 & 396.31
 \end{table}
 
 \newpage
-\subsection{Examples}
-To solve the optimization problems \eqref{eq:OCP} we use a sequential least squares programming optimizer (SLSQP) implemented as part of the SciPy module\footnote{Jones E, Oliphant E, Peterson P, et al. SciPy: Open Source Scientific Tools for Python, 2001-, http://www.scipy.org/} in Python 2.7\footnote{Python Software Foundation. Python Language Reference, version 2.7. Available at http://www.python.org}. The SLSQP uses the Han-Powell quasi-Newton method with a Broyden-Fletcher-Goldfarb-Shanno (BFGS) update \citep{Kraft.1988}. In particular we choose the convergence accuracy $\epsilon=10^{-6}$ for the optimization. \newline
+\subsection{Numerical experiments}
+To solve the optimization problems \eqref{eq:OCP} we use a sequential least squares programming optimizer (SLSQP) implemented as part of the SciPy module\footnote{Jones E, Oliphant E, Peterson P, et al. SciPy: Open Source Scientific Tools for Python, 2001-, http://www.scipy.org/} in Python 2.7\footnote{Python Software Foundation. Python Language Reference, version 2.7. Available at http://www.python.org}. The SLSQP uses the Han-Powell quasi-Newton method with a Broyden-Fletcher-Goldfarb-Shanno (BFGS) update \citep{Kraft.1988}. In particular we choose the convergence accuracy $\epsilon=10^{-6}$ for the optimization. All simulations were performed on a 8 GB DDR3 RAM Apple MacBook Pro with a 2,6 GHz Intel Core i7 processor.\newline
 \newline
-a) single junction: two incoming, one outgoing road \newline
-\begin{tabular}{llll}
-$n_p$ & $n_c$ & $F_T$ & computation time $[s]$ \\
-\hline \hline
-1 & 1 & 21541.159 & 24 \\
-2 & 1 & 21535.535 & 36 \\
-10 & 1 & 21539.150 & 903 \\
-10 & 10 & 22046.865 & 236
-\end{tabular}
-\newline
-optimal control value $\eta_0$ \newline 
-\begin{figure}[h]
+\textbf{a) Evaluation of the MPC algorithm:}\newline
+First we evaluate the computational cost and overall performance of the MPC algorithm. Therefore we use a simple junction consisting of two incoming incoming roads (as in section \ref{sec:exp_delay} Experiment a) ) and compare the different results which are given in Table \ref{exp:MPCa}.\newline
+
+\begin{table}[h]
 \center
-\includegraphics[scale=0.5]{controls_10-10}
-\caption{evolution of the control $\eta_0$ over time. it starts only at t=100s because the network is initially empty and therefore the controls stay at the initial value until the first cars reach the junction. controls change with high frequency until they level out eventually at around 0.5}
+\caption{\label{exp:MPCa} Optimal flux $F_T$ and total computational cost in $[s]$ (in brackets) for different choices for the predictive horizon $n_p$ and the control horizon $n_c$.\textcolor{red}{maybe add 3D plot?}}
+\begin{tabular}{c|cccc}
+ & \multicolumn{4}{c}{\textbf{$n_p$}} \\
+ \textbf{$n_c$} & 1 & 5 & 10 & 20 \\
+\hline \hline
+1 & 29036 (40) &38635 (334)	& 39388 (2073) & 39390 ($\sim 1d$) \\
+5 & & 39384 (114) & 39389 (559) & 39390 ($\sim$4h)\\
+10 & & & 39408 (322) & 39390 (3225) \\
+15 & & & & 39390 (1650) \\
+20 & & & & 39408 (1491)
+\end{tabular}
+\end{table}\newline
+\textbf{Comments:} 
+\begin{itemize}
+\item The general observation states that the optimal flux increases with increasing the predictive horizon. Nevertheless the size of the control horizon and the compuational cost are indirect proportional to each other since the OCP has to be performed more often for smaller $n_c$ as the predictive horizon is receeded by a smaller time interval.
+\item Secondly for very short predictive horizons we see different behavior. In the beginning traffic signals switch rapidly in order to level the different densities on the incoming roads. Nevertheless as one road becomes congested the traffic light misses the incentive to change the signal and therefore might keep its current setting until one road is totally empty. As for this setup the future does not play any or only a minor role, we also refer to it as \textit{instantanous control} (see Figure \ref{fig:mpc_a} left).
+\item On the other hand for larger predictive horizons the future dynamics are of more and more importance. We also observe less frequent switches and longer periods (see Figure \ref{fig:mpc_a} right).
+\end{itemize}
+\begin{figure}[h]
+  \centering
+  \begin{minipage}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{figures/output_1_1_control.eps}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{figures/output_10_1_10.eps}
+  \end{minipage}    
+  \caption{\label{fig:mpc_a} Resulting control plots for $\gamma_1= \gamma_2=5$. Left: Control $\eta_0$ for $n_c=n_p=1$. Right: Control $\eta_0$ for $n_p=10, n_c=1$.}
 \end{figure}
-\newline
+\textbf{Comparison to the delay model:} \\
+With the MPC approach with sufficienly large $n_p$ we obtain similar results for the optimal flux compared to the delay model with optimal green time distribution (Section \ref{delay_example} Experiment a). Nevertheless the MPC model is a lot more responsive to changes in the incoming fluxes or the general traffic situation on the network. For instance if the inflow on road 1 stops at some point in time, the delay model would still force cars on road 0 to stop and wait, while in the MPC approach the traffic lights would adapt to the current situation and switch to green light for road 0.\newline
+%\newline
+%a) single junction: two incoming, one outgoing road \newline
+%\begin{tabular}{llll}
+%$n_p$ & $n_c$ & $F_T$ & computation time $[s]$ \\
+%\hline \hline
+%1 & 1 & 21541.159 & 24 \\
+%2 & 1 & 21535.535 & 36 \\
+%10 & 1 & 21539.150 & 903 \\
+%10 & 10 & 22046.865 & 236
+%\end{tabular}
+%\newline
+%optimal control value $\eta_0$ \newline 
+%\begin{figure}[h]
+%\center
+%\includegraphics[scale=0.5]{controls_10-10}
+%\caption{evolution of the control $\eta_0$ over time. it starts only at t=100s because the network is initially empty and therefore the controls stay at the initial value until the first cars reach the junction. controls change with high frequency until they level out eventually at around 0.5}
+%\end{figure}
+%\newline
 \newpage
 b) network with 2 junctions - same as \ref{delay_example} \newline \newline
 same input values as in \ref{delay_example} \newline

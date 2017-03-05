@@ -13,14 +13,15 @@ In macroscopic models the target is to analyze the change of measurable quantiti
 \begin{equation}
 	 \text{amount of cars }=\int_{x_1}^{x_2}\rho(x,t)dx
 \end{equation}
-For conserved quantities no mass is neither destroyed nor created. Therefore the mass on an interval can only change by inflowing and outflowing quantities. The quantity mass crossing the point $x$ at a time $t$ is given by the \textbf{traffic flux} $f:[0,\rho_{max}]\rightarrow[0,f^{max}]$. \newline 
+For conserved quantities no mass is neither destroyed nor created. Therefore the mass on an interval can only change by inflowing and outflowing quantities. The quantity mass crossing the point $x$ at a time $t$ is given by the \textbf{traffic flux} $f:[0,\rho_{max}]\rightarrow[0,f^{max}]$, where $\rho_{max}$ denotes the maximum car density on the network. \newline 
 \begin{figure}[h]
 \center
 \includegraphics[scale=0.4]{char_flux_upd}
 \caption{Typical shape of the fundamental diagram of traffic flow}
 \end{figure}
 \newline
-The traffic flux, or also referred to as \textit{fundamental diagram}, is typically assumed to follow the rule
+The flux $f$, by assumption, is a Lipschitz continous function satisfying $f(0)=f(\rho_{max})=0$.
+We also assume that the traffic flux, or also referred to as \textit{fundamental diagram}, follows the rule
 \begin{equation*}
 \label{eq:flux_condition}
 f'(\rho)\left(\sigma-\rho\right)>0
@@ -32,8 +33,8 @@ where
 denotes the density where the maximum flux \begin{equation*}
 f^{max} :=  f(\sigma)
 \end{equation*}
-is attained. \newline
-Since the total mass on the global space interval is preserved, the rate of change of the mass on the interval $\left[x_1,x_2\right]$ is defined by the difference of the in- and outfluxes of the interval, e.g. \begin{eqnarray*}
+is attained. This value is usualy referred to as \textit{road capacity}. \newline
+Since the total mass on the global space interval is preserved, the rate of change of the mass on the interval $\left[x_1,x_2\right]$ is defined by the difference of the in- and outfluxes of the interval (assuming that $\rho(x,\cdot)\in L^1_{loc}$, e.g. \begin{eqnarray*}
 	\frac{d}{dt}\int_{x_1}^{x_2}\rho(x,t)dx&=&f(\rho(x_1,t))-f(\rho(x_2,t))
 \end{eqnarray*}
 Rewriting this assuming differentiability of both functions $u$ and $f$ and integration over the time interval $\left[t_1,t_2\right]$ leads to:
@@ -61,6 +62,7 @@ Extending the conservation law \ref{eq:conslaw} with suitable initial conditions
 \rho_t+\left[v_{max}\rho(1-\frac{\rho}{\rho_{max}})\right]_x&=&0 \hspace{1cm} t>0\\
 \rho(x,0)&=&\rho_0(x) \nonumber
 \end{eqnarray}
+
 \newline
-The remaining thesis will be structured as follows: In chapter 2 we will extend the given LWR-model on a network of roads in order to be able to analyze urban traffic situations. We will also introduce the concept of buffers to guarantee the existence of unique solutions for the model. In chapter 3 we will discuss the numerical procedures in order to qualitatively simulate traffic flow computationally. Chapter 4 will deal with introduce the concept of traffic lights on the network. We will then propose two different optimization methods to control the light signals in order to maximize the flux on the network. The two approaches consist of a rather brute-force approach and a concept called model predictive control (MPC). The last chapter will then expand the model by the concept of pollution.
+The remaining thesis will be structured as follows: In chapter 2 we will extend the given LWR-model on a network of roads in order to be able to analyze urban traffic situations. We will also introduce the concept of buffers to guarantee the existence of unique solutions for the model. In chapter 3 we will discuss the numerical procedures in order to qualitatively simulate traffic flow computationally. Chapter 4 will deal with introduce the concept of traffic lights on the network. We will then propose two different optimization methods to control the light signals in order to maximize the flux on the network. The two approaches consist of a rather brute-force approach and a concept called model predictive control (MPC). The thesis goes on with an expansion of the model by the concept of pollution in chapter 5 and ends with chapter 6 on future research.
 \newpage

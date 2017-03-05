@@ -17,5 +17,10 @@
 \BOOKMARK [2][-]{subsection.4.1.2}{Experiments on coordinated light signals}{section.4.1}% 17
 \BOOKMARK [1][-]{section.4.2}{Optimization via Model Predictive Control}{chapter.4}% 18
 \BOOKMARK [2][-]{subsection.4.2.1}{Theory}{section.4.2}% 19
-\BOOKMARK [2][-]{subsection.4.2.2}{Examples}{section.4.2}% 20
-\BOOKMARK [0][-]{chapter.5}{Conclusion and possible extensions}{}% 21
+\BOOKMARK [2][-]{subsection.4.2.2}{Numerical experiments}{section.4.2}% 20
+\BOOKMARK [0][-]{chapter.5}{Pollution}{}% 21
+\BOOKMARK [1][-]{section.5.1}{Motivation}{chapter.5}% 22
+\BOOKMARK [1][-]{section.5.2}{The 2D diffusion model}{chapter.5}% 23
+\BOOKMARK [2][-]{subsection.5.2.1}{Setting}{section.5.2}% 24
+\BOOKMARK [2][-]{subsection.5.2.2}{Analytical solution}{section.5.2}% 25
+\BOOKMARK [0][-]{chapter.6}{Conclusion and possible extensions}{}% 26

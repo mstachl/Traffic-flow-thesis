@@ -1,4 +1,6 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: thesis.aux
+This is BibTeX, Version 0.99d (TeX Live 2016)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: thesis.aux
 The style file: abbrv.bst
 Illegal, another \bibstyle command---line 21 of file thesis.aux
  : \bibstyle
@@ -8,9 +10,53 @@ A level-1 auxiliary file: I_Introduction_part.aux
 A level-1 auxiliary file: II_network.aux
 A level-1 auxiliary file: III_numerics.aux
 A level-1 auxiliary file: Optimization_part.aux
+A level-1 auxiliary file: V_pollution.aux
 A level-1 auxiliary file: V_Conclusion.aux
 Database file #1: litII.bib
+Warning--entry type for "emission" isn't style-file defined
+--line 322 of file litII.bib
 Warning--I didn't find a database entry for "Strang"
 Warning--empty journal in Bressan-Conservation
 Warning--empty publisher in Richards.1956
+You've used 24 entries,
+            2118 wiz_defined-function locations,
+            685 strings with 7673 characters,
+and the built_in function-call counts, 6484 in all, are:
+= -- 646
+> -- 242
+< -- 6
++ -- 101
+- -- 74
+* -- 407
+:= -- 1120
+add.period$ -- 76
+call.type$ -- 24
+change.case$ -- 102
+chr.to.int$ -- 0
+cite$ -- 26
+duplicate$ -- 273
+empty$ -- 549
+format.name$ -- 74
+if$ -- 1351
+int.to.chr$ -- 0
+int.to.str$ -- 24
+missing$ -- 30
+newline$ -- 124
+num.names$ -- 48
+pop$ -- 119
+preamble$ -- 1
+purify$ -- 85
+quote$ -- 0
+skip$ -- 173
+stack$ -- 0
+substring$ -- 320
+swap$ -- 41
+text.length$ -- 6
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 76
+warning$ -- 2
+while$ -- 64
+width$ -- 26
+write$ -- 274
 (There was 1 error message)

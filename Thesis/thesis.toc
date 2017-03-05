@@ -14,8 +14,13 @@
 \contentsline {chapter}{\numberline {4}Traffic light optimization}{19}{chapter.4}
 \contentsline {section}{\numberline {4.1}Traffic light coordination}{21}{section.4.1}
 \contentsline {subsection}{\numberline {4.1.1}The model}{21}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}Experiments on coordinated light signals}{23}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.2}Experiments on coordinated light signals}{22}{subsection.4.1.2}
 \contentsline {section}{\numberline {4.2}Optimization via Model Predictive Control}{25}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Theory}{27}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Examples}{31}{subsection.4.2.2}
-\contentsline {chapter}{\numberline {5}Conclusion and possible extensions}{33}{chapter.5}
+\contentsline {subsection}{\numberline {4.2.1}Theory}{26}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Numerical experiments}{30}{subsection.4.2.2}
+\contentsline {chapter}{\numberline {5}Pollution}{34}{chapter.5}
+\contentsline {section}{\numberline {5.1}Motivation}{34}{section.5.1}
+\contentsline {section}{\numberline {5.2}The 2D diffusion model}{34}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Setting}{34}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Analytical solution}{36}{subsection.5.2.2}
+\contentsline {chapter}{\numberline {6}Conclusion and possible extensions}{38}{chapter.6}

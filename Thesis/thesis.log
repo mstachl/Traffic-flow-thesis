@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.2.25)  26 FEB 2017 18:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.2.25)  5 MAR 2017 16:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -672,7 +672,7 @@ Package: booktabs 2016/04/27 v1.618033 publication quality tables
 
 (./figures/tumlogo.tex) (./thesis.aux (./I_Introduction_part.aux)
 (./II_network.aux) (./III_numerics.aux) (./Optimization_part.aux)
-(./V_Conclusion.aux))
+(./V_pollution.aux) (./V_Conclusion.aux))
 \openout1 = `thesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 91.
@@ -740,7 +740,7 @@ LaTeX Info: Redefining \nameref on input line 91.
 \openout3 = `thesis.out'.
 
 
-<figures/logo1.jpg, id=88, 225.84375pt x 225.84375pt>
+<figures/logo1.jpg, id=108, 225.84375pt x 225.84375pt>
 File: figures/logo1.jpg Graphic file (type jpg)
  <use figures/logo1.jpg>
 Package pdftex.def Info: figures/logo1.jpg used on input line 112.
@@ -824,21 +824,34 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 
 
 ]
-<char_flux_upd.png, id=164, 651.93562pt x 445.665pt>
+<char_flux_upd.png, id=190, 651.93562pt x 445.665pt>
 File: char_flux_upd.png Graphic file (type png)
  <use char_flux_upd.png>
 Package pdftex.def Info: char_flux_upd.png used on input line 19.
 (pdftex.def)             Requested size: 260.76962pt x 178.26283pt.
 
 [2 <./char_flux_upd.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 53--60
+Underfull \hbox (badness 10000) in paragraph at lines 54--61
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 53--60
+Underfull \hbox (badness 10000) in paragraph at lines 54--61
 
  []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.66 \newline
+             
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
 
 [3])
 \openout2 = `II_network.aux'.
@@ -846,12 +859,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 53--60
  (./II_network.tex
 Chapter 2.
 
-Underfull \hbox (badness 10000) in paragraph at lines 5--8
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 5--8
+Underfull \hbox (badness 10000) in paragraph at lines 5--7
 
  []
 
@@ -860,47 +868,47 @@ Underfull \hbox (badness 10000) in paragraph at lines 5--8
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 28--32
+Underfull \hbox (badness 10000) in paragraph at lines 27--31
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 40--44
+Underfull \hbox (badness 10000) in paragraph at lines 39--43
 
  []
 
-<example_network.png, id=208, 1211.27531pt x 470.50781pt>
+<example_network.png, id=233, 1211.27531pt x 470.50781pt>
 File: example_network.png Graphic file (type png)
 
 <use example_network.png>
-Package pdftex.def Info: example_network.png used on input line 61.
+Package pdftex.def Info: example_network.png used on input line 60.
 (pdftex.def)             Requested size: 363.3854pt x 141.15343pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 91--96
+Underfull \hbox (badness 10000) in paragraph at lines 90--95
 
  []
 
 [6 <./example_network.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 108--117
+Underfull \hbox (badness 10000) in paragraph at lines 107--116
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 108--117
+Underfull \hbox (badness 10000) in paragraph at lines 107--116
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 121--126
+Underfull \hbox (badness 10000) in paragraph at lines 120--125
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 121--126
+Underfull \hbox (badness 10000) in paragraph at lines 120--125
 
  []
 
@@ -909,20 +917,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 121--126
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.128 \item[II.]
+l.127 \item[II.]
                  Given the densities, the lenghts $q_j$ of the queues can be...
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 131--136
+Underfull \hbox (badness 10000) in paragraph at lines 130--135
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 131--136
+Underfull \hbox (badness 10000) in paragraph at lines 130--135
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 137--138
+Underfull \hbox (badness 10000) in paragraph at lines 136--137
 
  []
 
@@ -930,24 +938,24 @@ pdfTeX warning (ext4): destination with the same identifier (name{equation.2.4.
 2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.144 \begin{equation}
+l.143 \begin{equation}
                        [8]pdfTeX warning (ext4): destination with the same iden
 tifier (name{equation.2.4.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.159 \begin{equation}
+l.158 \begin{equation}
                       
-Underfull \hbox (badness 10000) in paragraph at lines 161--165
+Underfull \hbox (badness 10000) in paragraph at lines 160--164
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 170--174
+Underfull \hbox (badness 10000) in paragraph at lines 169--173
 
  []
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 196--199
+Underfull \hbox (badness 10000) in paragraph at lines 195--198
 
  []
 
@@ -955,19 +963,19 @@ pdfTeX warning (ext4): destination with the same identifier (name{equation.2.4.
 1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.213 \begin{equation}
+l.212 \begin{equation}
                       
-Underfull \hbox (badness 10000) in paragraph at lines 202--213
+Underfull \hbox (badness 10000) in paragraph at lines 201--212
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 202--213
+Underfull \hbox (badness 10000) in paragraph at lines 201--212
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 202--213
+Underfull \hbox (badness 10000) in paragraph at lines 201--212
 
  []
 
@@ -975,29 +983,29 @@ pdfTeX warning (ext4): destination with the same identifier (name{equation.2.4.
 2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.216 \begin{equation}
+l.215 \begin{equation}
                       \hat{f}_j=\Bigg\lbrace\begin{array}{ll}
-Underfull \hbox (badness 10000) in paragraph at lines 220--230
+Underfull \hbox (badness 10000) in paragraph at lines 219--229
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 220--230
+Underfull \hbox (badness 10000) in paragraph at lines 219--229
 
  []
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 245--255
+Underfull \hbox (badness 10000) in paragraph at lines 244--254
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 245--255
+Underfull \hbox (badness 10000) in paragraph at lines 244--254
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 245--255
+Underfull \hbox (badness 10000) in paragraph at lines 244--254
 
  []
 
@@ -1006,7 +1014,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 245--255
 
  (./III_numerics.tex
 Chapter 3.
-<numeric_schemes.png, id=290, 825.83531pt x 541.27219pt>
+<numeric_schemes.png, id=316, 825.83531pt x 541.27219pt>
 File: numeric_schemes.png Graphic file (type png)
 
 <use numeric_schemes.png>
@@ -1068,7 +1076,7 @@ f>
 (epstopdf)             \includegraphics on input line 127.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/solution_types-eps-converted-to.pdf, id=336, 411.5375pt x 491.8375pt>
+<figures/solution_types-eps-converted-to.pdf, id=361, 411.5375pt x 491.8375pt>
 File: figures/solution_types-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/solution_types-eps-converted-to.pdf>
@@ -1183,7 +1191,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 57--61
 
  []
 
-[20] <example1.png, id=376, 737.75626pt x 295.85532pt>
+[20] <example1.png, id=401, 737.75626pt x 295.85532pt>
 File: example1.png Graphic file (type png)
  <use example1.png>
 Package pdftex.def Info: example1.png used on input line 70.
@@ -1199,184 +1207,367 @@ Underfull \hbox (badness 10000) in paragraph at lines 81--87
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.87 \begin{eqnarray*}
-                       <./example1.png>] [22]
-<figures/delay_a_greenphases.png, id=392, 794.97pt x 224.65326pt>
+                       <./example1.png>]
+<figures/delay_a_greenphases.png, id=411, 794.97pt x 224.65326pt>
 File: figures/delay_a_greenphases.png Graphic file (type png)
 
 <use figures/delay_a_greenphases.png>
-Package pdftex.def Info: figures/delay_a_greenphases.png used on input line 119
+Package pdftex.def Info: figures/delay_a_greenphases.png used on input line 126
 .
 (pdftex.def)             Requested size: 397.48402pt x 112.32634pt.
 
-<figures/ft_to_greenphase_2.png, id=394, 410.53375pt x 271.0125pt>
+<figures/ft_to_greenphase_2.png, id=413, 410.53375pt x 271.0125pt>
 File: figures/ft_to_greenphase_2.png Graphic file (type png)
 
 <use figures/ft_to_greenphase_2.png>
-Package pdftex.def Info: figures/ft_to_greenphase_2.png used on input line 125.
+Package pdftex.def Info: figures/ft_to_greenphase_2.png used on input line 132.
 
 (pdftex.def)             Requested size: 205.26637pt x 135.5059pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[23 <./figures/delay_a_greenphases.png>]
-<../Experiments/Exp_Thesis/Optimization/Delay_b/pic.png, id=405, 769.1993pt x 2
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[22] [23 <./figures/delay_a_greenphases.png> <./figures/ft_to_greenphase_2.png>
+]
+<../Experiments/Exp_Thesis/Optimization/Delay_b/pic.png, id=433, 769.1993pt x 2
 63.3093pt>
 File: ../Experiments/Exp_Thesis/Optimization/Delay_b/pic.png Graphic file (type
  png)
  <use ../Experiments/Exp_Thesis/Optimization/Delay_b/pic.png>
 Package pdftex.def Info: ../Experiments/Exp_Thesis/Optimization/Delay_b/pic.png
- used on input line 150.
+ used on input line 168.
 (pdftex.def)             Requested size: 461.52313pt x 157.98679pt.
 
-Overfull \hbox (6.27905pt too wide) in paragraph at lines 150--151
+Overfull \hbox (6.27905pt too wide) in paragraph at lines 168--169
  [] 
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[24 <./figures/ft_to_greenphase_2.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 167--175
+[24 <../Experiments/Exp_Thesis/Optimization/Delay_b/pic.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 186--194
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 167--175
+Underfull \hbox (badness 10000) in paragraph at lines 186--194
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 167--175
+Underfull \hbox (badness 10000) in paragraph at lines 186--194
 
  []
 
-[25 <../Experiments/Exp_Thesis/Optimization/Delay_b/pic.png>]
-<mpc.png, id=424, 457.71pt x 214.55156pt>
+[25] <mpc.png, id=453, 457.71pt x 214.55156pt>
 File: mpc.png Graphic file (type png)
  <use mpc.png>
-Package pdftex.def Info: mpc.png used on input line 189.
+Package pdftex.def Info: mpc.png used on input line 208.
 (pdftex.def)             Requested size: 366.1685pt x 171.64146pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 195--200
+Underfull \hbox (badness 10000) in paragraph at lines 214--219
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 219--219
 
  []
 
 [26 <./mpc.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 200--200
-
- []
-
 Package mdframed Info: mdframed inside float 
- mdframed uses option nobreak mdframed on input line 248.
+ mdframed uses option nobreak mdframed on input line 267.
 Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 248.
+ mdframed uses option nobreak mdframed on input line 267.
 
-Underfull \hbox (badness 10000) in paragraph at lines 222--255
-
- []
-
-[27]
-Package mdframed Info: mdframed inside float 
- mdframed uses option nobreak mdframed on input line 276.
-Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 276.
- <justification_label.png, id=451, 746.03719pt x 587.94656pt>
-File: justification_label.png Graphic file (type png)
-
-<use justification_label.png>
-Package pdftex.def Info: justification_label.png used on input line 288.
-(pdftex.def)             Requested size: 373.01767pt x 293.97256pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 258--303
+Underfull \hbox (badness 10000) in paragraph at lines 241--274
 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[28pdfTeX warning (ext4): destination with the same identifier (name{equation.4
-.2.1}) has been already used, duplicate ignored
+Package mdframed Info: mdframed inside float 
+ mdframed uses option nobreak mdframed on input line 295.
+Package mdframed Info: mdframed inside a box 
+ mdframed uses option nobreak mdframed on input line 295.
+<figures/mpc_workflow.png, id=471, 660.51419pt x 174.79256pt>
+File: figures/mpc_workflow.png Graphic file (type png)
+
+<use figures/mpc_workflow.png>
+Package pdftex.def Info: figures/mpc_workflow.png used on input line 302.
+(pdftex.def)             Requested size: 396.31158pt x 104.87633pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 277--310
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 277--310
+
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[27] [28pdfTeX warning (ext4): destination with the same identifier (name{equat
+ion.4.2.1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.303 
-      pdfTeX warning (ext4): destination with the same identifier (name{equatio
-n.4.2.2}) has been already used, duplicate ignored
+l.310 \newpage
+              pdfTeX warning (ext4): destination with the same identifier (name
+{equation.4.2.2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.303 
-      ] [29] [30 <./justification_label.png>]
-Underfull \hbox (badness 3000) in paragraph at lines 306--306
+l.310 \newpage
+              ] <justification_label.png, id=487, 746.03719pt x 587.94656pt>
+File: justification_label.png Graphic file (type png)
+
+<use justification_label.png>
+Package pdftex.def Info: justification_label.png used on input line 313.
+(pdftex.def)             Requested size: 373.01767pt x 293.97256pt.
+ [29]
+Underfull \hbox (badness 3000) in paragraph at lines 331--331
 [][][]\OT1/cmr/m/n/10 Python Soft-ware Foun-da-tion. Python Lan-guage Ref-er-en
 ce, ver-sion 2.7. Avail-able at
  []
 
-<controls_10-10.png, id=484, 379.4175pt x 256.96pt>
-File: controls_10-10.png Graphic file (type png)
- <use controls_10-10.png>
-Package pdftex.def Info: controls_10-10.png used on input line 321.
-(pdftex.def)             Requested size: 189.70828pt x 128.47968pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 306--325
+Underfull \hbox (badness 10000) in paragraph at lines 331--335
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 306--325
+Underfull \hbox (badness 10000) in paragraph at lines 331--335
 
  []
 
-[31 <./controls_10-10.png>]
-<control_1_plot_2.png, id=497, 395.4775pt x 272.01625pt>
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.349 \end{table}\newline
+                         
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[30 <./figures/mpc_workflow.png>] [31 <./justification_label.png>]
+Package epstopdf Info: Source file: <figures/output_1_1_control.eps>
+(epstopdf)                    date: 2017-03-03 17:03:22
+(epstopdf)                    size: 15354 bytes
+(epstopdf)             Output file: <figures/output_1_1_control-eps-converted-t
+o.pdf>
+(epstopdf)                    date: 2017-03-03 17:50:56
+(epstopdf)                    size: 10914 bytes
+(epstopdf)             Command: <repstopdf --outfile=figures/output_1_1_control
+-eps-converted-to.pdf figures/output_1_1_control.eps>
+(epstopdf)             \includegraphics on input line 359.
+Package epstopdf Info: Output file is already uptodate.
+
+<figures/output_1_1_control-eps-converted-to.pdf, id=525, 433.62pt x 289.08pt>
+File: figures/output_1_1_control-eps-converted-to.pdf Graphic file (type pdf)
+
+<use figures/output_1_1_control-eps-converted-to.pdf>
+Package pdftex.def Info: figures/output_1_1_control-eps-converted-to.pdf used o
+n input line 359.
+(pdftex.def)             Requested size: 204.85844pt x 136.57336pt.
+Package epstopdf Info: Source file: <figures/output_10_1_10.eps>
+(epstopdf)                    date: 2017-03-03 16:59:56
+(epstopdf)                    size: 15309 bytes
+(epstopdf)             Output file: <figures/output_10_1_10-eps-converted-to.pd
+f>
+(epstopdf)                    date: 2017-03-03 17:50:57
+(epstopdf)                    size: 10894 bytes
+(epstopdf)             Command: <repstopdf --outfile=figures/output_10_1_10-eps
+-converted-to.pdf figures/output_10_1_10.eps>
+(epstopdf)             \includegraphics on input line 363.
+Package epstopdf Info: Output file is already uptodate.
+
+<figures/output_10_1_10-eps-converted-to.pdf, id=526, 433.62pt x 289.08pt>
+File: figures/output_10_1_10-eps-converted-to.pdf Graphic file (type pdf)
+
+<use figures/output_10_1_10-eps-converted-to.pdf>
+Package pdftex.def Info: figures/output_10_1_10-eps-converted-to.pdf used on in
+put line 363.
+(pdftex.def)             Requested size: 204.85844pt x 136.57336pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 367--387
+
+ []
+
+[32 <./figures/output_1_1_control-eps-converted-to.pdf> <./figures/output_10_1_
+10-eps-converted-to.pdf>]
+<control_1_plot_2.png, id=580, 395.4775pt x 272.01625pt>
 File: control_1_plot_2.png Graphic file (type png)
 
 <use control_1_plot_2.png>
-Package pdftex.def Info: control_1_plot_2.png used on input line 337.
+Package pdftex.def Info: control_1_plot_2.png used on input line 399.
 (pdftex.def)             Requested size: 197.73827pt x 136.00778pt.
 
-<N3_no_init_control0.png, id=498, 395.4775pt x 272.01625pt>
+<N3_no_init_control0.png, id=581, 395.4775pt x 272.01625pt>
 File: N3_no_init_control0.png Graphic file (type png)
 
 <use N3_no_init_control0.png>
-Package pdftex.def Info: N3_no_init_control0.png used on input line 345.
+Package pdftex.def Info: N3_no_init_control0.png used on input line 407.
 (pdftex.def)             Requested size: 276.83235pt x 190.41006pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 326--348
+Underfull \hbox (badness 10000) in paragraph at lines 388--410
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 326--348
+Underfull \hbox (badness 10000) in paragraph at lines 388--410
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 326--348
+Underfull \hbox (badness 10000) in paragraph at lines 388--410
 
  []
 
-) [32 <./control_1_plot_2.png> <./N3_no_init_control0.png>]
+) [33 <./control_1_plot_2.png> <./N3_no_init_control0.png>]
+\openout2 = `V_pollution.aux'.
+
+ (./V_pollution.tex
+Chapter 5.
+<figures/network.png, id=591, 505.89pt x 289.08pt>
+File: figures/network.png Graphic file (type png)
+ <use figures/network.png>
+Package pdftex.def Info: figures/network.png used on input line 18.
+(pdftex.def)             Requested size: 455.29678pt x 260.16959pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 27--32
+
+ []
+
+[34
+
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{equation.5.2.
+1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.32 \begin{eqnarray}
+                     ]pdfTeX warning (ext4): destination with the same identifi
+er (name{equation.5.2.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.32 \begin{eqnarray}
+                     pdfTeX warning (ext4): destination with the same identifie
+r (name{equation.5.2.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.32 \begin{eqnarray}
+                     pdfTeX warning (ext4): destination with the same identifie
+r (name{equation.5.2.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.32 \begin{eqnarray}
+                     pdfTeX warning (ext4): destination with the same identifie
+r (name{equation.5.2.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.32 \begin{eqnarray}
+                     
+! Undefined control sequence.
+l.34 \mu\frac{\delta}{\delta n}\hi
+                                   = 0 \hspace{1cm }\text{on} \ \delta D
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--44
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--44
+
+ []
+
+[35 <./figures/network.png>]
+
+Package natbib Warning: Citation `tiwary.2011' on page 36 undefined on input li
+ne 51.
+
+<figures/fuel_consumption_graph.png, id=609, 363.3575pt x 248.93pt>
+File: figures/fuel_consumption_graph.png Graphic file (type png)
+
+<use figures/fuel_consumption_graph.png>
+Package pdftex.def Info: figures/fuel_consumption_graph.png used on input line 
+54.
+(pdftex.def)             Requested size: 254.3485pt x 174.2498pt.
+
+! Undefined control sequence.
+l.64 ...in $v$ and assuming that $\phi_0\in L^2(\D
+                                                  )$, we can define weak sol...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \D 
+                   
+l.66 ... testfunctions $v\in\mathcal{C}^1(\bar{\D}
+                                                  \times [0,T])$ with $v(\cd...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<argument> \D 
+              
+l.66 ... testfunctions $v\in\mathcal{C}^1(\bar{\D}
+                                                  \times [0,T])$ with $v(\cd...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[36 <./figures/fuel_consumption_graph.png>]) [37]
 \openout2 = `V_Conclusion.aux'.
 
  (./V_Conclusion.tex
-Chapter 5.
-) [33
+Chapter 6.
+) [38
 
 
 
-] [34
+] [39
 
-] [35] (./thesis.lof)
+] (./thesis.lof [40
+
+])
 \tf@lof=\write5
 \openout5 = `thesis.lof'.
 
- [36
+ [41] (./thesis.bbl [42
 
-] (./thesis.bbl [37
-
-]) [38] (./thesis.loc
+]) [43] (./thesis.loc
 Overfull \hbox (871.26546pt too wide) detected at line 2
 \OT1/cmr/m/n/12 The \OT1/cmr/bx/n/12 maximum fluxes \OT1/cmr/m/n/12 that can en
 ter and exit the intersection depend on the current filling level on the incomi
@@ -1407,24 +1598,25 @@ Package natbib Warning: There were undefined citations.
 \openout7 = `thesis.soc'.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 193.
-[39]
+[44]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 193.
  (./thesis.aux (./I_Introduction_part.aux) (./II_network.aux)
-(./III_numerics.aux) (./Optimization_part.aux) (./V_Conclusion.aux))
+(./III_numerics.aux) (./Optimization_part.aux) (./V_pollution.aux)
+(./V_Conclusion.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 193.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 193.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 1A11FA3AF5A80E358D79891FC45566CA;1491.
+(rerunfilecheck)             Checksum: 249AF240F1DA6D26ADCA8EBEA2BE1B20;1809.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 193.
  ) 
 Here is how much of TeX's memory you used:
- 16646 strings out of 493014
- 287785 string characters out of 6133351
- 376805 words of memory out of 5000000
- 19720 multiletter control sequences out of 15000+600000
+ 16711 strings out of 493014
+ 289126 string characters out of 6133351
+ 379115 words of memory out of 5000000
+ 19752 multiletter control sequences out of 15000+600000
  15302 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,20n,42p,10418b,682s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 40i,20n,42p,10418b,684s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
@@ -1443,10 +1635,10 @@ ve/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/
 exmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2016/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2016/tex
 mf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (46 pages, 812071 bytes).
+Output written on thesis.pdf (51 pages, 863619 bytes).
 PDF statistics:
- 687 PDF objects out of 1000 (max. 8388607)
- 583 compressed objects within 6 object streams
- 183 named destinations out of 1000 (max. 500000)
- 239 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 815 PDF objects out of 1000 (max. 8388607)
+ 667 compressed objects within 7 object streams
+ 205 named destinations out of 1000 (max. 500000)
+ 299 words of extra memory for PDF output out of 10000 (max. 10000000)
 

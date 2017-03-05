@@ -1,0 +1,74 @@
+% !TEX root = thesis.tex	
+\chapter{Pollution}
+\section{Motivation}
+\section{The 2D diffusion model}
+\subsection{Setting}
+Let us consider an urban domain $D\in\mathbb{R}^2$ including a road network composed of $n_R$ unidirectional roads that meet at $n_J$ intersections. We impose that the endpoints of each road are either on the boundary of $D$ or connected to one of the junctions. Each road is mapped onto the domain $D$ via
+\begin{eqnarray}
+\sigma_i: & [a_i,b_i]& \rightarrow A_i\subset D \nonumber\\
+& s & \mapsto \sigma_i(s)=(x_i(s),y_i(s))
+\end{eqnarray}
+Here $\sigma_i$ denotes the parametrization of the segment $A_i$ and mirrors the movement of cars on the road. In particular let $p_i,q_i\in A_i$ be start and end points of the segment $A_i$ and $s$ a point on road $e_i$. Then we can write the map $\sigma(s)$ as the convex combination of $p_i$ and $q_i$, namely
+\begin{equation}
+\sigma_i(s)=\left(1-\frac{s-a_i}{b_i-a_i}\right)p_i+\frac{s-a_i}{b_i-a_i}q_i
+\end{equation}
+where $\frac{s-a_i}{b_i-a_i}=N(s)$ denotes the normalization of $[a_i,b_i]$ onto $[0,1]$.
+\begin{figure}[h]
+\center
+\includegraphics[scale=.9]{figures/network}
+\caption{Schematic diagram of a 2D domain containing a network of $n_R=9$ unidirectional roads and $n_J=3$ junctions.}
+\end{figure}
+\newline
+We study the CO transport in a urban area $D$ with a simple two-dimensional transport diffusion model
+\begin{subequations}
+\label{eq:pollution_model}
+\begin{equation}
+\frac{\delta\Phi}{\delta t}-\Delta \cdot \mu \Delta\Phi=F(\sigma,t)
+\end{equation}
+where $\Phi(\sigma,t)$ denotes the CO concentration at a point $\sigma=(x,y)\in D$ at the time moment $t\in [0,T]$. $F(\sigma,t)$ describes the CO emission rates based on the solution of the LWR-model (see later......) and $\Delta$ is the two-dimensional gradient. $\mu(\sigma,t)$ denotes the diffusion coefficient describing how the particle movement on the domain. In general the coefficients $\mu(\sigma,t)$ are rather complicated functions and difficult to determine. To simplify the problem these functions are approximated by constant values $\mu(\sigma,t)=\mu$.
+\newline
+\newline
+As initial and boundary conditions we take 
+\begin{eqnarray}
+\phi(r,0)=\phi_0(\sigma) \hspace{1cm }\text{at} \ t=0 \\
+\mu\frac{\delta}{\delta n}\hi = 0 \hspace{1cm }\text{on} \ \delta D
+\end{eqnarray}
+\end{subequations}
+with $\delta D$ the boundary of the domain $D$.
+\newline
+\newline
+In contrast to ....cite.... this is a simplistic model which only simulates the diffusion of particles emitted by travelling cars. It does not account for advection caused by atmospheric wind or other natural phenomena like interparticle reactions.
+\newline
+\newline
+As the CO sources we consider vehicular emissions along $n_R$ roads:
+\begin{equation}
+F(r,t)=\begin{cases}F_i(\sigma,t) & \text{if } \sigma\in A_i \\ 0 & \text{else}\end{cases} \hspace{1cm} i=0,\dots,n_R-1
+\end{equation}
+We will assume here that the vehicle emissions are dependent on the velocity and the density of cars on the road, which will be known from the solution of the buffer model \eqref{buffer_model}. In particular we propose to model the source of pollution due to vehicular traffic by:
+\begin{equation}
+F_i(\sigma,t)=\gamma_i\xi\left(v(\sigma_i(s),t)\right)\rho_i(\sigma_i(s),t) 
+\end{equation}
+where $\gamma_i$ is the contamination rate and $\xi(v)$ for every $t\in[0,T]$ and $\sigma\in A_i$ denotes the velocity dependent fuel consumption rate of a single vehicle on the segment $A_i$. We impose that $\xi(v)$ is a Lipschitz function in $v$. A typical representation of $\xi$ can be found in \citep{emission, tiwary.2011} (see Figure \ref{pic:fuel_consumption}). \newline
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.7]{figures/fuel_consumption_graph}
+\caption{\label{pic:fuel_consumption}Fuel consumption as a function of speed.}
+\end{figure}
+\newline
+For an arbitrary section $[\sigma_i(x),\sigma_i(y)]\subset A_i, x,y\in e_i$ we can then define the cumulated pollution at time t as
+\begin{equation}
+\int_{\sigma_i(x)}^{\sigma_i(y)}F_i(\sigma,t)d\sigma=\int_x^y\gamma_i\xi(v(s,t))\rho_i(s,t)||\sigma'(s)||ds
+\end{equation}
+Noting that $||\sigma_i'(s)||=\frac{1}{b_i-a_i}||p_i-q_i||$ we observe that the lengths of segment $a_i\subset\mathbb{R}^2$ coincide with the length of road $e_i$ whenever $||\sigma_i'(s)||=1$.
+\subsection{Analytical solution}
+From the fact that $\rho_i(x,\cdot)\in L^1_{loc}$ and $\xi(v)$ Lipschitz in $v$ and assuming that $\phi_0\in L^2(\D)$, we can define weak solutions for problem \eqref{eq:pollution_model}.
+\begin{Definition}
+Given $r,p\in [1,2)$ such that $\frac{2}{r}+\frac{2}{p}>3$. Then we say that a function $\phi\in L^r(W^{1,p}(D);0,T)$ is a weak solution of problem \eqref{eq:pollution_model} if for all testfunctions $v\in\mathcal{C}^1(\bar{\D}\times [0,T])$ with $v(\cdot,T)=0$ the following equality is verified:
+\begin{eqnarray*}
+\int_0^T \int_D \left(-\int_0^T\int_D\phi(t,\sigma)+mu\nabla\phi\nabla v d\sigma dt\right) = \int_D\phi(x,0)v(x,0) dx \\+ \sum_{i=0}^{n_R}\int_{a_i}^{b_i}\gamma_i\xi(v(\rho_i(s,t)))\rho_i(s,t)||\sigma'(s)||ds
+\end{eqnarray*}
+\end{Definition}
+Now we can prove the following existence and uniqueness result:
+\begin{Theorem}
+abb
+\end{Theorem}
