@@ -399,7 +399,7 @@ def plotTotalDensity(t,rho):
     #plt.ylim([100,200])
     
 def plotBars(t,x,rho):
-    figure, ax = plt.subplots(len(x))
+    figure,ax= plt.subplots(len(x))
     plt.xlabel('x')
     #plt.tight_layout()
     figure.set_size_inches(10, 8)
@@ -409,42 +409,84 @@ def plotBars(t,x,rho):
         densities = rho[i][-1][:-1]
         color=[str(c) for c in densities]
         y=[0 for a in densities]
-        sc=ax[i].scatter(x[i][:-1],y,s=2000,marker="|",linewidth=5, c=color)
+        sc=ax[i].scatter(x[i][:-1],y,s=2000,marker="|",linewidth=5, c=color,vmin=0, vmax=1)
         ax[i].set_ylabel(r'$\rho$')
         #ax[i].set_yticks([0.0,0.25,0.5,0.75])
         ax[i].set_xlim(_X[i])
         ax[i].set_ylim([-0.05,0.05])
-    figure.colorbar(sc, ax=ax.ravel().tolist())
+        #ax[i].colorbar(sc)
+        figure.colorbar(sc, ax=ax[i])
     
 
 def animateBars(filename="test_animation"):
     global RhoPlot,XPlot,tend,dt
     frames = int(tend/dt)
-    ff,ax=plt.subplots(len(XPlot))
+    ff = plt.figure()
+    ax = ff.add_subplot(111)
     x=[XPlot[i][:-1] for i in range(len(XPlot))]
     y=[[0 for i in x[j]] for j in range(len(x))]
     color = [[0 for i in x[j]] for j in range(len(x))]
-    scat = []
     for i in range(len(XPlot)):
-        ax[i].set_ylabel(r'$\rho$')
-        ax[i].set_xlim([XPlot[i][0],XPlot[i][-1]])
-        ax[i].set_ylim([-0.05,0.05])
-        scat.append(ax[i].scatter(x[i],y[i],s=2000,marker="|",linewidth=3,c=color[i]))
+        ax.set_ylabel(r'$\rho$')
+        ax.set_xlim([XPlot[i][0],XPlot[i][-1]])
+        ax.set_ylim([-0.05,0.05])
+        sc=ax.scatter(x[i],y[i],s=2000,marker="|",linewidth=3,c=color[i])
         
     
-    def update_plot(j,XPlot,RhoPlot,scat):
-        for i in range(len(XPlot)):
+    def update_plot(j):
+        global RhoPlot,XPlot
+        for i in range(1):
             densities = RhoPlot[i][j][:-1]
             color=[str(c) for c in densities]
-            scat[i].set_array(color)
+            sc.set_array(color)
+            
         #figure.colorbar(sc,ax=ax.ravel().tolist())
-        return scat
+        #return scat
         
-    filenamefull = filename+".mp4"   
-    anim = animation.FuncAnimation(ff, update_plot, frames=frames,
-                              fargs=(XPlot,RhoPlot,scat),blit=True)
+    filenamefull = filename+".mp4"  
+     
+    anim = animation.FuncAnimation(ff, update_plot, frames=frames,blit=True)
+    print "test"
     anim.save(filenamefull, fps=30, extra_args=['-vcodec', 'libx264'])
     
+def animateBars2(filename="test_animation"):
+    global RhoPlot,XPlot,tend,dt
+    frames = int(tend/dt)
+    ff,ax= plt.subplots(len(XPlot))
+    plt.xlabel('x')
+    #plt.tight_layout()
+    ff.set_size_inches(10, 8)
+    #plt.yticks([0,0.5])
+    #plt.ylim([0,0.8])
+    for i in range(len(RhoPlot)):
+        densities =RhoPlot[i][0][:-1]
+        color=[str(c) for c in densities]
+        y=[0 for a in densities]
+        sc=ax[i].scatter(XPlot[i][:-1],y,s=2000,marker="|",linewidth=5, c=color,vmin=0, vmax=1)
+        ax[i].set_ylabel(r'$\rho$')
+        #ax[i].set_yticks([0.0,0.25,0.5,0.75])
+        ax[i].set_xlim(_X[i])
+        ax[i].set_ylim([-0.05,0.05])
+        #ax[i].colorbar(sc)
+        ff.colorbar(sc, ax=ax[i])
+    
+    def update_plot2(j):
+        for i in range(len(RhoPlot)):
+            densities =RhoPlot[i][j][:-1]
+            color=[str(c) for c in densities]
+            y=[0 for a in densities]
+            ax[i].scatter(XPlot[i][:-1],y,s=2000,marker="|",linewidth=5, c=color,vmin=0, vmax=1)
+            #ax[i].set_ylabel(r'$\rho$')
+            #ax[i].set_yticks([0.0,0.25,0.5,0.75])
+            #ax[i].set_xlim(_X[i])
+            #ax[i].set_ylim([-0.05,0.05])
+            #ax[i].colorbar(sc)
+            #ff.colorbar(sc, ax=ax[i])
+    filenamefull = filename+".mp4"  
+     
+    anim = animation.FuncAnimation(ff, update_plot2, frames=frames)
+    print "test"
+    anim.save(filenamefull, fps=30, extra_args=['-vcodec', 'libx264'])
 
 def animate(i):
     global RhoPlot,XPlot,line,fig,ax
@@ -497,7 +539,7 @@ def simu(network,_c,_M,_vmax,_rhomax,_sigma,_ext_in,_dt,_dx,_tend,_X,_Rho,mode="
     input_data.write("X: {}\n Rho: {} network: {}\n external inflow: {}\n input end: {}\n tend:".format(_X,_Rho,network,ext_in,tend_input,tend))
     #output_data.write("elapsed time: {}\n t: {}\n x: {}\n rho: {}\n fluxes: {}\n controls: {}\n binary controls: {}\n binary fluxes: {}\n feval: {}\n total flux: {}\n binary flux {}".format(elapsedTime,t,x,rho,totalflux,u_vector,u_bin,ff2,feval,flux,flux_from_binary_controls))
     output_data.write("t: {}\n x: {}\n rho: {}\n fluxes: {}\n total flux: {}".format(t,XX,R,totalflux,flux))
-    #animateBars("aa")
+    animateBars2("aa")
     input_data.close()
     output_data.close()
     
@@ -514,7 +556,7 @@ sigma=.5
 initIn = .5
 initOut = 0.5
 dt=.5
-tend = 50
+tend = 120
 tend_input = 200
 t = np.arange(0,tend,dt)
 dx=.5       
